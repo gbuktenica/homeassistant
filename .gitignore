@@ -7,3 +7,7 @@
 tts/
 # Unknown
 deps/
+
+# Randoms
+.HA_VERSION
+.spotify-token-cache
