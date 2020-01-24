@@ -71,7 +71,7 @@
     at: '06:00:00'
   condition:
     condition: template
-    value_template: '{{ states.sensor.date.state == "2020-01-25" }}'
+    value_template: '{{ now().date() | string == "2020-01-25" }}'
   action:
   - device_id: 008d92cbcfbd4c078a17f6cf715d7be8
     domain: switch
