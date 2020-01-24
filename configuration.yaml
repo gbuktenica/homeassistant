@@ -2,6 +2,7 @@ automation: !include automations.yaml
 cloud:
 config:
 frontend:
+#group: !include groups.yaml
 history:
 mobile_app:
 person:
@@ -31,11 +32,6 @@ tts:
 
 system_log:
   max_entries: 200
-
-#group: !include groups.yaml
-automation: !include automations.yaml
-script: !include scripts.yaml
-scene: !include scenes.yaml
 
 zwave:
   usb_path: /dev/ttyACM0
