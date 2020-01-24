@@ -117,4 +117,7 @@
     entity_id: binary_sensor.workday_sensor
     state: 'on'
   action:
-  - scene: scene.upstairs_air_con_off
+    - service: climate.set_hvac_mode
+      data:
+        entity_id: climate.upstairs
+        hvac_mode: off
