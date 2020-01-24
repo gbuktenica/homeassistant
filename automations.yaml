@@ -1,0 +1,120 @@
+- id: letsencrypt-renewal
+  alias: Let's Encrypt Renewal
+  trigger:
+  - platform: time
+    at: 00:00:00
+  action:
+  - service: hassio.addon_restart
+    data:
+      addon: core_letsencrypt
+- alias: Weekday Coffee On
+  description: Turns on the coffee machine on weekdays only.
+  trigger:
+    platform: time
+    at: 06:50:00
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  action:
+  - device_id: 008d92cbcfbd4c078a17f6cf715d7be8
+    domain: switch
+    entity_id: switch.coffee_machine
+    type: turn_on
+  id: 831bcf8e95e44bf4b270f9bce427e025
+- id: c93b6c02a5f04ae784a24e508e583915
+  alias: Weekday Coffee Off
+  description: Turns off the coffee machine on weekdays only.
+  trigger:
+  - at: 08:40:00
+    platform: time
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  action:
+  - device_id: 008d92cbcfbd4c078a17f6cf715d7be8
+    domain: switch
+    entity_id: switch.coffee_machine
+    type: turn_off
+- alias: Saturday Coffee On
+  description: Turns on the coffee machine on Saturdays only.
+  trigger:
+    platform: time
+    at: 09:30:00
+  condition:
+  - condition: time
+    weekday:
+    - sat
+  action:
+  - device_id: 008d92cbcfbd4c078a17f6cf715d7be8
+    domain: switch
+    entity_id: switch.coffee_machine
+    type: turn_on
+  id: 73402729d9ba467ab7bb085b4af6f943
+- alias: Midday Coffee Off
+  description: Turns off the coffee machine at midday.
+  trigger:
+    platform: time
+    at: '12:15:00'
+  condition: []
+  action:
+  - device_id: 008d92cbcfbd4c078a17f6cf715d7be8
+    domain: switch
+    entity_id: switch.coffee_machine
+    type: turn_off
+  id: 2026d3ca0fdb42c98f0ccfc962cca5a6
+- id: a4d586b7aa324d42b5fc139095a98d52
+  alias: Sunset Inside Lights On
+  description: Turns On the inside lights 15 minutes before sunset.
+  trigger:
+  - event: sunset
+    offset: -00:15:00
+    platform: sun
+  condition: []
+  action:
+  - device_id: bb50c1b4188248389cd28d1cb0bf4981
+    domain: switch
+    entity_id: switch.stairway_light
+    type: turn_on
+  - device_id: 973e3076a1884208ac33b8f13ba175c2
+    domain: switch
+    entity_id: switch.entry_light
+    type: turn_on
+- id: '1579695560446'
+  alias: Sunset Outside Lights On
+  description: Turns On the outside lights 15 minutes after sunset.
+  trigger:
+  - event: sunset
+    offset: 00:15:00
+    platform: sun
+  condition: []
+  action:
+  - device_id: 8114bd12a99549188aa6e2836fb0aa9f
+    domain: switch
+    entity_id: switch.outside_light
+    type: turn_on
+- id: '1579740976623'
+  alias: Midnight Outside Off
+  description: ''
+  trigger:
+  - at: '23:00'
+    platform: time
+  condition: []
+  action:
+  - device_id: 8114bd12a99549188aa6e2836fb0aa9f
+    domain: switch
+    entity_id: switch.outside_light
+    type: turn_off
+- id: '1579749968208'
+  alias: Morning AirCon
+  description: ''
+  trigger:
+  - at: 05:00:00
+    platform: time
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  action:
+  - scene: scene.upstairs_air_con_off
