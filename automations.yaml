@@ -64,6 +64,19 @@
     entity_id: switch.coffee_machine
     type: turn_off
   id: 2026d3ca0fdb42c98f0ccfc962cca5a6
+- alias: One Off Coffee On
+  description: Turns off the coffee machine on a date.
+  trigger:
+    platform: time
+    at: '06:00:00'
+  condition:
+    condition: template
+    value_template: '{{ states.sensor.date.state == "2020-01-25" }}'
+  action:
+  - device_id: 008d92cbcfbd4c078a17f6cf715d7be8
+    domain: switch
+    entity_id: switch.coffee_machine
+    type: turn_on
 - id: a4d586b7aa324d42b5fc139095a98d52
   alias: Sunset Inside Lights On
   description: Turns On the inside lights 15 minutes before sunset.
