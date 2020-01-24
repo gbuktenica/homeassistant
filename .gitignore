@@ -11,3 +11,6 @@ deps/
 # Randoms
 .HA_VERSION
 .spotify-token-cache
+
+.cloud/
+.storage/
