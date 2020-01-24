@@ -1,0 +1,12 @@
+zwave.fibaro_system_unknown_type_0403_id_3000:
+  node_name: FIBARO System FGS213 Switch
+  product_name: FGS213 Switch
+cover.fibaro_system_fgrm223_roller_shutter_controller_3_switch:
+  device_class: blind
+  friendly_name: Downstairs Blind Cover
+sensor.aeon_labs_zw132_dual_nano_switch_sourcenodeid:
+  friendly_name: Lounge Control Module
+zwave.aeon_labs_dsc06106_smart_energy_switch:
+  friendly_name: Plugin Module
+switch.aeon_labs_zw132_dual_nano_switch_switch_3:
+  friendly_name: AEON Labs ZW132 Dual Nano Switch Switch

@@ -1,0 +1,144 @@
+- id: '1577693614633'
+  name: Cool Upstairs
+  entities:
+    climate.upstairs:
+      current_temperature: 27
+      fan_mode: Low
+      fan_modes:
+      - Low
+      - Mid
+      - High
+      friendly_name: Upstairs Air Con
+      hvac_modes:
+      - fan_only
+      - dry
+      - cool
+      - heat
+      - heat_cool
+      - 'off'
+      max_temp: 35
+      min_temp: 7
+      state: cool
+      supported_features: 9
+      target_temp_step: 1
+      temperature: 23
+    switch.upstairs_bed_1:
+      friendly_name: Bedroom Air Con
+      icon: mdi:home-circle
+      state: 'on'
+    switch.upstairs_bed_2:
+      friendly_name: Spare Room Air Con
+      icon: mdi:home-circle
+      state: 'off'
+    switch.upstairs_bed_3:
+      friendly_name: Office Air Con
+      icon: mdi:home-circle
+      state: 'on'
+- id: '1577693739446'
+  name: Heat Upstairs
+  entities:
+    climate.upstairs:
+      current_temperature: 25
+      fan_mode: Mid
+      fan_modes:
+      - Low
+      - Mid
+      - High
+      friendly_name: Upstairs Air Con
+      hvac_modes:
+      - fan_only
+      - dry
+      - cool
+      - heat
+      - heat_cool
+      - 'off'
+      max_temp: 35
+      min_temp: 7
+      state: heat
+      supported_features: 9
+      target_temp_step: 1
+      temperature: 22
+    switch.upstairs_bed_1:
+      friendly_name: Bedroom Air Con
+      icon: mdi:home-circle
+      state: 'on'
+    switch.upstairs_bed_2:
+      friendly_name: Spare Room Air Con
+      icon: mdi:home-circle
+      state: 'off'
+    switch.upstairs_bed_3:
+      friendly_name: Office Air Con
+      icon: mdi:home-circle
+      state: 'on'
+- id: '1577753722226'
+  name: Upstairs Air Con Off
+  entities:
+    climate.upstairs:
+      current_temperature: 21
+      fan_mode: Low
+      fan_modes:
+      - Low
+      - Mid
+      - High
+      friendly_name: Upstairs Air Con
+      hvac_modes:
+      - fan_only
+      - dry
+      - cool
+      - heat
+      - heat_cool
+      - 'off'
+      max_temp: 35
+      min_temp: 7
+      state: 'off'
+      supported_features: 9
+      target_temp_step: 1
+      temperature: 21
+    switch.upstairs_bed_1:
+      friendly_name: Bedroom Air Con
+      icon: mdi:home-circle
+      state: 'on'
+    switch.upstairs_bed_2:
+      friendly_name: Spare Room Air Con
+      icon: mdi:home-circle
+      state: 'off'
+    switch.upstairs_bed_3:
+      friendly_name: Office Air Con
+      icon: mdi:home-circle
+      state: 'off'
+- id: '1577753792213'
+  name: Sleep Upstairs
+  entities:
+    climate.upstairs:
+      current_temperature: 23
+      fan_mode: Low
+      fan_modes:
+      - Low
+      - Mid
+      - High
+      friendly_name: Upstairs Air Con
+      hvac_modes:
+      - fan_only
+      - dry
+      - cool
+      - heat
+      - heat_cool
+      - 'off'
+      max_temp: 35
+      min_temp: 7
+      state: cool
+      supported_features: 9
+      target_temp_step: 1
+      temperature: 19
+    switch.upstairs_bed_1:
+      friendly_name: Bedroom Air Con
+      icon: mdi:home-circle
+      state: 'on'
+    switch.upstairs_bed_2:
+      friendly_name: Spare Room Air Con
+      icon: mdi:home-circle
+      state: 'off'
+    switch.upstairs_bed_3:
+      friendly_name: Office Air Con
+      icon: mdi:home-circle
+      state: 'off'

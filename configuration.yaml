@@ -1,0 +1,67 @@
+default_config:
+
+homeassistant:
+  name: hassio
+  unit_system: metric
+  customize: !include customize.yaml
+  time_zone: Australia/Perth
+
+http:
+  base_url: hassio.buktenica.com:8123
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+
+# Text to speech
+tts:
+  - platform: google_translate
+    service_name: google_translate_say
+
+system_log:
+  max_entries: 200
+
+#group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+zwave:
+  usb_path: /dev/ttyACM0
+  polling_interval: 60000
+  config_path: /config/z-wave/open-zwave/config
+  device_config: !include zwave_device_config.yaml
+  
+remote:
+  - platform: harmony
+    name: LOUNGE HUB
+    host: 10.1.1.183
+    activity: Netflix
+    
+  - platform: broadlink
+    host: 10.1.1.168
+    mac: c8f7427629cb
+
+media_player:
+  - platform: spotify
+    client_id: b7abf61b8ec84c6789940eac397b73c6
+    client_secret: e1a42ee6fb6c43fca8739c3b1dfb0000
+
+binary_sensor:
+  - platform: workday
+    country: AU
+    province: WA
+
+sensor:
+  - platform: time_date
+    display_options:
+      - 'date_time'
+      - 'time'
+
+light:
+  - platform: template
+    lights:
+      lounge_lights:
+        friendly_name: "Lounge Lights"
+        turn_on:
+          service: script.lounge_lights_on
+        turn_off:
+          service: script.lounge_lights_off

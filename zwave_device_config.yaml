@@ -1,0 +1,39 @@
+switch.schlage_link_wintop_unknown_type_1122_id_5501_switch_3:
+  ignored: true
+  polling_intensity: 1
+switch.fibaro_system_fgs212_switch_3kw_switch_2:
+  ignored: true
+  polling_intensity: 1
+switch.fibaro_system_fgs212_switch_3kw_switch_3:
+  ignored: true
+  polling_intensity: 1
+switch.schlage_link_wintop_unknown_type_1122_id_5501_switch_2:
+  ignored: true
+  polling_intensity: 1
+switch.fibaro_system_fgs212_switch_3kw_switch:
+  ignored: false
+  polling_intensity: 1
+switch.schlage_link_wintop_unknown_type_1122_id_5501_switch_4:
+  ignored: false
+  polling_intensity: 1
+switch.aeon_labs_dsc06106_smart_energy_switch_switch:
+  ignored: false
+  polling_intensity: 1
+light.fibaro_system_fgd212_dimmer_2_level_2:
+  ignored: false
+  polling_intensity: 1
+switch.fibaro_system_unknown_type_0403_id_3000_switch:
+  ignored: false
+  polling_intensity: 1
+switch.schlage_link_wintop_unknown_type_1122_id_5501_switch:
+  ignored: false
+  polling_intensity: 1
+switch.fibaro_system_unknown_type_0403_id_3000_switch_4:
+  ignored: false
+  polling_intensity: 1
+switch.aeon_labs_zw132_dual_nano_switch_switch:
+  ignored: false
+  polling_intensity: 1
+switch.aeon_labs_zw132_dual_nano_switch_switch_2:
+  ignored: false
+  polling_intensity: 1
