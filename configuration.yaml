@@ -1,4 +1,17 @@
-default_config:
+automation: !include automations.yaml
+cloud:
+config:
+frontend:
+history:
+mobile_app:
+person:
+script: !include scripts.yaml
+scene: !include scenes.yaml
+ssdp:
+sun:
+system_health:
+updater:
+zeroconf:
 
 homeassistant:
   name: hassio
@@ -29,13 +42,13 @@ zwave:
   polling_interval: 60000
   config_path: /config/z-wave/open-zwave/config
   device_config: !include zwave_device_config.yaml
-  
+
 remote:
   - platform: harmony
     name: LOUNGE HUB
     host: 10.1.1.183
     activity: Netflix
-    
+
   - platform: broadlink
     host: 10.1.1.168
     mac: c8f7427629cb
