@@ -7,7 +7,7 @@
   - service: hassio.addon_restart
     data:
       addon: core_letsencrypt
-- alias: Weekday Blind Up
+- alias: Weekday Morning Blind Up
   description: Opens the lounge blind on weekdays only.
   trigger:
     platform: time
@@ -21,7 +21,22 @@
       data:
         entity_id: cover.lounge_night_blind_level
         position: 100
-- alias: Weekday Coffee On
+- alias: Weekday Sunset Blind Down
+  description: Closes the lounge blind on weekdays at sunset.
+  trigger:
+  - event: sunset
+    offset: 00:15:00
+    platform: sun
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  action:
+    - service: cover.set_cover_position
+      data:
+        entity_id: cover.lounge_night_blind_level
+        position: 10
+- alias: Weekday Morning Coffee On
   description: Turns on the coffee machine on weekdays only.
   trigger:
     platform: time
@@ -37,7 +52,7 @@
     type: turn_on
   id: 831bcf8e95e44bf4b270f9bce427e025
 - id: c93b6c02a5f04ae784a24e508e583915
-  alias: Weekday Coffee Off
+  alias: Weekday Morning Coffee Off
   description: Turns off the coffee machine on weekdays only.
   trigger:
   - at: 08:40:00
@@ -51,7 +66,7 @@
     domain: switch
     entity_id: switch.coffee_machine
     type: turn_off
-- alias: Saturday Coffee On
+- alias: Saturday Morning Coffee On
   description: Turns on the coffee machine on Saturdays only.
   trigger:
     platform: time
