@@ -7,6 +7,20 @@
   - service: hassio.addon_restart
     data:
       addon: core_letsencrypt
+- alias: Weekday Blind Up
+  description: Opens the lounge blind on weekdays only.
+  trigger:
+    platform: time
+    at: 05:30:00
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  action:
+    - service: cover.set_cover_position
+      data:
+        entity_id: lounge_night_blind_level
+        position: 100
 - alias: Weekday Coffee On
   description: Turns on the coffee machine on weekdays only.
   trigger:

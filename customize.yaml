@@ -10,3 +10,7 @@ zwave.aeon_labs_dsc06106_smart_energy_switch:
   friendly_name: Plugin Module
 switch.aeon_labs_zw132_dual_nano_switch_switch_3:
   friendly_name: AEON Labs ZW132 Dual Nano Switch Switch
+sensor.aeon_labs_dsc06106_smart_energy_switch_energy:
+  friendly_name: Plug In
+zwave.lounge_front_module:
+  node_name: Lounge Front Module
