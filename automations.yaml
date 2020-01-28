@@ -19,7 +19,7 @@
   action:
     - service: cover.set_cover_position
       data:
-        entity_id: lounge_night_blind_level
+        entity_id: cover.lounge_night_blind_level
         position: 100
 - alias: Weekday Coffee On
   description: Turns on the coffee machine on weekdays only.
