@@ -21,6 +21,10 @@
       data:
         entity_id: cover.lounge_night_blind_level
         position: 100
+    - service: cover.set_cover_position
+      data:
+        entity_id: cover.lounge_day_blind_level
+        position: 50
 - alias: Weekday Sunset Blind Down
   description: Closes the lounge blind on weekdays at sunset.
   trigger:
