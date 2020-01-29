@@ -19,12 +19,11 @@
   - condition: state
     entity_id: binary_sensor.workday_sensor
     state: 'on'
-  - condition: state
-    entity_id: sun.sun
-    state: 'above_horizon'
+  - condition: sun
+    after: sunrise
+    after_offset: "-00:16:00"
   - condition: time
     after: '05:30:00'
-    after_offset: "-00:16:00"
   action:
     - service: cover.set_cover_position
       data:
