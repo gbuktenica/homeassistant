@@ -13,6 +13,7 @@
   - platform: time
     at: '05:30:00'
   - event: sunrise
+    offset: -00:15:00
     platform: sun
   condition:
   - condition: state
@@ -23,6 +24,7 @@
     state: 'above_horizon'
   - condition: time
     after: '05:30:00'
+    after_offset: "-00:16:00"
   action:
     - service: cover.set_cover_position
       data:
