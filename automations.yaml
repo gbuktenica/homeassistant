@@ -8,14 +8,21 @@
     data:
       addon: core_letsencrypt
 - alias: Weekday Morning Blind Up
-  description: Opens the lounge blind on weekdays only.
+  description: Opens the lounge blinds on weekdays only.
   trigger:
-    platform: time
-    at: 05:30:00
+  - platform: time
+    at: '05:30:00'
+  - event: sunrise
+    platform: sun
   condition:
   - condition: state
     entity_id: binary_sensor.workday_sensor
     state: 'on'
+  - condition: state
+    entity_id: sun.sun
+    state: 'above_horizon'
+  - condition: time
+    after: '05:30:00'
   action:
     - service: cover.set_cover_position
       data:
