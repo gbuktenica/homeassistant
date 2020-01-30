@@ -27,10 +27,12 @@
   action:
     - service: cover.set_cover_position
       data:
+        # Open Night Blind
         entity_id: cover.lounge_night_blind_level
         position: 100
     - service: cover.set_cover_position
       data:
+        # Half Open Day Blind
         entity_id: cover.lounge_day_blind_level
         position: 50
 - alias: Weekday Sunset Blind Down
@@ -46,12 +48,14 @@
   action:
     - service: cover.set_cover_position
       data:
+        # Close Night Blind
         entity_id: cover.lounge_night_blind_level
         position: 10
     - service: cover.set_cover_position
       data:
+      # Open Day Blind
         entity_id: cover.lounge_day_blind_level
-        position: 0
+        position: 100
 - alias: Weekday Morning Coffee On
   description: Turns on the coffee machine on weekdays only.
   trigger:
