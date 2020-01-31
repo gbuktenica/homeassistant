@@ -45,9 +45,25 @@ remote:
     host: 10.1.1.183
     activity: Netflix
 
+  # - platform: broadlink
+  #   host: 10.1.1.168
+  #   mac: c8f7427629cb
+
+smartir:
+switch:
   - platform: broadlink
     host: 10.1.1.168
-    mac: c8f7427629cb
+    mac: 'c8:f7:42:76:29:cb'
+
+climate:
+  - platform: smartir
+    name: Lounge AC
+    unique_id: lounge_ac
+    device_code: 1280
+    controller_data: 10.1.1.168
+    temperature_sensor: sensor.lounge_ac_temperature
+    humidity_sensor: sensor.lounge_ac_humidity
+    power_sensor: binary_sensor.lounge_ac_power
 
 media_player:
   - platform: spotify
