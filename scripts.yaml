@@ -85,3 +85,10 @@
     domain: switch
     entity_id: switch.lounge_rear_right_light
     type: turn_off
+'1580454783735':
+  alias: Harmony Off
+  sequence:
+  - data:
+      activity: PowerOff
+    entity_id: remote.lounge_hub
+    service: remote.turn_on
