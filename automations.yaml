@@ -35,6 +35,26 @@
         # Half Open Day Blind
         entity_id: cover.lounge_day_blind_level
         position: 50
+- alias: Weekend Morning Blind Up
+  description: Opens both lounge blinds on weekends only.
+  trigger:
+  - platform: time
+    at: '07:30:00'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'off'
+  action:
+    - service: cover.set_cover_position
+      data:
+        # Open Night Blind
+        entity_id: cover.lounge_night_blind_level
+        position: 100
+    - service: cover.set_cover_position
+      data:
+        # Open Day Blind
+        entity_id: cover.lounge_day_blind_level
+        position: 100
 - alias: Weekday Sunset Blind Down
   description: Closes the lounge blind on weekdays at sunset.
   trigger:
