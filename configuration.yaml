@@ -59,7 +59,7 @@ climate:
   - platform: smartir
     name: Lounge AC
     unique_id: lounge_ac
-    device_code: 1280
+    device_code: 1281
     controller_data: 10.1.1.168
     temperature_sensor: sensor.lounge_ac_temperature
     humidity_sensor: sensor.lounge_ac_humidity
