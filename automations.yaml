@@ -91,7 +91,7 @@
     entity_id: switch.coffee_machine
     type: turn_on
   id: 831bcf8e95e44bf4b270f9bce427e025
-- id: c93b6c02a5f04ae784a24e508e583915
+- id: weekday_morning_coffee_off
   alias: Weekday Morning Coffee Off
   description: Turns off the coffee machine on weekdays only.
   trigger:
@@ -146,7 +146,7 @@
     domain: switch
     entity_id: switch.coffee_machine
     type: turn_on
-- id: a4d586b7aa324d42b5fc139095a98d52
+- id: sunset_inside_lights_on
   alias: Sunset Inside Lights On
   description: Turns On the inside lights 15 minutes before sunset.
   trigger:
@@ -163,7 +163,7 @@
     domain: switch
     entity_id: switch.entry_light
     type: turn_on
-- id: '1579695560446'
+- id: sunset_outside_lights_on
   alias: Sunset Outside Lights On
   description: Turns On the outside lights 15 minutes after sunset.
   trigger:
@@ -176,8 +176,8 @@
     domain: switch
     entity_id: switch.outside_light
     type: turn_on
-- id: '1579740976623'
-  alias: Midnight Outside Off
+- id: midnight_outside_light_off
+  alias: Midnight Outside Light Off
   description: ''
   trigger:
   - at: '23:00'
@@ -188,7 +188,7 @@
     domain: switch
     entity_id: switch.outside_light
     type: turn_off
-- id: '1579749968208'
+- id: morning_aircon
   alias: Morning AirCon
   description: ''
   trigger:
@@ -199,7 +199,7 @@
     entity_id: binary_sensor.workday_sensor
     state: 'on'
   action:
-    - service: climate.set_hvac_mode
+    - service: climate.set_temperature
       data:
         entity_id: climate.upstairs
-        hvac_mode: off
+        temperature: 22
