@@ -1,4 +1,4 @@
-'1577854743523':
+weekend_music:
   alias: Weekend Music
   sequence:
   - service: remote.turn_on
@@ -18,7 +18,7 @@
     data:
       entity_id: media_player.spotify
       shuffle: true
-'1578214701259':
+toggle_speakers:
   alias: Toggle Speakers
   sequence:
   - service: remote.send_command
@@ -29,7 +29,7 @@
       command:
       - Speakers
       - Speakers
-'1579742855312':
+lounge_lights_on:
   alias: lounge_lights_on
   sequence:
   - device_id: 844c6cc2bf8949e58a7c2c8fb4fd5ed3
@@ -57,7 +57,7 @@
     domain: switch
     entity_id: switch.lounge_rear_right_light
     type: turn_on
-'1579747663029':
+lounge_lights_off:
   alias: lounge_lights_off
   sequence:
   - device_id: 844c6cc2bf8949e58a7c2c8fb4fd5ed3
