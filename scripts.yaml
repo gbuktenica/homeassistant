@@ -9,6 +9,22 @@ weekend_music:
     data:
       entity_id: media_player.spotify
       source: Hass.io
+  - service: remote.send_command
+    data:
+      entity_id: remote.lounge_hub
+      device: 27445384
+      delay_secs: 0.3
+      command:
+      - VolumeDown
+      - VolumeDown
+      - VolumeDown
+      - VolumeDown
+      - VolumeDown
+      - VolumeDown
+      - VolumeDown
+      - VolumeDown
+      - VolumeDown
+      - VolumeDown
   - service: media_player.play_media
     data:
       entity_id: media_player.spotify
@@ -25,7 +41,7 @@ toggle_speakers:
     data:
       entity_id: remote.lounge_hub
       device: 27445384
-      delay_secs: 0.9
+      delay_secs: 0.5
       command:
       - Speakers
       - Speakers
