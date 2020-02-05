@@ -7,7 +7,8 @@
   - service: hassio.addon_restart
     data:
       addon: core_letsencrypt
-- alias: Weekday Morning Blind Up
+- id: weekday_morning_blind_up
+  alias: Weekday Morning Blind Up
   description: Opens the lounge blinds on weekdays only.
   trigger:
   - platform: time
@@ -35,7 +36,8 @@
         # Half Open Day Blind
         entity_id: cover.lounge_day_blind_level
         position: 50
-- alias: Weekend Morning Blind Up
+- id: weekend_morning_blind_up
+  alias: Weekend Morning Blind Up
   description: Opens both lounge blinds on weekends only.
   trigger:
   - platform: time
@@ -55,7 +57,8 @@
         # Open Day Blind
         entity_id: cover.lounge_day_blind_level
         position: 100
-- alias: Weekday Sunset Blind Down
+- id: weekday_sunset_blind_down
+  alias: Weekday Sunset Blind Down
   description: Closes the lounge blind on weekdays at sunset.
   trigger:
   - event: sunset
@@ -76,7 +79,8 @@
       # Open Day Blind
         entity_id: cover.lounge_day_blind_level
         position: 100
-- alias: Weekday Morning Coffee On
+- id: weekday_morning_coffee_on
+  alias: Weekday Morning Coffee On
   description: Turns on the coffee machine on weekdays only.
   trigger:
     platform: time
@@ -106,7 +110,9 @@
     domain: switch
     entity_id: switch.coffee_machine
     type: turn_off
-- alias: Saturday Morning Coffee On
+- id: saturday_morning_coffee_off
+  alias: Saturday Morning Coffee On
+
   description: Turns on the coffee machine on Saturdays only.
   trigger:
     platform: time
@@ -121,7 +127,8 @@
     entity_id: switch.coffee_machine
     type: turn_on
   id: 73402729d9ba467ab7bb085b4af6f943
-- alias: Midday Coffee Off
+- id: midday_coffee_off
+  alias: Midday Coffee Off
   description: Turns off the coffee machine at midday.
   trigger:
     platform: time
@@ -133,7 +140,8 @@
     entity_id: switch.coffee_machine
     type: turn_off
   id: 2026d3ca0fdb42c98f0ccfc962cca5a6
-- alias: One Off Coffee On
+- id: one_off_coffee_on
+  alias: One Off Coffee On
   description: Turns off the coffee machine on a date.
   trigger:
     platform: time
