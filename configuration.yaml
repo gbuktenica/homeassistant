@@ -81,6 +81,14 @@ sensor:
       - 'date_time'
       - 'time'
 
+unifi:
+  controllers:
+    - host: unifi.buktenica.com
+      site: York Street
+      ssid_filter:
+        - '4PAWS'
+
+
 light:
   - platform: template
     lights:
