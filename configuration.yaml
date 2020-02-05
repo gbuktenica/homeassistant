@@ -87,6 +87,8 @@ unifi:
       site: York Street
       ssid_filter:
         - '4PAWS'
+      dont_track_wired_clients: True
+
 
 
 light:
