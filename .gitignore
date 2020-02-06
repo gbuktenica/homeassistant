@@ -17,3 +17,5 @@ OZW_Log.txt
 .cloud/
 .storage/
 id_rsa
+*.db-wal
+*.db-shm
