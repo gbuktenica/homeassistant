@@ -16,3 +16,21 @@ cover.lounge_day_blind_level:
 cover.lounge_night_blind_level:
   ignored: false
   polling_intensity: 1
+switch.party_lights:
+  ignored: false
+  polling_intensity: 1
+switch.garden_lights:
+  ignored: false
+  polling_intensity: 1
+switch.garden_control_right:
+  ignored: false
+  polling_intensity: 1
+switch.rear_outside:
+  ignored: false
+  polling_intensity: 1
+switch.dinning_light:
+  ignored: false
+  polling_intensity: 1
+switch.kitchen_light:
+  ignored: false
+  polling_intensity: 1
