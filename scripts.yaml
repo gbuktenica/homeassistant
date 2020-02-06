@@ -46,7 +46,7 @@ toggle_speakers:
       - Speakers
       - Speakers
 lounge_lights_on:
-  alias: lounge_lights_on
+  alias: lounge lights on
   sequence:
   - device_id: 844c6cc2bf8949e58a7c2c8fb4fd5ed3
     domain: switch
@@ -74,7 +74,7 @@ lounge_lights_on:
     entity_id: switch.lounge_rear_right_light
     type: turn_on
 lounge_lights_off:
-  alias: lounge_lights_off
+  alias: lounge lights off
   sequence:
   - device_id: 844c6cc2bf8949e58a7c2c8fb4fd5ed3
     domain: switch
