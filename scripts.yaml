@@ -7,7 +7,7 @@ weekend_music:
       entity_id: remote.lounge_hub
   - service: media_player.select_source
     data:
-      entity_id: media_player.spotify
+      entity_id: media_player.spotify_york_spotify
       source: Hass.io
   - service: remote.send_command
     data:
@@ -27,12 +27,12 @@ weekend_music:
       - VolumeDown
   - service: media_player.play_media
     data:
-      entity_id: media_player.spotify
+      entity_id: media_player.spotify_york_spotify
       media_content_id: spotify:user:dmuhxe39xt7dmto9x7ub3trra:playlist:4idYRr5u7W5r6aFZZPCksG
       media_content_type: playlist
   - service: media_player.shuffle_set
     data:
-      entity_id: media_player.spotify
+      entity_id: media_player.spotify_york_spotify
       shuffle: true
 toggle_speakers:
   alias: Toggle Speakers
