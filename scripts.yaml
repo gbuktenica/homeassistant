@@ -101,7 +101,7 @@ lounge_lights_off:
     domain: switch
     entity_id: switch.lounge_rear_right_light
     type: turn_off
-harmony_off':
+harmony_off:
   alias: Harmony Off
   sequence:
   - data:
