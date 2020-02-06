@@ -4,6 +4,7 @@ config:
 frontend:
 #group: !include groups.yaml
 history:
+map:
 mobile_app:
 person:
 script: !include scripts.yaml
@@ -45,10 +46,6 @@ remote:
     host: 10.1.1.183
     activity: Netflix
 
-  # - platform: broadlink
-  #   host: 10.1.1.168
-  #   mac: c8f7427629cb
-
 smartir:
 switch:
   - platform: broadlink
@@ -65,10 +62,9 @@ climate:
     humidity_sensor: sensor.lounge_ac_humidity
     power_sensor: binary_sensor.lounge_ac_power
 
-media_player:
-  - platform: spotify
-    client_id: b7abf61b8ec84c6789940eac397b73c6
-    client_secret: e1a42ee6fb6c43fca8739c3b1dfb0000
+spotify:
+  client_id: b7abf61b8ec84c6789940eac397b73c6
+  client_secret: e1a42ee6fb6c43fca8739c3b1dfb0000
 
 binary_sensor:
   - platform: workday
@@ -88,8 +84,6 @@ unifi:
       ssid_filter:
         - '4PAWS'
       dont_track_wired_clients: True
-
-
 
 light:
   - platform: template
