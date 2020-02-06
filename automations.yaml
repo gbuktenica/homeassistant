@@ -124,7 +124,7 @@
     before: '18:30:00'
   - condition: numeric_state
     entity_id: sensor.inside_temperature_upstairs_inside_temperature
-      above: 27
+    above: 27
   action:
     - service: climate.set_hvac_mode
       data:
