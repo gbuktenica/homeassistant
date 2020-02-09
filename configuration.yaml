@@ -58,8 +58,8 @@ climate:
     unique_id: lounge_ac
     device_code: 1281
     controller_data: 10.1.1.168
-    temperature_sensor: sensor.lounge_ac_temperature
-    humidity_sensor: sensor.lounge_ac_humidity
+    temperature_sensor: sensor.aeon_labs_zw100_multisensor_6_temperature
+    humidity_sensor: sensor.aeon_labs_zw100_multisensor_6_relative_humidity
     power_sensor: binary_sensor.lounge_ac_power
 
 spotify:
