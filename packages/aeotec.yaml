@@ -1,9 +1,84 @@
 homeassistant:
   customize:
      light.stairway_light:
-       icon: mdi:wall-sconce
+       icon: mdi:lightbulb
+  customize:
+     light.stairway_light:
+       icon: mdi:lightbulb
+  customize:
+     light.stairway_light:
+       icon: mdi:lightbulb
+  customize:
+     light.entry_light:
+       icon: mdi:lightbulb
+  customize:
+     light.kitchen_light:
+       icon: mdi:lightbulb
+  customize:
+     light.dining_light:
+       icon: mdi:lightbulb
+  customize:
+     light.lounge_front_left_light:
+       icon: mdi:lightbulb
+  customize:
+     light.lounge_front_right_light:
+       icon: mdi:lightbulb
+  customize:
+     light.lounge_rear_left_light:
+       icon: mdi:lightbulb
+  customize:
+     light.lounge_rear_right_light:
+       icon: mdi:lightbulb
+  customize:
+     light.rear_outside:
+       icon: mdi:lightbulb
+  customize:
+     light.garden_lights:
+       icon: mdi:lightbulb
+  customize:
+     light.party_lights:
+       icon: mdi:lightbulb
+  customize:
+     light.hall_light:
+       icon: mdi:lightbulb
 
 light:
   - platform: switch
     name: Stairway Light
     entity_id: switch.stairway_light
+  - platform: switch
+    name:  Entry Light
+    entity_id: switch.entry_light
+  - platform: switch
+    name: Kitchen Light
+    entity_id: switch.kitchen_light
+  - platform: switch
+    name: Dining Light
+    entity_id: switch.dining_light
+  - platform: switch
+    name: Lounge FL Light
+    entity_id: switch.lounge_front_left_light
+  - platform: switch
+    name: Lounge FR Light
+    entity_id: switch.lounge_front_right_light
+  - platform: switch
+    name: Lounge RL Light
+    entity_id: switch.lounge_rear_left_light
+  - platform: switch
+    name: Lounge RR Light
+    entity_id: switch.lounge_rear_right_light
+  - platform: switch
+    name: Outside Light
+    entity_id: switch.outside_light
+  - platform: switch
+    name: Rear Outside Light
+    entity_id: switch.rear_outside
+  - platform: switch
+    name: Garden Lights
+    entity_id: switch.garden_lights
+  - platform: switch
+    name: Party Lights
+    entity_id: switch.party_lights
+  - platform: switch
+    name: Hall Light
+    entity_id: switch.hall_light
