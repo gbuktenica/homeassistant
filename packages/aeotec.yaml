@@ -1,0 +1,9 @@
+homeassistant:
+  customize:
+     light.stairway_light:
+       icon: mdi:wall-sconce
+
+light:
+  - platform: switch
+    name: Stairway Light
+    entity_id: switch.stairway_light

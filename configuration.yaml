@@ -19,6 +19,7 @@ homeassistant:
   name: hassio
   unit_system: metric
   customize: !include customize.yaml
+  packages: !include_dir_named packages
   time_zone: Australia/Perth
 
 http:
