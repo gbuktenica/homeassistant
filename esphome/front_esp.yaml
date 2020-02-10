@@ -1,0 +1,23 @@
+esphome:
+  name: front_esp
+  platform: ESP8266
+  board: nodemcuv2
+
+wifi:
+  ssid: "4PAWS"
+  password: "Charliemikedelta"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Front Esp Fallback Hotspot"
+    password: "C09Kig4WwQau"
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
