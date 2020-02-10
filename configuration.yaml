@@ -2,7 +2,7 @@ automation: !include automations.yaml
 cloud:
 config:
 frontend:
-#group: !include groups.yaml
+group: !include groups.yaml
 history:
 map:
 mobile_app:
@@ -86,12 +86,3 @@ unifi:
         - '4PAWS'
       dont_track_wired_clients: True
 
-light:
-  - platform: template
-    lights:
-      lounge_lights:
-        friendly_name: "Lounge Lights"
-        turn_on:
-          service: script.lounge_lights_on
-        turn_off:
-          service: script.lounge_lights_off
