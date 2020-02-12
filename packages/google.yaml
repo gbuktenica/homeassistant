@@ -17,6 +17,13 @@ cloud:
       light.stairway_light:
         name: Stairway Light
         aliases:
+         - stairway light
          - stairway lights
+        room: lounge
+    entity_config:
+      light.entry_light:
+        name: Entry Light
+        aliases:
+         - entry light
          - entry lights
         room: lounge
