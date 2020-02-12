@@ -3,12 +3,6 @@ homeassistant:
      light.stairway_light:
        icon: mdi:lightbulb
   customize:
-     light.stairway_light:
-       icon: mdi:lightbulb
-  customize:
-     light.stairway_light:
-       icon: mdi:lightbulb
-  customize:
      light.entry_light:
        icon: mdi:lightbulb
   customize:
@@ -18,16 +12,19 @@ homeassistant:
      light.dining_light:
        icon: mdi:lightbulb
   customize:
-     light.lounge_front_left_light:
+     light.lounge_frontleft:
        icon: mdi:lightbulb
   customize:
-     light.lounge_front_right_light:
+     light.lounge_frontright:
        icon: mdi:lightbulb
   customize:
-     light.lounge_rear_left_light:
+     light.lounge_rearleft:
        icon: mdi:lightbulb
   customize:
-     light.lounge_rear_right_light:
+     light.lounge_rearright:
+       icon: mdi:lightbulb
+  customize:
+     light.outside_light:
        icon: mdi:lightbulb
   customize:
      light.rear_outside:
@@ -57,16 +54,16 @@ light:
     entity_id: switch.dining_light
   - platform: switch
     name: Lounge FL Light
-    entity_id: switch.lounge_front_left_light
+    entity_id: switch.lounge_frontleft
   - platform: switch
     name: Lounge FR Light
-    entity_id: switch.lounge_front_right_light
+    entity_id: switch.lounge_frontright
   - platform: switch
     name: Lounge RL Light
-    entity_id: switch.lounge_rear_left_light
+    entity_id: switch.lounge_rearleft
   - platform: switch
     name: Lounge RR Light
-    entity_id: switch.lounge_rear_right_light
+    entity_id: switch.lounge_rearlright
   - platform: switch
     name: Outside Light
     entity_id: switch.outside_light
