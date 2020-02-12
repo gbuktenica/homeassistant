@@ -2,6 +2,14 @@
 cloud:
   google_actions:
     filter:
+      include_domains:
+        - climate
+        - cover
+        - group
+        - media_player
+        - scene
+        - script
+        - sensor
       include_entities:
         - light.stairway_light
         - light.entry_light
