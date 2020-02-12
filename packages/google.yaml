@@ -13,3 +13,10 @@ cloud:
         - light.party_lights
         - light.hall_light
         - switch.coffee_machine
+    entity_config:
+      light.stairway_light:
+        name: Stairway Light
+        aliases:
+         - stairway lights
+         - entry lights
+        room: lounge
