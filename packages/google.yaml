@@ -1,0 +1,15 @@
+# https://www.nabucasa.com/config/google_assistant/
+cloud:
+  google_actions:
+    filter:
+      include_entities:
+        - light.stairway_light
+        - light.entry_light
+        - light.kitchen_light
+        - light.dining_light
+        - light.outside_light
+        - light.rear_outside
+        - light.garden_lights
+        - light.party_lights
+        - light.hall_light
+        - switch.coffee_machine

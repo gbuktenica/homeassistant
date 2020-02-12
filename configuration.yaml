@@ -57,7 +57,7 @@ climate:
   - platform: smartir
     name: Lounge AC
     unique_id: lounge_ac
-    device_code: 1288
+    device_code: 1281
     controller_data: 10.1.1.168
     temperature_sensor: sensor.aeon_labs_zw100_multisensor_6_temperature
     humidity_sensor: sensor.aeon_labs_zw100_multisensor_6_relative_humidity
