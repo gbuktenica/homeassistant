@@ -41,7 +41,7 @@ toggle_speakers:
     data:
       entity_id: remote.lounge_hub
       device: 27445384
-      delay_secs: 0.5
+      delay_secs: 0.2
       command:
       - Speakers
       - Speakers
