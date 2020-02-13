@@ -22,6 +22,26 @@ api:
 
 ota:
 
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: D0
+      mode: INPUT_PULLUP
+    name: "Entry Door"
+    device_class: door
+    filters:
+      - delayed_on: 10ms
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: D1
+      mode: INPUT_PULLUP
+    name: "Front BiFold Door"
+    device_class: door
+    filters:
+      - delayed_on: 10ms
+
 sensor:
   - platform: dht
     model: DHT22
