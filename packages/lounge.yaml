@@ -1,15 +1,15 @@
 light:
   - platform: switch
-    name: Lounge FL Light
+    name: FL Light
     entity_id: switch.lounge_frontleft
   - platform: switch
-    name: Lounge FR Light
+    name: FR Light
     entity_id: switch.lounge_frontright
   - platform: switch
-    name: Lounge RL Light
+    name: RL Light
     entity_id: switch.lounge_rearleft
   - platform: switch
-    name: Lounge RR Light
+    name: RR Light
     entity_id: switch.lounge_rearlright
 
 homeassistant:
