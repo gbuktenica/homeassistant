@@ -21,3 +21,13 @@ logger:
 api:
 
 ota:
+
+sensor:
+  - platform: dht
+    model: DHT22
+    pin: D2
+    temperature:
+      name: "Lounge Room Temperature"
+    humidity:
+      name: "Lounge Room Humidity"
+    update_interval: 30s
