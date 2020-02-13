@@ -2,40 +2,28 @@ homeassistant:
   customize:
      light.stairway_light:
        icon: mdi:lightbulb
-  customize:
      light.entry_light:
        icon: mdi:lightbulb
-  customize:
      light.kitchen_light:
        icon: mdi:lightbulb
-  customize:
      light.dining_light:
        icon: mdi:lightbulb
-  customize:
      light.lounge_frontleft:
        icon: mdi:lightbulb
-  customize:
      light.lounge_frontright:
        icon: mdi:lightbulb
-  customize:
      light.lounge_rearleft:
        icon: mdi:lightbulb
-  customize:
      light.lounge_rearright:
        icon: mdi:lightbulb
-  customize:
      light.outside_light:
        icon: mdi:lightbulb
-  customize:
      light.rear_outside:
        icon: mdi:lightbulb
-  customize:
      light.garden_lights:
        icon: mdi:lightbulb
-  customize:
      light.party_lights:
        icon: mdi:lightbulb
-  customize:
      light.hall_light:
        icon: mdi:lightbulb
 
