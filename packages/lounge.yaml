@@ -1,0 +1,24 @@
+light:
+  - platform: switch
+    name: Lounge FL Light
+    entity_id: switch.lounge_frontleft
+  - platform: switch
+    name: Lounge FR Light
+    entity_id: switch.lounge_frontright
+  - platform: switch
+    name: Lounge RL Light
+    entity_id: switch.lounge_rearleft
+  - platform: switch
+    name: Lounge RR Light
+    entity_id: switch.lounge_rearlright
+
+homeassistant:
+  customize:
+    light.lounge_frontleft:
+      icon: mdi:lightbulb
+    light.lounge_frontright:
+      icon: mdi:lightbulb
+    light.lounge_rearleft:
+      icon: mdi:lightbulb
+    light.lounge_rearright:
+      icon: mdi:lightbulb

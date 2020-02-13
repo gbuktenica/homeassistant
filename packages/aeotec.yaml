@@ -1,31 +1,23 @@
 homeassistant:
   customize:
-     light.stairway_light:
-       icon: mdi:lightbulb
-     light.entry_light:
-       icon: mdi:lightbulb
-     light.kitchen_light:
-       icon: mdi:lightbulb
-     light.dining_light:
-       icon: mdi:lightbulb
-     light.lounge_frontleft:
-       icon: mdi:lightbulb
-     light.lounge_frontright:
-       icon: mdi:lightbulb
-     light.lounge_rearleft:
-       icon: mdi:lightbulb
-     light.lounge_rearright:
-       icon: mdi:lightbulb
-     light.outside_light:
-       icon: mdi:lightbulb
-     light.rear_outside:
-       icon: mdi:lightbulb
-     light.garden_lights:
-       icon: mdi:lightbulb
-     light.party_lights:
-       icon: mdi:lightbulb
-     light.hall_light:
-       icon: mdi:lightbulb
+    light.stairway_light:
+      icon: mdi:lightbulb
+    light.entry_light:
+      icon: mdi:lightbulb
+    light.kitchen_light:
+      icon: mdi:lightbulb
+    light.dining_light:
+      icon: mdi:lightbulb
+    light.outside_light:
+      icon: mdi:lightbulb
+    light.rear_outside:
+      icon: mdi:lightbulb
+    light.garden_lights:
+      icon: mdi:lightbulb
+    light.party_lights:
+      icon: mdi:lightbulb
+    light.hall_light:
+      icon: mdi:lightbulb
 
 light:
   - platform: switch
@@ -40,18 +32,6 @@ light:
   - platform: switch
     name: Dining Light
     entity_id: switch.dining_light
-  - platform: switch
-    name: Lounge FL Light
-    entity_id: switch.lounge_frontleft
-  - platform: switch
-    name: Lounge FR Light
-    entity_id: switch.lounge_frontright
-  - platform: switch
-    name: Lounge RL Light
-    entity_id: switch.lounge_rearleft
-  - platform: switch
-    name: Lounge RR Light
-    entity_id: switch.lounge_rearlright
   - platform: switch
     name: Outside Light
     entity_id: switch.outside_light
