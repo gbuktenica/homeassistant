@@ -27,31 +27,28 @@ cloud:
         - climate.lounge_ac
         - sensor.multisensor_temperature
     entity_config:
-      light.stairway_light:
-        name: Stairway Light
-        aliases:
-         - stairway light
-         - stairway lights
-        room: lounge
-    entity_config:
-      light.entry_light:
-        name: Entry Light
-        aliases:
-         - entry light
-         - entry lights
-        room: lounge
-    entity_config:
-      light.dining_light:
-        name: Dining Light
-        aliases:
-         - dining light
-         - dining lights
-        room: dining
-    entity_config:
-      light.kitchen_light:
-        name: Kitchen Light
-        aliases:
-         - kitchen light
-         - kitchen lights
-        room: kitchen
+      - light.stairway_light:
+          name: Stairway Light
+          aliases:
+          - stairway light
+          - stairway lights
+          room: lounge
+      - light.entry_light:
+          name: Entry Light
+          aliases:
+          - entry light
+          - entry lights
+          room: lounge
+      - light.dining_light:
+          name: Dining Light
+          aliases:
+          - dining light
+          - dining lights
+          room: dining
+      - light.kitchen_light:
+          name: Kitchen Light
+          aliases:
+          - kitchen light
+          - kitchen lights
+          room: kitchen
 
