@@ -21,6 +21,11 @@ cloud:
         - light.party_lights
         - light.hall_light
         - switch.coffee_machine
+        - cover.lounge_night_blind_level
+        - cover.lounge_day_blind_level
+        - climate.upstairs
+        - climate.lounge_ac
+        - sensor.multisensor_temperature
     entity_config:
       light.stairway_light:
         name: Stairway Light
@@ -35,3 +40,18 @@ cloud:
          - entry light
          - entry lights
         room: lounge
+    entity_config:
+      light.dining_light:
+        name: Dining Light
+        aliases:
+         - dining light
+         - dining lights
+        room: dining
+    entity_config:
+      light.kitchen_light:
+        name: Kitchen Light
+        aliases:
+         - kitchen light
+         - kitchen lights
+        room: kitchen
+
