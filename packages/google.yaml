@@ -16,7 +16,7 @@ cloud:
         - light.kitchen_light
         - light.dining_light
         - light.outside_light
-        - light.rear_outside
+        - light.rear_outside_light
         - light.garden_lights
         - light.party_lights
         - light.hall_light
