@@ -5,35 +5,32 @@ weekend_music:
     data:
       activity: Hassio
       entity_id: remote.lounge_hub
-  - service: media_player.select_source
-    data:
-      entity_id: media_player.spotify_york_spotify
-      source: Hass.io
-  - service: remote.send_command
-    data:
-      entity_id: remote.lounge_hub
-      device: 27445384
-      delay_secs: 0.3
-      command:
-      - VolumeDown
-      - VolumeDown
-      - VolumeDown
-      - VolumeDown
-      - VolumeDown
-      - VolumeDown
-      - VolumeDown
-      - VolumeDown
-      - VolumeDown
-      - VolumeDown
-  - service: media_player.play_media
-    data:
-      entity_id: media_player.spotify_york_spotify
-      media_content_id: spotify:user:dmuhxe39xt7dmto9x7ub3trra:playlist:4idYRr5u7W5r6aFZZPCksG
-      media_content_type: playlist
+
+  - service: media_player.turn_on
+    entity_id: media_player.spotify_york_spotify
+
+  - service: media_player.volume_set
+    entity_id: media_player.spotify_york_spotify
+    volume_level: 0.5
+
   - service: media_player.shuffle_set
     data:
       entity_id: media_player.spotify_york_spotify
       shuffle: true
+
+  - service: media_player.select_source
+    data:
+      entity_id: media_player.spotify_york_spotify
+      source: Hass.io
+
+  - service: media_player.play_media
+    data:
+      entity_id: media_player.spotify_york_spotify
+      media_content_type: playlist
+    data_template:
+      media_content_id: >
+        {{ ["spotify:user:dmuhxe39xt7dmto9x7ub3trra:playlist:4idYRr5u7W5r6aFZZPCksG", "spotify:user:dmuhxe39xt7dmto9x7ub3trra:playlist:4idYRr5u7W5r6aFZZPCksG"] | random}}
+
 toggle_speakers:
   alias: Toggle Speakers
   sequence:
@@ -45,62 +42,6 @@ toggle_speakers:
       command:
       - Speakers
       - Speakers
-lounge_lights_on:
-  alias: lounge lights on
-  sequence:
-  - device_id: 844c6cc2bf8949e58a7c2c8fb4fd5ed3
-    domain: switch
-    entity_id: switch.lounge_control_left
-    type: turn_on
-  - device_id: ec51b883726a4314afed1254e984df89
-    domain: switch
-    entity_id: switch.lounge_control_right
-    type: turn_on
-  - delay: 00:00:01
-  - device_id: d7ef48dce96a4745a1eedd956d53ba7e
-    domain: switch
-    entity_id: switch.lounge_front_left_light
-    type: turn_on
-  - device_id: 9681e8462afb4c52804d01acbd3f1991
-    domain: switch
-    entity_id: switch.lounge_front_right_light
-    type: turn_on
-  - device_id: f92d2ca446f94243bb661fa1563f0f81
-    domain: switch
-    entity_id: switch.lounge_rear_left_light
-    type: turn_on
-  - device_id: c430dce3cbd74697ba1808e8d7220851
-    domain: switch
-    entity_id: switch.lounge_rear_right_light
-    type: turn_on
-lounge_lights_off:
-  alias: lounge lights off
-  sequence:
-  - device_id: 844c6cc2bf8949e58a7c2c8fb4fd5ed3
-    domain: switch
-    entity_id: switch.lounge_control_left
-    type: turn_off
-  - device_id: ec51b883726a4314afed1254e984df89
-    domain: switch
-    entity_id: switch.lounge_control_right
-    type: turn_off
-  - delay: 00:00:01
-  - device_id: d7ef48dce96a4745a1eedd956d53ba7e
-    domain: switch
-    entity_id: switch.lounge_front_left_light
-    type: turn_off
-  - device_id: 9681e8462afb4c52804d01acbd3f1991
-    domain: switch
-    entity_id: switch.lounge_front_right_light
-    type: turn_off
-  - device_id: f92d2ca446f94243bb661fa1563f0f81
-    domain: switch
-    entity_id: switch.lounge_rear_left_light
-    type: turn_off
-  - device_id: c430dce3cbd74697ba1808e8d7220851
-    domain: switch
-    entity_id: switch.lounge_rear_right_light
-    type: turn_off
 harmony_off:
   alias: Harmony Off
   sequence:
