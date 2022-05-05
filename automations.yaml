@@ -6,8 +6,9 @@
   action:
   - service: hassio.addon_restart
     data:
-      addon: core_letsencrypt
-      addon: a0d7b954_spotify
+      addon:
+      - core_letsencrypt
+      - a0d7b954_spotify
 
 - id: reboot_host
   alias: Reboot host
