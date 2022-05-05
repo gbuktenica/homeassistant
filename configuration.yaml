@@ -57,7 +57,6 @@ homeassistant:
   packages: !include_dir_named packages
 
 http:
-  base_url: hassio.buktenica.com:8123
   ssl_certificate: /ssl/fullchain.pem
   ssl_key: /ssl/privkey.pem
 
