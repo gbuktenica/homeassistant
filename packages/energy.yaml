@@ -14,4 +14,4 @@ template:
           {% set office_rear  = states('sensor.office_rear_light_energy') | float %}
           {% set stairway     = states('sensor.stairway_light_energy') | float %}
           {% set wardrobe   = states('sensor.wardrobe_light_energy') | float %}
-          {{ (bedroom + coffee + dining + entry + frontyard + hall + kitchen + office_front + office_rear + stairway + wardrobe )  | round(3, default=0) }}
+          {{ (backyard + coffee + dining + entry + frontyard + hall + kitchen + office_front + office_rear + stairway + wardrobe )  | round(3, default=0) }}
