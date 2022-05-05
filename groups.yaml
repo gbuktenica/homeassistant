@@ -1,0 +1,19 @@
+beautiful_people:
+  name: Beautiful People
+  entities:
+    - person.glen
+    - person.natalie
+
+all_lights:
+  name: All Lights
+  entities:
+    - light.stairway_light
+    - light.entry_light
+    - light.kitchen_light
+    - light.dining_light
+    - light.frontyard_light
+    - light.backyard_light
+    - light.garden_lights
+    - light.party_lights
+    - light.hall_light
+

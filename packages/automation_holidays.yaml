@@ -1,0 +1,39 @@
+automation:
+  - id: holiday_lights_on
+    alias: Holiday Lights On
+    description: 'In holiday mode turn some of the lights on after sunset with a random delay.'
+    trigger:
+    - event: sunset
+      platform: sun
+    condition:
+    - condition: state
+      entity_id: input_boolean.holiday_mode
+      state: 'on'
+    action:
+    - delay: "{{ range(15, 60)|random|multiply(60) }}"
+    - service: light.turn_on
+      data:
+        entity_id:
+        - light.rl_light
+        - light.rr_light
+    - delay: "{{ range(15, 60)|random|multiply(60) }}"
+    - service: light.turn_on
+      data:
+        entity_id:
+        - light.wardrobe_light
+
+  - id: holiday_lights_off
+    alias: Holiday Lights Off
+    description: 'In holiday mode turn all the lights off after 22:00 with a random delay of 2 hours.'
+    trigger:
+    - at: '22:00'
+      platform: time
+    condition:
+    - condition: state
+      entity_id: input_boolean.holiday_mode
+      state: 'on'
+    action:
+    - delay: "{{ range(0, 120)|random|multiply(60) }}"
+    - service: light.turn_off
+      data:
+        entity_id: all

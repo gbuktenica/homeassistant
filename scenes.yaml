@@ -1,0 +1,11 @@
+- name: Movie
+  icon: "mdi:movie"
+  entities:
+    light.stairway_light: "off"
+    light.entry_light: "off"
+    light.dining_light: "off"
+    light.kitchen_light: "off"
+    light.fl_light: "off"
+    light.fr_light: "off"
+    light.rl_light: "off"
+    light.rr_light: "off"

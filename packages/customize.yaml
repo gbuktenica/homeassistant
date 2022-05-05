@@ -1,0 +1,23 @@
+homeassistant:
+  customize:
+    light.fl_light:
+      icon: mdi:lightbulb
+    light.fr_light:
+      icon: mdi:lightbulb
+    light.rl_light:
+      icon: mdi:lightbulb
+    light.rr_light:
+      icon: mdi:lightbulb
+light:
+  - platform: switch
+    name: FL Light
+    entity_id: switch.fl_light
+  - platform: switch
+    name: FR Light
+    entity_id: switch.fr_light
+  - platform: switch
+    name: RL Light
+    entity_id: switch.rl_light
+  - platform: switch
+    name: RR Light
+    entity_id: switch.rr_light

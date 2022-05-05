@@ -1,0 +1,30 @@
+input_select:
+  glen_presence:
+    name: Glens Presence
+    options:
+      - home
+      - away
+    initial: home
+    icon: mdi:face-agent
+  nat_presence:
+    name: Nats Presence
+    options:
+      - home
+      - away
+    initial: home
+    icon: mdi:face-woman
+  beautiful_people:
+    name: Beautiful People
+    options:
+      - everyone_home
+      - everyone_away
+      - someone_away
+    initial: everyone_home
+    icon: mdi:face-woman
+  doors_opened:
+    name: Doors Opened
+    options:
+      - opened
+      - closed
+    initial: closed
+    icon: mdi:door-open

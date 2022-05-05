@@ -1,0 +1,72 @@
+substitutions:
+  device_name: front-esp
+  ip: "10.4.4.27"
+  ssid: IoTL1
+  board: nodemcuv2
+#####################################
+esphome:
+  name: ${device_name}
+  platform: ESP8266
+  board: ${board}
+
+wifi:
+  ssid: ${ssid}
+  password: !secret iot
+  fast_connect: on
+  use_address: ${ip}
+  manual_ip:
+    static_ip: ${ip}
+    gateway: 10.4.4.1
+    subnet: 255.255.255.0
+
+  # Enable fallback hotspot  in case wifi connection fails
+  ap:
+    ssid: ${device_name}
+    password: !secret iot
+    manual_ip:
+      static_ip: 192.168.100.2
+      gateway: 192.168.100.1
+      subnet: 255.255.255.0
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  password: !secret iot
+  
+ota:
+  password: !secret ota
+  
+time:
+  - platform: homeassistant
+    id: homeassistant_time
+#####################################
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: D5
+      mode: INPUT_PULLUP
+    name: "Entry Door"
+    device_class: door
+    filters:
+      - delayed_on: 10ms
+  - platform: gpio
+    pin:
+      number: D6
+      mode: INPUT_PULLUP
+    name: "Front BiFold Door"
+    device_class: door
+    filters:
+      - delayed_on: 10ms
+sensor:
+  - platform: dht
+    model: DHT22
+    pin: D7
+    temperature:
+      name: "Lounge Room Temperature"
+    humidity:
+      name: "Lounge Room Humidity"
+    update_interval: 30s

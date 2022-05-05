@@ -1,0 +1,99 @@
+automation:
+  - id: reset_energy
+    alias: Reset Energy
+    description: Resets all of the energy meters at midnight.
+    trigger:
+      platform: time
+      at: '00:00:00'
+    condition: []
+    action:
+    - service: zwave_js.set_value
+      target:
+        entity_id: sensor.coffee_machine_energy
+      data:
+        command_class: 50
+        property: reset
+        value: true
+    - delay:
+        seconds: 15
+    - service: zwave_js.set_value
+      data:
+        command_class: 50
+        value: true
+        property: 'reset'
+      target:
+        entity_id: sensor.dining_light_energy
+    - delay:
+        seconds: 15
+    - service: zwave_js.set_value
+      data:
+        command_class: 50
+        value: true
+        property: 'reset'
+      target:
+        entity_id: sensor.front_module_energy
+    - delay:
+        seconds: 15
+    - service: zwave_js.set_value
+      data:
+        command_class: 50
+        value: true
+        property: 'reset'
+      target:
+        entity_id: sensor.glens_light_energy
+    - delay:
+        seconds: 15
+    - service: zwave_js.set_value
+      data:
+        command_class: 50
+        value: true
+        property: 'reset'
+      target:
+        entity_id: sensor.hall_light_energy_2
+    - delay:
+        seconds: 15
+    - service: zwave_js.set_value
+      data:
+        command_class: 50
+        value: true
+        property: 'reset'
+      target:
+        entity_id: sensor.kitchen_module_energy
+    - delay:
+        seconds: 15
+    - service: zwave_js.set_value
+      data:
+        command_class: 50
+        value: true
+        property: 'reset'
+      target:
+        entity_id: sensor.office_module_energy
+    - delay:
+        seconds: 15
+    - service: zwave_js.set_value
+      data:
+        command_class: 50
+        value: true
+        property: 'reset'
+      target:
+        entity_id: sensor.wardrobe_light_energy
+    - delay:
+        seconds: 15
+    - service: zwave_js.set_value
+      data:
+        command_class: 50
+        value: true
+        property: 'reset'
+      target:
+        entity_id: sensor.smart_switch_energy
+    - delay:
+        seconds: 15
+    - service: zwave_js.set_value
+      data:
+        command_class: 50
+        value: true
+        property: 'reset'
+      target:
+        entity_id: sensor.stairway_light_energy
+    - delay:
+        seconds: 15

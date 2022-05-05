@@ -1,0 +1,107 @@
+automation:
+  - id: washing_started
+    alias: Washing Started
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.smart_switch_power
+      above: 10
+      for:
+        minutes: 2
+    condition:
+    - condition: state
+      entity_id: input_boolean.washing_running
+      state: 'off'
+    action:
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.washing_running
+    - service: input_boolean.turn_off
+      data:
+        entity_id:  input_boolean.washing_finished
+
+  - id: washing_finished
+    alias: Washing Finished
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.smart_switch_power
+      below: 1
+      for:
+        seconds: 15
+    condition:
+    - condition: time
+      after: '05:00:00'
+      before: '22:00:00'
+    - condition: numeric_state
+      entity_id: sensor.smart_switch_power
+      below: '1'
+    - condition: state
+      entity_id: input_boolean.washing_running
+      state: 'on'
+    action:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.washing_running
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.washing_finished
+
+  - id: washing_finished_notification
+    alias: Washing Finished Notification
+    trigger:
+    - platform: state
+      entity_id: input_boolean.washing_finished
+      to: 'on'
+    - platform: state
+      entity_id: input_boolean.washing_finished
+      to: 'on'
+      for:
+        minutes: 10
+    - platform: state
+      entity_id: input_boolean.washing_finished
+      to: 'on'
+      for:
+        minutes: 20
+    - platform: state
+      entity_id: input_boolean.washing_finished
+      to: 'on'
+      for:
+        minutes: 60
+    condition:
+    - condition: time
+      after: '05:00:00'
+      before: '22:00:00'
+    - condition: state
+      entity_id: input_boolean.washing_running
+      state: 'off'
+    action:
+    - service: script.turn_on
+      entity_id: script.washing_notify
+
+  - id: washing_alarm_acknowledged
+    alias: Washing Alarm Acknowledged
+    description: Clear the washing machine finished notification
+    trigger:
+    - platform: time
+      at: '22:00:00'
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: acknowledge_washing
+    - platform: state
+      entity_id: switch.kitchen_light
+      to: "on"
+    - platform: state
+      entity_id: switch.kitchen_light
+      to: "off"
+    - platform: state
+      entity_id: input_boolean.washing_finished
+      to: "off"
+    action:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.washing_finished
+    - service: notify.mobile_app_s21
+      data:
+        message: clear_notification
+        data:
+          tag: washing

@@ -1,0 +1,96 @@
+switch:
+  - platform: template
+    switches:
+      front_heater_low:
+        turn_on:
+          service: switch.turn_on
+          data:
+            entity_id: switch.front_heater_low
+        turn_off:
+          service: switch.turn_off
+          data:
+            entity_id: switch.front_heater_low
+
+  - platform: template
+    switches:
+      front_heater_med:
+        turn_on:
+          service: switch.turn_on
+          data:
+            entity_id: switch.front_heater_med
+        turn_off:
+          service: switch.turn_off
+          data:
+            entity_id: switch.front_heater_med
+
+  - platform: template
+    switches:
+      front_heater_high:
+        turn_on:
+          service: switch.turn_on
+          data:
+            entity_id: switch.front_heater_high
+        turn_off:
+          service: switch.turn_off
+          data:
+            entity_id: switch.front_heater_high
+
+  - platform: template
+    switches:
+      rear_heater_low:
+        turn_on:
+          service: switch.turn_on
+          data:
+            entity_id: switch.rear_heater_low
+        turn_off:
+          service: switch.turn_off
+          data:
+            entity_id: switch.rear_heater_low
+
+  - platform: template
+    switches:
+      rear_heater_med:
+        turn_on:
+          service: switch.turn_on
+          data:
+            entity_id: switch.rear_heater_med
+        turn_off:
+          service: switch.turn_off
+          data:
+            entity_id: switch.rear_heater_med
+
+  - platform: template
+    switches:
+      rear_heater_high:
+        turn_on:
+          service: switch.turn_on
+          data:
+            entity_id: switch.rear_heater_high
+        turn_off:
+          service: switch.turn_off
+          data:
+            entity_id: switch.rear_heater_high
+
+  - platform: template
+    switches:
+      poweroff:
+        turn_on:
+          service: switch.turn_on
+          data:
+            entity_id: switch.poweroff
+        turn_off:
+          service: switch.turn_off
+          data:
+            entity_id: switch.poweroff
+
+  - platform: template
+    switches:
+      outside_speakers:
+        turn_on:
+          service: switch.turn_on
+          data:
+            entity_id: switch.hassio
+        turn_off:
+          service: switch.turn_off
+          data:
+            entity_id: switch.hassio

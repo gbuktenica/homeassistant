@@ -1,0 +1,284 @@
+tesla_charging_amps:
+  sequence:
+  - service: tesla_custom.api
+    data:
+      command: CHARGING_AMPS
+      parameters:
+        path_vars:
+          vehicle_id: '{{ state_attr(''binary_sensor.lucy_online_sensor'', ''id'') }}'
+        charging_amps: '5'
+
+front_heater_off:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.front_broadlink_remote
+      command:
+      - b64:JgBgAAABJZcSExMSFhASExQSFRERFBMSFTYUNxU2EjkTORM3FTYTOBI5FREUNhU2ExMVEBMSFBIVERE6FBEUERQ4FDYVNhM4EwAFMQABLEsTAAyCAAEqSxQADIIAASpLFQANBQAAAAAAAAAA
+  - service: switch.turn_off
+    data:
+      entity_id:
+      - switch.front_heater_low
+      - switch.front_heater_med
+      - switch.front_heater_high
+front_heater_low:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.front_broadlink_remote
+      command:
+      - b64:JgBQAAABKZMVERQRExMVEBUQFBIVERQREzgUNxE6EzgUNxU1FDgUNhURFDcVERQRExIVERQRFBIVNRQSFTYTOBU2FTYTOBQ3FQAFMwABKEsUAA0FAAAAAAAAAAA=
+  - service: switch.turn_on
+    data:
+      entity_id:
+      - switch.front_heater_low
+  - service: switch.turn_off
+    data:
+      entity_id:
+      - switch.front_heater_med
+      - switch.front_heater_high
+front_heater_med:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.front_broadlink_remote
+      command:
+      - b64:JgBoAAABJ5UUERMTEhMUERQTERQUERMSEjkTOBQ3EzgTOBQ3EzcUOBQREzgUNxURFBETEhURFBEUNxURExIVNhM4FDcVNhM4FAAFMQABK0sTAAyDAAEqSxQADIIAAStLEwAMhAABLkcTAA0F
+  - service: switch.turn_on
+    data:
+      entity_id:
+      - switch.front_heater_med
+  - service: switch.turn_off
+    data:
+      entity_id:
+      - switch.front_heater_low
+      - switch.front_heater_high
+front_heater_high:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.front_broadlink_remote
+      command:
+      - b64:JgBoAAABKZMVERQRFRAWEBQSFBEVERQRFTYUNxU2FTYUNhY2FDYVNhURFDYWEBQ3FREUERUQFhAUNxUQFDcVERQ2FjYUNhU2FQAFLwABL0gUAAyBAAEtSRIADIcAASlKEgAMhAABLUkTAA0F
+  - service: switch.turn_on
+    data:
+      entity_id:
+      - switch.front_heater_high
+  - service: switch.turn_off
+    data:
+      entity_id:
+      - switch.front_heater_low
+      - switch.front_heater_med
+rear_heater_off:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.rear_broadlink_remote
+      command:
+      - b64:JgBgAAABJZcSExMSFhASExQSFRERFBMSFTYUNxU2EjkTORM3FTYTOBI5FREUNhU2ExMVEBMSFBIVERE6FBEUERQ4FDYVNhM4EwAFMQABLEsTAAyCAAEqSxQADIIAASpLFQANBQAAAAAAAAAA
+  - service: switch.turn_off
+    data:
+      entity_id:
+      - switch.rear_heater_low
+      - switch.rear_heater_med
+      - switch.rear_heater_high
+rear_heater_low:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.rear_broadlink_remote
+      command:
+      - b64:JgBQAAABKZMVERQRExMVEBUQFBIVERQREzgUNxE6EzgUNxU1FDgUNhURFDcVERQRExIVERQRFBIVNRQSFTYTOBU2FTYTOBQ3FQAFMwABKEsUAA0FAAAAAAAAAAA=
+  - service: switch.turn_on
+    data:
+      entity_id:
+      - switch.rear_heater_low
+  - service: switch.turn_off
+    data:
+      entity_id:
+      - switch.rear_heater_med
+      - switch.rear_heater_high
+rear_heater_med:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.rear_broadlink_remote
+      command:
+      - b64:JgBoAAABJ5UUERMTEhMUERQTERQUERMSEjkTOBQ3EzgTOBQ3EzcUOBQREzgUNxURFBETEhURFBEUNxURExIVNhM4FDcVNhM4FAAFMQABK0sTAAyDAAEqSxQADIIAAStLEwAMhAABLkcTAA0F
+  - service: switch.turn_on
+    data:
+      entity_id:
+      - switch.rear_heater_med
+  - service: switch.turn_off
+    data:
+      entity_id:
+      - switch.rear_heater_low
+      - switch.rear_heater_high
+rear_heater_high:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.rear_broadlink_remote
+      command:
+      - b64:JgBoAAABKZMVERQRFRAWEBQSFBEVERQRFTYUNxU2FTYUNhY2FDYVNhURFDYWEBQ3FREUERUQFhAUNxUQFDcVERQ2FjYUNhU2FQAFLwABL0gUAAyBAAEtSRIADIcAASlKEgAMhAABLUkTAA0F
+  - service: switch.turn_on
+    data:
+      entity_id:
+      - switch.rear_heater_high
+  - service: switch.turn_off
+    data:
+      entity_id:
+      - switch.rear_heater_low
+      - switch.rear_heater_med
+outside_speakers_on:
+  alias: Outside Speakers On
+  mode: single
+  sequence:
+  - service: media_player.select_sound_mode
+    data:
+      entity_id: media_player.lounge_amp
+      sound_mode: 'ALL ZONE STEREO'
+
+outside_speakers_off:
+  alias: Outside Speakers Off
+  mode: queued
+  sequence:
+  - service: media_player.select_sound_mode
+    data:
+      entity_id: media_player.lounge_amp
+      sound_mode: 'MCH STEREO'
+
+washing_notify:
+  alias: Washing Notify
+  mode: single
+  sequence:
+  - service: notify.mobile_app_natalies_iphone
+    data:
+      message: 'The washing machine is finished.'
+  - service: notify.mobile_app_s21
+    data:
+      message: 'The washing machine is finished.'
+      data:
+        tag: washing
+        sticky: 'true'
+        actions:
+          - action: "acknowledge_washing"
+            title: "Acknowledge"
+  - service: tts.google_translate_say
+    data:
+      message: 'The washing machine is finished.'
+      entity_id:
+      - "media_player.bedroom_speaker"
+      - "media_player.den_display"
+      - "media_player.kitchen_display"
+
+weekend_music:
+  alias: Weekend Music
+  sequence:
+  - service: media_player.turn_on
+    data:
+      entity_id: media_player.lounge_amp
+  - service: hassio.addon_restart
+    data:
+      addon: a0d7b954_spotify
+  - service: light.turn_on
+    data:
+      entity_id: light.kitchen_light
+  - service: media_player.select_source
+    target:
+      entity_id: media_player.lounge_amp
+    data:
+      source: HEOS Music
+  - delay:
+      seconds: 1
+  - service: media_player.select_source
+    target:
+      entity_id: media_player.spotify_york_spotify
+    data:
+      source: Lounge Amp
+  - service: media_player.volume_set
+    target:
+      entity_id: media_player.spotify_york_spotify
+    data:
+      volume_level: 1
+  - delay:
+      seconds: 1
+  - service: media_player.shuffle_set
+    data:
+      entity_id: media_player.spotify_york_spotify
+      shuffle: true
+  - delay:
+      seconds: 1
+  - service: media_player.play_media
+    data:
+      entity_id: media_player.spotify_york_spotify
+      media_content_type: playlist
+    data_template:
+      media_content_id: '{{ ["https://open.spotify.com/playlist/1hlmJOyuxrfPZi8XvuURbT","https://open.spotify.com/playlist/4idYRr5u7W5r6aFZZPCksG",
+        "https://open.spotify.com/playlist/2T4BJ915qfUWB4eKWuMufm","https://open.spotify.com/playlist/37i9dQZF1E385O1nGDjpqm"]
+        | random}}
+        '
+  - delay:
+      seconds: 1
+  - service: media_player.volume_set
+    target:
+      entity_id: media_player.lounge_amp
+    data:
+      volume_level: 0.31
+  - service: media_player.media_play
+    entity_id: media_player.spotify_york_spotify
+
+hottest_100:
+  alias: Hottest 100
+  sequence:
+  - service: media_player.turn_on
+    data:
+      entity_id: media_player.lounge_amp
+  - service: hassio.addon_restart
+    data:
+      addon: a0d7b954_spotify
+  - service: light.turn_on
+    data:
+      entity_id: light.kitchen_light
+  - service: media_player.select_source
+    target:
+      entity_id: media_player.lounge_amp
+    data:
+      source: HEOS Music
+  - delay:
+      seconds: 1
+  - service: media_player.select_source
+    target:
+      entity_id: media_player.spotify_york_spotify
+    data:
+      source: Lounge Amp
+  - service: media_player.volume_set
+    target:
+      entity_id: media_player.spotify_york_spotify
+    data:
+      volume_level: 1
+  - delay:
+      seconds: 1
+  - service: media_player.shuffle_set
+    data:
+      entity_id: media_player.spotify_york_spotify
+      shuffle: true
+  - delay:
+      seconds: 1
+  - service: media_player.play_media
+    data:
+      entity_id: media_player.spotify_york_spotify
+      media_content_type: playlist
+    data_template:
+      media_content_id: '{{ ["spotify:playlist:1qLoOFlMBRMBTeSnQ5guuc"] | random}}
+
+        '
+  - service: media_player.volume_set
+    target:
+      entity_id: media_player.lounge_amp
+    data:
+      volume_level: 0.5
+  - delay:
+      seconds: 1
+  - service: media_player.media_play
+    entity_id: media_player.spotify_york_spotify

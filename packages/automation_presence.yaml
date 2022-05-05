@@ -1,0 +1,421 @@
+automation:
+  - id: presence_people_away
+    alias: Presence People Away
+    description: Testing when people are away.
+    trigger:
+    - entity_id: input_select.glen_presence
+      platform: state
+      from: home
+    - entity_id: input_select.nat_presence
+      platform: state
+      from: home
+    condition:
+      condition: not
+      conditions:
+        - condition: state
+          entity_id: input_select.glen_presence
+          state: home
+        - condition: state
+          entity_id: input_select.nat_presence
+          state: home
+    action:
+    - service: input_select.select_option
+      target:
+        entity_id: input_select.beautiful_people
+      data:
+        option: everyone_away
+
+  - id: presence_people_home
+    alias: Presence People Home
+    description: Testing when people are home.
+    trigger:
+    - entity_id: input_select.glen_presence
+      platform: state
+      to: home
+    - entity_id: input_select.nat_presence
+      platform: state
+      to: home
+    condition:
+    - condition: state
+      entity_id: input_select.glen_presence
+      state: home
+    - condition: state
+      entity_id: input_select.nat_presence
+      state: home
+    action:
+    - service: input_select.select_option
+      target:
+        entity_id: input_select.beautiful_people
+      data:
+        option: everyone_home
+
+  - id: presence_glen_away
+    alias: Presence Glen Away
+    description: Set when Glen is away.
+    trigger:
+    - entity_id: device_tracker.glen_unifi
+      platform: state
+      from: home
+    - entity_id: device_tracker.glens_phone
+      platform: state
+      from: home
+    - entity_id: device_tracker.glen_ping
+      platform: state
+      from: home
+    condition:
+      - condition: state
+        entity_id: input_select.doors_opened
+        state: 'opened'
+      - condition: state
+        entity_id: input_select.glen_presence
+        state: 'home'
+    action:
+    - service: input_select.select_option
+      target:
+        entity_id: input_select.glen_presence
+      data:
+        option: away
+    - condition: state
+      entity_id: input_select.nat_presence
+      state: home
+    - service: input_select.select_option
+      target:
+        entity_id: input_select.beautiful_people
+      data:
+        option: someone_away
+
+  - id: presence_glen_long_away
+    alias: Presence Glen Long Away
+    description: Set when Nat is away for over 8 minutes and all trackers are away.
+    trigger:
+    - entity_id: device_tracker.glen_unifi
+      platform: state
+      from: home
+      for:
+        minutes: 8
+    - entity_id: device_tracker.glens_phone
+      platform: state
+      from: home
+      for:
+        minutes: 4
+    - entity_id: device_tracker.glen_ping
+      platform: state
+      from: home
+      for:
+        minutes: 8
+    condition:
+      - condition: state
+        entity_id: input_select.glen_presence
+        state: 'home'
+      - condition: state
+        entity_id: device_tracker.glen_unifi
+        state: 'away'
+      - condition: state
+        entity_id: device_tracker.glens_phone
+        state: 'away'
+      - condition: state
+        entity_id: device_tracker.glen_ping
+        state: 'away'
+    action:
+    - service: input_select.select_option
+      target:
+        entity_id: input_select.glen_presence
+      data:
+        option: away
+    - condition: state
+      entity_id:  input_select.nat_presence
+      state: home
+    - service: input_select.select_option
+      target:
+        entity_id: input_select.beautiful_people
+      data:
+        option: someone_away
+
+  - id: presence_glen_home
+    alias: Presence Glen Home
+    description: Set when Glen is home.
+    trigger:
+    - entity_id: device_tracker.glen_unifi
+      platform: state
+      to: home
+    - entity_id: device_tracker.glens_phone
+      platform: state
+      to: home
+      for:
+        minutes: 5
+    - entity_id: device_tracker.glen_ping
+      platform: state
+      to: home
+    condition:
+      - condition: state
+        entity_id: input_select.glen_presence
+        state: 'away'
+    action:
+    - service: input_select.select_option
+      target:
+        entity_id: input_select.glen_presence
+      data:
+        option: home
+    - delay:
+        minutes: 3
+    - service: input_select.select_option
+      target:
+        entity_id: input_select.doors_opened
+      data:
+        option: closed
+
+  - id: presence_nat_away
+    alias: Presence Nat Away
+    description: Set when Nat is away.
+    trigger:
+    - entity_id: device_tracker.nat_unifi
+      platform: state
+      from: home
+      for:
+        minutes: 4
+    - entity_id: device_tracker.nat_iphonedetect
+      platform: state
+      from: home
+    condition:
+      - condition: state
+        entity_id: input_select.doors_opened
+        state: 'opened'
+      - condition: state
+        entity_id: input_select.nat_presence
+        state: 'home'
+    action:
+    - service: notify.mobile_app_s21
+      data:
+        message: 'Nat is away.'
+        data:
+        tag: nat
+    - service: input_select.select_option
+      target:
+        entity_id: input_select.nat_presence
+      data:
+        option: away
+    - condition: state
+      entity_id:  input_select.glen_presence
+      state: home
+    - service: input_select.select_option
+      target:
+        entity_id: input_select.beautiful_people
+      data:
+        option: someone_away
+
+  - id: presence_nat_long_away_day
+    alias: Presence Nat Long Away Day
+    description: Set when Nat is away for over 8 minutes during the day and all trackers away.
+    trigger:
+    - entity_id: device_tracker.nat_unifi
+      platform: state
+      from: home
+      for:
+        minutes: 8
+    - entity_id: device_tracker.nat_iphonedetect
+      platform: state
+      from: home
+      for:
+        minutes: 8
+    - entity_id: device_tracker.nat_unifi
+      platform: state
+      from: home
+      for:
+        minutes: 12
+    - entity_id: device_tracker.nat_iphonedetect
+      platform: state
+      from: home
+      for:
+        minutes: 12
+    - entity_id: device_tracker.nat_unifi
+      platform: state
+      from: home
+      for:
+        minutes: 20
+    - entity_id: device_tracker.nat_iphonedetect
+      platform: state
+      from: home
+      for:
+        minutes: 20
+    condition:
+      - condition: state
+        entity_id: input_select.nat_presence
+        state: 'home'
+      - condition: time
+        after: "05:00:00"
+        before: "22:00:00"
+      - condition: state
+        entity_id: device_tracker.nat_iphonedetect
+        state: away
+      - condition: state
+        entity_id: device_tracker.nat_unifi
+        state: away
+    action:
+    - service: notify.mobile_app_s21
+      data:
+        message: 'Nat is long away day.'
+    - service: input_select.select_option
+      target:
+        entity_id: input_select.nat_presence
+      data:
+        option: 'Away'
+    - condition: state
+      entity_id:  input_select.glen_presence
+      state: home
+    - service: input_select.select_option
+      target:
+        entity_id: input_select.beautiful_people
+      data:
+        option: someone_away
+
+  - id: presence_nat_long_away_night
+    alias: Presence Nat Long Away Night
+    description: Set when Nat is away for over 30 minutes at night and all trackers away.
+    trigger:
+    - entity_id: device_tracker.nat_unifi
+      platform: state
+      from: home
+      for:
+        minutes: 30
+    - entity_id: device_tracker.nat_iphonedetect
+      platform: state
+      from: home
+      for:
+        minutes: 30
+    - entity_id: device_tracker.nat_unifi
+      platform: state
+      from: home
+      for:
+        minutes: 40
+    - entity_id: device_tracker.nat_iphonedetect
+      platform: state
+      from: home
+      for:
+        minutes: 40
+    condition:
+      - condition: state
+        entity_id: input_select.nat_presence
+        state: 'home'
+      - condition: time
+        before: "05:00:00"
+        after: "22:00:00"
+      - condition: state
+        entity_id: device_tracker.nat_unifi
+        state: 'away'
+      - condition: state
+        entity_id: device_tracker.nat_iphonedetect
+        state: 'away'
+    action:
+    - service: notify.mobile_app_s21
+      data:
+        message: 'Nat is long away night.'
+    - service: input_select.select_option
+      target:
+        entity_id: input_select.nat_presence
+      data:
+        option: away
+    - condition: state
+      entity_id:  input_select.glen_presence
+      state: home
+    - service: input_select.select_option
+      target:
+        entity_id: input_select.beautiful_people
+      data:
+        option: someone_away
+
+  - id: presence_nat_home
+    alias: Presence Nat Home
+    description: Set when Nat is home.
+    trigger:
+    - entity_id: device_tracker.nat_unifi
+      platform: state
+      to: home
+    - entity_id: device_tracker.nat_iphonedetect
+      platform: state
+      to: home
+    - entity_id: device_tracker.nat_ping
+      platform: state
+      to: home
+    condition:
+      - condition: state
+        entity_id: input_select.nat_presence
+        state: 'away'
+    action:
+    - service: input_select.select_option
+      target:
+        entity_id: input_select.nat_presence
+      data:
+        option: home
+    - delay:
+        minutes: 3
+    - service: input_select.select_option
+      target:
+        entity_id: input_select.doors_opened
+      data:
+        option: closed
+    - service: notify.mobile_app_s21
+      data:
+        message: clear_notification
+        data:
+          tag: nat
+
+
+  - id: presence_doors_opened
+    mode: restart
+    alias: Presence Doors opened
+    description: Set when any of the front doors have been opened and then all doors are closed.
+    trigger:
+    - entity_id: binary_sensor.entry_door
+      platform: state
+      to: 'off'
+      for:
+        seconds: 30
+    - entity_id: binary_sensor.front_bifold_door
+      platform: state
+      to: 'off'
+      for:
+        seconds: 30
+    condition:
+      - condition: state
+        entity_id: binary_sensor.entry_door
+        state: 'off'
+      - condition: state
+        entity_id: binary_sensor.front_bifold_door
+        state: 'off'
+      - condition: state
+        entity_id: binary_sensor.rear_bifold_door
+        state: 'off'
+    action:
+    - service: input_select.select_option
+      target:
+        entity_id: input_select.doors_opened
+      data:
+        option: opened
+    - delay:
+        minutes: 10
+    - service: input_select.select_option
+      target:
+        entity_id: input_select.doors_opened
+      data:
+        option: Closed
+
+  - id: presence_doors_open
+    alias: Presence Doors Open
+    description: Set when any of the doors are still open.
+    trigger:
+    - entity_id: binary_sensor.rear_bifold_door
+      platform: state
+      to: 'on'
+    - entity_id: binary_sensor.entry_door
+      platform: state
+      to: 'on'
+    - entity_id: binary_sensor.front_bifold_door
+      platform: state
+      to: 'on'
+    condition: []
+    action:
+    - service: input_select.select_option
+      target:
+        entity_id: input_select.doors_opened
+      data:
+        option: closed

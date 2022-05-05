@@ -1,0 +1,17 @@
+sensor:
+  - platform: time_date
+    display_options:
+      - 'date_time'
+      - 'time'
+  - platform: template
+    sensors:
+      lounge_hub_activity:
+        value_template: '{{ state_attr("remote.lounge_hub", "current_activity") }}'
+        friendly_name: 'Harmony Activity'
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /home
+      - type: memory_free
+      - type: processor_use
+  - platform: version

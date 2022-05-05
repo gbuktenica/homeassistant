@@ -1,0 +1,181 @@
+- id: addon_restart
+  alias: Restart Addons
+  trigger:
+  - platform: time
+    at: 01:00:00
+  action:
+  - service: hassio.addon_restart
+    data:
+      addon: core_letsencrypt
+      addon: a0d7b954_spotify
+
+- id: reboot_host
+  alias: Reboot host
+  description: Turn the amplifier on and restart the NUC. This is to make sure the
+    HDMI is working.
+  initial_state: true
+  trigger:
+  - platform: time
+    at: 09:30:00
+  condition:
+  - condition: time
+    weekday:
+    - fri
+  - condition: state
+    entity_id: input_boolean.holiday_mode
+    state: 'off'
+  - condition: state
+    entity_id: input_boolean.party_mode
+    state: 'off'
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  action:
+  - service: script.turn_on
+    entity_id: script.harmony_music
+  - delay:
+      minutes: 1
+  - service: hassio.host_reboot
+
+- id: after_reboot_host
+  alias: After Reboot host
+  description: Turn the amplifier off after the reboot in reboot_host
+  initial_state: true
+  trigger:
+  - platform: time
+    at: 09:40:00
+  condition:
+  - condition: time
+    weekday:
+    - fri
+  - condition: state
+    entity_id: input_boolean.holiday_mode
+    state: 'off'
+  - condition: state
+    entity_id: input_boolean.party_mode
+    state: 'off'
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  action:
+  - service: script.turn_on
+    entity_id: script.harmony_off
+
+- id: morning_aircon
+  alias: Morning AirCon
+  description: ''
+  trigger:
+  - at: 01:00:00
+    platform: time
+  condition:
+  - condition: state
+    entity_id: climate.daikin_ac
+    state: cool
+  action:
+  - service: climate.set_temperature
+    data:
+      entity_id: climate.daikin_ac
+      temperature: 21
+  - service: climate.set_fan_mode
+    data:
+      entity_id: climate.daikin_ac
+      fan_mode: Low/Auto
+
+- id: weekend_outside_speakers_on
+  alias: Weekend Outside Speakers On
+  description: Turns on the outside speakers when the rear bi fold is opened.
+  trigger:
+  - entity_id: binary_sensor.rear_bifold_door
+    platform: state
+    to: 'on'
+    for:
+      seconds: 10
+  condition:
+  - condition: state
+    entity_id: input_boolean.party_mode
+    state: 'off'
+  - condition: time
+    after: 09:30:00
+    before: '20:00:00'
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'off'
+  - condition: state
+    entity_id: media_player.lounge_amp_zone2
+    state: 'off'
+  - condition: or
+    conditions:
+      - condition: state
+        entity_id: switch.lounge_hub_music
+        state: 'on'
+      - condition: state
+        entity_id: switch.lounge_hub_hassio
+        state: 'on'
+  action:
+  - service: script.outside_speakers_on
+  mode: queued
+  max: 10
+
+- id: weekend_outside_speakers_off
+  alias: Weekend Outside Speakers Off
+  description: Turns off the outside speakers if the rear bifold is closed
+  trigger:
+  - entity_id: binary_sensor.rear_bifold_door
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: input_boolean.party_mode
+    state: 'off'
+  - condition: state
+    entity_id: media_player.lounge_amp_zone2
+    state: 'on'
+  action:
+  - service: script.outside_speakers_off
+  mode: queued
+  max: 10
+
+- id: recycling_on
+  alias: recycling on
+  trigger:
+  - platform: time
+    at: '06:00:00'
+  condition:
+  - condition: time
+    weekday:
+    - mon
+  - condition: template
+    value_template: '{{((as_timestamp(now()) - as_timestamp("2021-01-18 00:00:00"))/86400) | int % 14  == 0}}'
+  action:
+  - service: input_boolean.turn_on
+    data:
+      entity_id: input_boolean.recycling_day
+  - service: notify.mobile_app_s21
+    data:
+      message: 'It is recycling day.'
+  - service: notify.mobile_app_natalies_iphone
+    data:
+      message: 'It is recycling day.'
+  - delay:
+      hours: 10
+  - service: notify.mobile_app_s21
+    data:
+      message: 'It is recycling day.'
+  - service: notify.mobile_app_natalies_iphone
+    data:
+      message: 'It is recycling day.'
+
+- id: recycling_off
+  alias: recycling off
+  trigger:
+  - platform: time
+    at: '09:00:00'
+  condition:
+  - condition: time
+    weekday:
+    - tue
+  action:
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.recycling_day
+

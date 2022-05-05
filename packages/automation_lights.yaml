@@ -1,0 +1,600 @@
+automation:
+  - id: cover_night_blind_down
+    alias: Cover Night Front Blind Closed
+    description:
+      Closes the lounge blind after sunset when the Front Bi Fold closes
+      or when everyone comes home.
+    trigger:
+      - entity_id: binary_sensor.front_bifold_door
+        platform: state
+        to: "off"
+      - entity_id: input_select.beautiful_people
+        platform: state
+        to: "everyone_home"
+    condition:
+      - condition: state
+        entity_id: sun.sun
+        state: below_horizon
+      - condition: state
+        entity_id: input_boolean.party_mode
+        state: "off"
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: binary_sensor.front_bifold_door
+            state: "on"
+          - condition: state
+            entity_id: switch.front_heater_low
+            state: "on"
+          - condition: state
+            entity_id: switch.front_heater_med
+            state: "on"
+          - condition: state
+            entity_id: switch.front_heater_high
+            state: "on"
+    action:
+      - service: cover.set_cover_position
+        data:
+          entity_id: cover.night_blind
+          position: 0
+      - delay:
+          seconds: 8
+      - service: cover.set_cover_position
+        data:
+          entity_id: cover.day_blind
+          position: 100
+
+  - id: cover_sunset_blind_down
+    alias: Cover Sunset Blind Down
+    description: Closes the lounge blind at sunset if the Bi Fold is closed and someone is away.
+    trigger:
+      - event: sunset
+        offset: 00:15:00
+        platform: sun
+    condition:
+      - condition: state
+        entity_id: input_boolean.party_mode
+        state: "off"
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: input_select.beautiful_people
+            state: "everyone_home"
+          - condition: state
+            entity_id: binary_sensor.front_bifold_door
+            state: "on"
+          - condition: state
+            entity_id: switch.front_heater_low
+            state: "on"
+          - condition: state
+            entity_id: switch.front_heater_med
+            state: "on"
+          - condition: state
+            entity_id: switch.front_heater_high
+            state: "on"
+    action:
+      - service: cover.set_cover_position
+        data:
+          entity_id: cover.night_blind
+          position: 20
+      - delay:
+          seconds: 8
+      - service: cover.set_cover_position
+        data:
+          entity_id: cover.day_blind
+          position: 100
+
+  - id: cover_weekday_morning_blind_up
+    alias: Cover Weekday Morning Blind Up
+    description: Opens the lounge blinds on weekdays only.
+    trigger:
+      - platform: time
+        at: 05:45:00
+      - event: sunrise
+        offset: -00:15:00
+        platform: sun
+    condition:
+      - condition: state
+        entity_id: binary_sensor.workday_sensor
+        state: "on"
+      - condition: sun
+        after: sunrise
+        after_offset: -00:16:00
+      - condition: time
+        after: 05:45:00
+    action:
+      - service: cover.set_cover_position
+        data:
+          entity_id: cover.night_blind
+          position: 100
+      - service: cover.set_cover_position
+        data:
+          entity_id: cover.day_blind
+          position: 50
+
+  - id: cover_sunset_blind_down_home
+    alias: Cover Sunset Blind Down Home
+    description:
+      Closes the lounge blind at sunset if the Bi Fold is closed and people
+      are home.
+    trigger:
+      - event: sunset
+        offset: 00:15:00
+        platform: sun
+    condition:
+      - condition: state
+        entity_id: input_boolean.party_mode
+        state: "off"
+      - condition: state
+        entity_id: input_select.beautiful_people
+        state: "everyone_home"
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: binary_sensor.front_bifold_door
+            state: "on"
+          - condition: state
+            entity_id: switch.front_heater_low
+            state: "on"
+          - condition: state
+            entity_id: switch.front_heater_med
+            state: "on"
+          - condition: state
+            entity_id: switch.front_heater_high
+            state: "on"
+    action:
+      - service: cover.set_cover_position
+        data:
+          entity_id: cover.night_blind
+          position: 0
+      - service: cover.set_cover_position
+        data:
+          entity_id: cover.day_blind
+          position: 100
+
+  - id: cover_weekend_morning_blind_up
+    alias: Cover Weekend Morning Blind Up
+    description: Opens both lounge blinds on weekends only.
+    trigger:
+      - platform: time
+        at: 06:30:00
+    condition:
+      - condition: state
+        entity_id: binary_sensor.workday_sensor
+        state: "off"
+    action:
+      - service: cover.set_cover_position
+        data:
+          entity_id: cover.night_blind
+          position: 100
+      - service: cover.set_cover_position
+        data:
+          entity_id: cover.day_blind
+          position: 100
+
+  - id: light_sunset_outside_lights_on
+    alias: Light Sunset Outside Lights On
+    description: Turns On the outside lights 15 minutes after sunset.
+    trigger:
+      - event: sunset
+        offset: 00:15:00
+        platform: sun
+    condition: []
+    action:
+      service: light.turn_on
+      data:
+        entity_id:
+          - light.frontyard_light
+
+  - id: light_strata_off
+    alias: Light Strata Off
+    description: "Turn off the strata lights 1 hour after sunset."
+    trigger:
+      - platform: sun
+        event: sunset
+        offset: 01:00:00
+    condition: []
+    action:
+      - service: light.turn_off
+        data:
+          entity_id:
+            - light.strata_lights
+
+  - id: light_night_backyard_on
+    alias: Light Night Backyard Light On
+    description: Turns on the Backyard light when the rear bifold is opened.
+    trigger:
+      - entity_id: binary_sensor.rear_bifold_door
+        platform: state
+        to: "on"
+    condition:
+      - condition: state
+        entity_id: sun.sun
+        state: below_horizon
+      - condition: state
+        entity_id: input_boolean.party_mode
+        state: "off"
+      - condition: state
+        entity_id: light.party_lights
+        state: "off"
+      - condition: state
+        entity_id: light.backyard_light
+        state: "off"
+    action:
+      - service: light.turn_on
+        data:
+          entity_id:
+            - light.backyard_light
+      - delay:
+          minutes: 10
+      - service: light.turn_off
+        data:
+          entity_id:
+            - light.backyard_light
+
+  - id: light_night_frontyard_on
+    alias: Light Night Frontyard Light On
+    description: Turns on the front yard light when the at night.
+    trigger:
+      - event: sunset
+        offset: 00:15:00
+        platform: sun
+    condition:
+      - condition: state
+        entity_id: sun.sun
+        state: below_horizon
+      - condition: state
+        entity_id: input_boolean.party_mode
+        state: "off"
+    action:
+      - service: light.turn_on
+        data:
+          entity_id:
+            - light.frontyard_light
+
+  - id: light_night_frontyard_door_on
+    alias: Light Night Frontyard Door Light On
+    description: Turns on the front yard light when the front door is opened.
+    trigger:
+      - entity_id: binary_sensor.entry_door
+        platform: state
+        to: "on"
+    condition:
+      - condition: state
+        entity_id: sun.sun
+        state: below_horizon
+      - condition: state
+        entity_id: input_boolean.party_mode
+        state: "off"
+      - condition: state
+        entity_id: light.frontyard_light
+        state: "off"
+    action:
+      - service: light.turn_on
+        data:
+          entity_id:
+            - light.frontyard_light
+      - delay:
+          minutes: 15
+      - service: light.turn_off
+        data:
+          entity_id:
+            - light.frontyard_light
+
+  - id: light_front_lounge_light_on
+    alias: Light Front Lounge Lights On
+    description: Turn on the front lights when the front lounge control is switched
+    trigger:
+      - entity_id: binary_sensor.lounge_front_switch_input
+        platform: state
+    condition:
+      - condition: state
+        entity_id: light.lounge_front_switch
+        state: "off"
+    action:
+      service: light.turn_on
+      data:
+        entity_id:
+          - light.lounge_front_switch
+          - light.fl_light
+          - light.fr_light
+
+  - id: light_front_lounge_light_off
+    alias: Light Front Lounge Lights Off
+    description: Turn off the front lights when the front lounge control is switched
+    trigger:
+      - entity_id: binary_sensor.lounge_front_switch_input
+        platform: state
+    condition:
+      - condition: state
+        entity_id: light.lounge_front_switch
+        state: "on"
+    action:
+      service: light.turn_off
+      data:
+        entity_id:
+          - light.lounge_front_switch
+          - light.fl_light
+          - light.fr_light
+
+  - id: light_rear_lounge_light_on
+    alias: Light Rear Lounge Lights On
+    description: Turn on the rear lights when the rear lounge control is switched
+    trigger:
+      - entity_id: binary_sensor.lounge_rear_switch_input
+        platform: state
+    condition:
+      - condition: state
+        entity_id: light.lounge_rear_switch
+        state: "off"
+    action:
+      service: light.turn_on
+      data:
+        entity_id:
+          - light.lounge_rear_switch
+          - light.rl_light
+          - light.rr_light
+
+  - id: light_rear_lounge_light_off
+    alias: Light Rear Lounge Lights Off
+    description: Turn off the rear lights when the rear lounge control is switched
+    trigger:
+      - entity_id: binary_sensor.lounge_rear_switch_input
+        platform: state
+    condition:
+      - condition: state
+        entity_id: light.lounge_rear_switch
+        state: "on"
+    action:
+      service: light.turn_off
+      data:
+        entity_id:
+          - light.lounge_rear_switch
+          - light.rl_light
+          - light.rr_light
+
+  - id: light_front_lounge_switch_on
+    alias: Light Front Lounge Switch On
+    description: Turn on the front control switch when the front lounge lights are on
+    trigger:
+      - entity_id: light.fl_light
+        platform: state
+        to: "on"
+      - entity_id: light.fr_light
+        platform: state
+        to: "on"
+    condition: []
+    action:
+      service: light.turn_on
+      data:
+        entity_id:
+          - light.lounge_front_switch
+
+  - id: light_front_lounge_switch_off
+    alias: Light Front Lounge Switch Off
+    description:
+      Turn off the front control switch when the front lounge lights are
+      off
+    trigger:
+      - entity_id: light.fl_light
+        platform: state
+        to: "off"
+      - entity_id: light.fr_light
+        platform: state
+        to: "off"
+    condition:
+      - condition: state
+        entity_id: light.fl_light
+        state: "off"
+      - condition: state
+        entity_id: light.fr_light
+        state: "off"
+    action:
+      service: light.turn_off
+      data:
+        entity_id:
+          - light.lounge_front_switch
+
+  - id: light_rear_lounge_switch_on
+    alias: Light Rear Lounge Switch On
+    description: Turn on the rear control switch when the rear lounge lights are on
+    trigger:
+      - entity_id: light.rl_light
+        platform: state
+        to: "on"
+      - entity_id: light.rr_light
+        platform: state
+        to: "on"
+    condition: []
+    action:
+      service: light.turn_on
+      data:
+        entity_id:
+          - light.lounge_rear_switch
+
+  - id: light_rear_lounge_switch_off
+    alias: Light Rear Lounge Switch Off
+    description: Turn off the rear control switch when the rear lounge lights are off
+    trigger:
+      - entity_id: light.rl_light
+        platform: state
+        to: "off"
+      - entity_id: light.rr_light
+        platform: state
+        to: "off"
+    condition:
+      - condition: state
+        entity_id: light.rl_light
+        state: "off"
+      - condition: state
+        entity_id: light.rr_light
+        state: "off"
+    action:
+      service: light.turn_off
+      data:
+        entity_id:
+          - light.lounge_rear_switch
+
+  - id: light_sunset_inside_lights_on
+    alias: Light Sunset Inside Lights On
+    description: Turns On the inside lights 15 minutes before sunset.
+    trigger:
+      - event: sunset
+        offset: -00:20:00
+        platform: sun
+    condition:
+      - condition: state
+        entity_id: input_boolean.party_mode
+        state: "off"
+    action:
+      - service: light.turn_on
+        data:
+          entity_id:
+            - light.stairway_light
+            - light.entry_light
+      - condition: state
+        entity_id: input_select.beautiful_people
+        state: "everyone_away"
+      - service: light.turn_on
+        data:
+          entity_id:
+            - light.wardrobe_light
+            - light.dining_light
+
+  - id: light_nat_away
+    alias: Light Nat away
+    description: Turns off Nats lights because she cant
+    trigger:
+      - entity_id: input_select.nat_presence
+        platform: state
+        from: Home
+    condition:
+      - condition: state
+        entity_id: input_boolean.party_mode
+        state: "off"
+    action:
+      - service: light.turn_off
+        data:
+          entity_id:
+            - light.hall_light
+            - light.office_front_light
+            - light.office_rear_light
+            - light.kitchen_light
+      - condition: state
+        entity_id: sun.sun
+        state: "above_horizon"
+      - service: light.turn_off
+        data:
+          entity_id:
+            - light.dining_light
+
+  - id: light_everyone_away
+    alias: Light everyone away
+    description: Turns off most of the lights when everyone is away
+    trigger:
+      - entity_id: input_select.beautiful_people
+        platform: state
+        from: "everyone_home"
+    condition:
+      - condition: state
+        entity_id: input_boolean.party_mode
+        state: "off"
+    action:
+      - service: light.turn_off
+        data:
+          entity_id:
+            - light.frontyard_light
+            - light.glens_light
+            - light.fl_light
+            - light.fr_light
+            - light.rl_light
+            - light.rr_light
+            - light.shelf_light
+      - condition: sun
+        before: sunset
+        before_offset: -00:30:00
+      - condition: sun
+        after: sunrise
+        after_offset: 00:30:00
+      - service: light.turn_off
+        data:
+          entity_id:
+            - light.entry_light
+            - light.stairway_light
+            - light.wardrobe_light
+
+  - id: light_garden_switch_on
+    alias: Light Garden Switch On
+    description: Turn on the garden and party lights
+    trigger:
+      - entity_id: binary_sensor.garden_switch_input
+        platform: state
+    condition:
+      - condition: state
+        entity_id: light.garden_switch
+        state: "off"
+    action:
+      service: light.turn_on
+      data:
+        entity_id:
+          - light.garden_lights
+          - light.party_lights
+          - light.garden_switch
+
+  - id: light_garden_switch_off
+    alias: Light Garden Switch Off
+    description: Turn off the garden and party lights
+    trigger:
+      - entity_id: binary_sensor.garden_switch_input
+        platform: state
+    condition:
+      - condition: state
+        entity_id: light.garden_switch
+        state: "on"
+    action:
+      service: light.turn_off
+      data:
+        entity_id:
+          - light.garden_lights
+          - light.party_lights
+          - light.garden_switch
+
+  - id: light_garden_party_on
+    alias: Light Garden Party On
+    description: Turn on the garden switch
+    trigger:
+      - entity_id: light.garden_lights
+        platform: state
+        to: "on"
+      - entity_id: light.party_lights
+        platform: state
+        to: "on"
+    condition: []
+    action:
+      service: light.turn_on
+      data:
+        entity_id:
+          - light.garden_switch
+
+  - id: light_garden_party_off
+    alias: Light Garden Party Off
+    description: Turn off the garden switch
+    trigger:
+      - entity_id: light.garden_lights
+        platform: state
+        to: "off"
+      - entity_id: light.party_lights
+        platform: state
+        to: "off"
+    condition:
+      - condition: state
+        entity_id: light.garden_lights
+        state: "off"
+      - condition: state
+        entity_id: light.party_lights
+        state: "off"
+    action:
+      service: light.turn_off
+      data:
+        entity_id:
+          - light.garden_switch

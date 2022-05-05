@@ -1,0 +1,77 @@
+substitutions:
+  friendly_name: ONT
+  device_name: ont-s26
+  ip: "10.4.4.26"
+  ssid: IoTL1
+  board: esp01_1m
+#####################################
+esphome:
+  name: ${device_name}-s26
+  platform: ESP8266
+  board: ${board}
+  board_flash_mode: dout
+
+wifi:
+  ssid: ${ssid}
+  password: !secret iot
+  fast_connect: on
+  use_address: ${ip}
+  manual_ip:
+    static_ip: ${ip}
+    gateway: 10.4.4.1
+    subnet: 255.255.255.0
+
+  # Enable fallback hotspot  in case wifi connection fails
+  ap:
+    ssid: ${device_name}
+    password: !secret iot
+    manual_ip:
+      static_ip: 192.168.100.2
+      gateway: 192.168.100.1
+      subnet: 255.255.255.0
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  password: !secret iot
+
+ota:
+  password: !secret ota
+
+time:
+  - platform: homeassistant
+    id: homeassistant_time
+#####################################
+status_led:
+  pin:
+    number: GPIO13
+    inverted: false
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO0
+      mode: INPUT_PULLUP
+      inverted: True
+    name: ${friendly_name} Button
+    on_press:
+      - switch.toggle: relay
+  - platform: status
+    name: ${friendly_name} Status
+
+sensor:
+  - platform: wifi_signal
+    name: ${device_name} WiFi Signal
+    update_interval: 60s
+switch:
+  - platform: gpio
+    name: ${friendly_name} Relay
+    pin: GPIO12
+    id: 'relay'
+    restore_mode: ALWAYS_ON
+  - platform: restart
+    name: ${friendly_name} Restart

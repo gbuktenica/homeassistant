@@ -1,0 +1,130 @@
+automation:
+  - id: coffee_midday_off
+    alias: Coffee Midday Off
+    description: Turns off the coffee machine at midday.
+    trigger:
+      platform: time
+      at: '12:30:00'
+    condition: []
+    action:
+      service: switch.turn_off
+      data:
+        entity_id:
+        - switch.coffee_machine
+
+  - id: coffee_one_off_on
+    alias: Coffee One Off On
+    description: Turns off the coffee machine on a date set by GUI.
+    mode: single
+    trigger:
+    - platform: time
+      at: input_datetime.coffee_time
+    condition: []
+    action:
+    - service: switch.turn_on
+      data:
+        entity_id:
+        - switch.coffee_machine
+
+  - id: coffee_on_sunday
+    alias: Coffee On Sunday
+    description: Turns on the coffee machine on Sunday morning bike ride.
+    trigger:
+      platform: zone
+      entity_id: person.glen
+      zone: zone.daglish
+      event: leave
+    condition:
+    - condition: time
+      weekday:
+      - sun
+    - condition: state
+      entity_id: input_boolean.holiday_mode
+      state: 'off'
+    - condition: time
+      after: 09:30:00
+      before: '12:00:00'
+    - condition: zone
+      entity_id: person.glen
+      zone: zone.subi
+    action:
+      service: switch.turn_on
+      data:
+        entity_id:
+        - switch.coffee_machine
+
+  - id: coffee_on_weekday_morning
+    alias: Coffee On Weekday Morning
+    description: Turns on the coffee machine on weekdays when Glen is at yoga.
+    trigger:
+      platform: time
+      at: 06:50:00
+    condition:
+    - condition: state
+      entity_id: binary_sensor.workday_sensor
+      state: 'on'
+    - condition: zone
+      entity_id: person.glen
+      zone: zone.bby
+    - condition: state
+      entity_id: input_boolean.holiday_mode
+      state: 'off'
+    action:
+      service: switch.turn_on
+      data:
+        entity_id:
+        - switch.coffee_machine
+
+  - id: coffee_notify
+    alias: Coffee Notify
+    trigger:
+    - platform: numeric_state
+      entity_id: sensor.coffee_power
+      below: 110
+      for:
+        seconds: 5
+    condition:
+    - condition: state
+      entity_id: input_boolean.coffee_notify
+      state: 'off'
+    - condition: time
+      after: '05:30:00'
+    - condition: time
+      before: '13:00:00'
+    - condition: state
+      entity_id: switch.coffee_machine
+      state: 'on'
+    action:
+    - service: tts.google_translate_say
+      data:
+        message: 'The coffee machine is ready.'
+        entity_id:
+        - "media_player.bedroom_speaker"
+        - "media_player.den_display"
+    - service: input_boolean.turn_on
+      data:
+        entity_id:
+        - input_boolean.coffee_notify
+    - service: light.turn_on
+      data:
+        entity_id: light.kitchen_light
+
+  - id: coffee_notify_reset
+    alias: Coffee Notify Reset
+    trigger:
+    - platform: state
+      entity_id: switch.coffee_machine
+      to: 'off'
+      for:
+        minutes: 10
+    - platform: time
+      at: '15:30:00'
+    condition:
+    - condition: state
+      entity_id: input_boolean.coffee_notify
+      state: 'on'
+    action:
+      service: input_boolean.turn_off
+      data:
+        entity_id:
+        - input_boolean.coffee_notify

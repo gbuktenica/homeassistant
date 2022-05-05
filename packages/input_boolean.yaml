@@ -1,0 +1,29 @@
+input_boolean:
+  holiday_mode:
+    name: Holiday Mode
+    initial: off
+    icon: mdi:airplane-takeoff
+  party_mode:
+    name: Party Mode
+    initial: off
+    icon: mdi:party-popper
+  recycling_day:
+    name: Recycling Day
+    initial: off
+    icon: mdi:recycle
+  washing_running:
+    name: Washing Running
+    initial: off
+    icon: mdi:washing-machine
+  washing_finished:
+    name: Washing Finished
+    initial: off
+    icon: mdi:washing-machine
+  coffee_notify:
+    name: Coffee Notify
+    initial: off
+    icon: mdi:coffee-maker
+  tesla_night_charging:
+    name: Tesla Night Charging
+    initial: off
+    icon: mdi:lightning-bolt

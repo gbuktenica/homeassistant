@@ -1,0 +1,19 @@
+sensor:
+  - platform: template
+    sensors:
+      energy_total:
+        friendly_name: 'Total Energy'
+        entity_id:
+          - sensor.backyard_light_energy
+          - sensor.coffee_energy
+          - sensor.dining_light_energy
+          - sensor.entry_light_energy
+          - sensor.frontyard_light_energy
+          - sensor.hall_light_energy
+          - sensor.kitchen_light_energy
+          - sensor.office_front_light_energy
+          - sensor.office_rear_light_energy
+          - sensor.stairway_light_energy
+          - sensor.wardrobe_light_energy
+        value_template: "{{ (states('sensor.backyard_light_energy')|float + states('sensor.coffee_energy')|float + states('sensor.dining_light_energy')|float + states('sensor.entry_light_energy')|float + states('sensor.frontyard_light_energy')|float + states('sensor.hall_light_energy')|float + states('sensor.kitchen_light_energy')|float + states('sensor.sensor.office_front_light_energy')|float + states('sensor.office_rear_light_energy')|float + states('sensor.stairway_light_energy')|float + states('sensor.wardrobe_light_energy')|float)|round(3) }}"
+        unit_of_measurement: "kWh"
