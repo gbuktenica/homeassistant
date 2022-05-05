@@ -2,6 +2,7 @@
 # default_config #
 ##################
 automation: !include automations.yaml
+backup:
 cloud:
 config:
 # counter:
@@ -23,6 +24,8 @@ history:
      - device_tracker.nat_ping
      - device_tracker.nat_phone
 image:
+input_boolean:
+input_button:
 input_datetime:
 input_number:
 input_select:
@@ -31,13 +34,7 @@ logbook:
 map:
 media_source:
 mobile_app:
-logger:
-  default: error
-  logs:
-    homeassistant.core: error
-    # critical # fatal # error # warning # warn # info # debug
 my:
-recorder:
 scene: !include scenes.yaml
 script: !include scripts.yaml
 ssdp:
@@ -46,6 +43,8 @@ sun:
 system_health:
 # tag:
 # timer:
+#usb:
+#webhook:
 zeroconf:
 #zone:
 #####################
