@@ -12,7 +12,6 @@ history:
   exclude:
     domains:
       - automation
-      - updater
       - device_tracker
   include:
     entities:
@@ -47,7 +46,6 @@ sun:
 system_health:
 # tag:
 # timer:
-updater:
 zeroconf:
 #zone:
 #####################
