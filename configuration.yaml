@@ -2,7 +2,7 @@
 # default_config #
 ##################
 automation: !include automations.yaml
-backup:
+#backup:
 cloud:
 config:
 # counter:
