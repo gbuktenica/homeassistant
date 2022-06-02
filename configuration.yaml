@@ -91,10 +91,6 @@ climate:
     humidity_sensor: sensor.lounge_room_humidity
     power_sensor: binary_sensor.lounge_ac_power
 
-spotify:
-  client_id: b7abf61b8ec84c6789940eac397b73c6
-  client_secret: e1a42ee6fb6c43fca8739c3b1dfb0000
-
 light:
   - platform: group
     name: Office Lights
