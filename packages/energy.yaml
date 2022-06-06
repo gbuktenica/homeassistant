@@ -8,10 +8,11 @@ template:
           {% set dining    = states('sensor.dining_light_energy') | float %}
           {% set entry     = states('sensor.entry_light_energy') | float %}
           {% set frontyard = states('sensor.frontyard_light_energy') | float %}
+          {% set garage    = states('sensor.garage_light_energy') | float %}
           {% set hall      = states('sensor.hall_light_energy') | float %}
           {% set kitchen   = states('sensor.kitchen_light_energy') | float %}
           {% set office_front = states('sensor.office_front_light_energy') | float %}
           {% set office_rear  = states('sensor.office_rear_light_energy') | float %}
           {% set stairway     = states('sensor.stairway_light_energy') | float %}
           {% set wardrobe   = states('sensor.wardrobe_light_energy') | float %}
-          {{ (backyard + coffee + dining + entry + frontyard + hall + kitchen + office_front + office_rear + stairway + wardrobe )  | round(3, default=0) }}
+          {{ (backyard + coffee + dining + entry + frontyard + garage + hall + kitchen + office_front + office_rear + stairway + wardrobe )  | round(3, default=0) }}
