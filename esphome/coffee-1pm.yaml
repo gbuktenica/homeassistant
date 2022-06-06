@@ -70,6 +70,7 @@ sensor:
             - 15000 -> 1400
         # Make everything below 10W appear as just 0W.
         - lambda: if (x < (10 + 1)) return 0; else return (x - 1);
+
   - platform: total_daily_energy
     name: ${channel_1} Energy
     power_id: power_channel_1
