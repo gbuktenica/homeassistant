@@ -598,3 +598,33 @@ automation:
       data:
         entity_id:
           - light.garden_switch
+
+  - id: garage_closing
+    alias: Garage Closing
+    description:
+      Turn off the Garage light when the Garage door is closing
+    trigger:
+      - entity_id: cover.garage_door
+        platform: state
+        to: "closing"
+    condition: []
+    action:
+      service: light.turn_off
+      data:
+        entity_id:
+          - light.garage_light
+
+  - id: garage_opening
+    alias: Garage Opening
+    description:
+      Turn on the Garage light when the Garage door is opening
+    trigger:
+      - entity_id: cover.garage_door
+        platform: state
+        to: "opening"
+    condition: []
+    action:
+      service: light.turn_on
+      data:
+        entity_id:
+          - light.garage_light
