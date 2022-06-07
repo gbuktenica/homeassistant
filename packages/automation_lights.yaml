@@ -609,7 +609,9 @@ automation:
         to: "closing"
     condition: []
     action:
-      service: light.turn_off
+    - delay:
+        minutes: 5
+    - service: light.turn_off
       data:
         entity_id:
           - light.garage_light
