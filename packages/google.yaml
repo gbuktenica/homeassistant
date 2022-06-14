@@ -17,6 +17,7 @@ cloud:
         - climate.upstairs_air_con
         - climate.lounge_ac
         - sensor.multisensor_temperature
+        - cover.garage_door
     entity_config:
       light.stairway_light:
         name: Stairway Light
@@ -48,4 +49,6 @@ cloud:
       cover.night_blind:
         name: Night Blind
         room: Lounge
-
+      cover.garage_door:
+        name: Garage Door
+        room: garage
