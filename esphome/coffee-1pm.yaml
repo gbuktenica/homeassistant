@@ -4,7 +4,10 @@ substitutions:
   ip: "10.4.4.31"
   ssid: IoTL1
   board: esp01_1m
-#####################################
+  update_interval_fast: 5sec
+  update_interval_slow: 60sec
+  # update_interval_slow: 60min
+#######################
 esphome:
   name: ${device_name}
   platform: ESP8266
@@ -47,7 +50,7 @@ time:
 #####################################
 sensor:
   - platform: hlw8012
-    update_interval: 20s
+    update_interval: ${update_interval_slow}
     sel_pin:
       number: GPIO3
       inverted: True
@@ -95,3 +98,12 @@ binary_sensor:
       inverted: true
     on_press:
       - switch.toggle: relay
+
+interval:
+  - interval: ${update_interval_fast}
+    then:
+      - if:
+          condition:
+            - switch.is_on: relay
+          then:
+            - component.update: power_channel_1
