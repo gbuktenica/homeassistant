@@ -81,8 +81,6 @@ automation:
     - platform: numeric_state
       entity_id: sensor.coffee_power
       below: 110
-      for:
-        seconds: 5
     condition:
     - condition: state
       entity_id: input_boolean.coffee_notify
@@ -95,12 +93,17 @@ automation:
       entity_id: switch.coffee_machine
       state: 'on'
     action:
+    - delay: 00:00:16
+    - condition: numeric_state
+        entity_id: sensor.coffee_power
+        below: 110
     - service: tts.google_translate_say
       data:
         message: 'The coffee machine is ready.'
         entity_id:
         - "media_player.bedroom_speaker"
         - "media_player.den_display"
+        - "media_player.workshop_speaker"
     - service: input_boolean.turn_on
       data:
         entity_id:
@@ -116,7 +119,7 @@ automation:
       entity_id: switch.coffee_machine
       to: 'off'
       for:
-        minutes: 10
+        minutes: 1
     - platform: time
       at: '15:30:00'
     condition:
