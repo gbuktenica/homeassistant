@@ -108,6 +108,12 @@ automation:
       data:
         entity_id:
         - input_boolean.coffee_notify
+    - service: notify.mobile_app_s21
+      data:
+        message: 'The coffee machine is ready.'
+        data:
+          tag: coffee
+          sticky: 'true'
     - service: light.turn_on
       data:
         entity_id: light.kitchen_light
