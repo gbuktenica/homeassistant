@@ -113,21 +113,19 @@ automation:
         entity_id: light.kitchen_light
 
   - id: coffee_notify_reset
-    alias: Coffee Notify Reset
+    alias: Coffee Notify Reset on start
     trigger:
     - platform: state
       entity_id: switch.coffee_machine
-      to: 'off'
-      for:
-        minutes: 1
-    - platform: time
-      at: '15:30:00'
-    condition:
-    - condition: state
-      entity_id: input_boolean.coffee_notify
-      state: 'on'
+      to: 'on'
+    condition: []
     action:
-      service: input_boolean.turn_off
+    - service: input_boolean.turn_on
+      data:
+        entity_id:
+        - input_boolean.coffee_notify
+    - delay: 00:02:00
+    - service: input_boolean.turn_off
       data:
         entity_id:
         - input_boolean.coffee_notify
