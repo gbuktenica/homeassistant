@@ -4,9 +4,8 @@ substitutions:
   ip: "10.4.4.31"
   ssid: IoTL1
   board: esp01_1m
-  update_interval_fast: 5sec
-  update_interval_slow: 60sec
-  # update_interval_slow: 60min
+  update_interval_fast: 8sec
+  update_interval_slow: 60min
 #######################
 esphome:
   name: ${device_name}
@@ -50,6 +49,7 @@ time:
 #####################################
 sensor:
   - platform: hlw8012
+    id: sensor_id
     update_interval: ${update_interval_slow}
     sel_pin:
       number: GPIO3
@@ -106,4 +106,5 @@ interval:
           condition:
             - switch.is_on: relay
           then:
-            - component.update: power_channel_1
+            - component.update: sensor_id
+            
