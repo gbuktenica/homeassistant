@@ -1,6 +1,6 @@
 substitutions:
   friendly_name: ONT
-  device_name: ont-s26
+  device_name: ont
   ip: "10.4.4.26"
   ssid: IoTL1
   board: esp01_1m

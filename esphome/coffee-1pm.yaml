@@ -4,8 +4,8 @@ substitutions:
   ip: "10.4.4.31"
   ssid: IoTL1
   board: esp01_1m
-  update_interval_fast: 8sec
-  update_interval_slow: 60min
+  update_interval_fast: 20sec
+  update_interval_slow: 20sec
 #######################
 esphome:
   name: ${device_name}
@@ -99,12 +99,12 @@ binary_sensor:
     on_press:
       - switch.toggle: relay
 
-interval:
-  - interval: ${update_interval_fast}
-    then:
-      - if:
-          condition:
-            - switch.is_on: relay
-          then:
-            - component.update: sensor_id
+# interval:
+#   - interval: ${update_interval_fast}
+#     then:
+#       - if:
+#           condition:
+#             - switch.is_on: relay
+#           then:
+#             - component.update: sensor_id
             
