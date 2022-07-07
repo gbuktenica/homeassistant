@@ -1,8 +1,7 @@
 substitutions:
-  device_name: strata-mini
-  id: strata_lights
-  name: "Strata Lights"
-  ip: "10.4.4.20"
+  device_name: garagerear-1pm
+  channel_1: "Garage Rear Door"
+  ip: "10.4.4.47"
   ssid: IoTG
   board: esp01_1m
 #####################################
@@ -40,19 +39,19 @@ api:
   password: !secret iot
 
 ota:
-  password: !secret ota
+  password: !secret iot
 
 time:
   - platform: homeassistant
     id: homeassistant_time
 #####################################
-output:
-  - platform: gpio
-    id: relay
-    pin: GPIO12
 
-light:
-  - platform: binary
-    id: ${id}
-    name: ${name}
-    output: relay
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO4
+      #mode: INPUT_PULLUP
+      inverted: True
+    name: ${channel_1}
+    id: switchid
+    device_class: door

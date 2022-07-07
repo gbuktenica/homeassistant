@@ -51,7 +51,7 @@ binary_sensor:
     pin:
       number: GPIO4
       #mode: INPUT_PULLUP
-      #inverted: True
+      inverted: True
     name: ${channel_1}
     id: switchid
     device_class: door
