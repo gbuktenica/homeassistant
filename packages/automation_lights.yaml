@@ -5,9 +5,6 @@ automation:
       Closes the lounge blind after sunset when the Front Bi Fold closes
       or when everyone comes home.
     trigger:
-      - entity_id: binary_sensor.front_bifold_door
-        platform: state
-        to: "off"
       - entity_id: input_select.beautiful_people
         platform: state
         to: "everyone_home"
@@ -503,7 +500,6 @@ automation:
       - service: light.turn_off
         data:
           entity_id:
-            - light.frontyard_light
             - light.glens_light
             - light.fl_light
             - light.fr_light
@@ -540,6 +536,7 @@ automation:
           - light.garden_lights
           - light.party_lights
           - light.garden_switch
+          - light.pot_wall_light
 
   - id: light_garden_switch_off
     alias: Light Garden Switch Off
@@ -558,6 +555,7 @@ automation:
           - light.garden_lights
           - light.party_lights
           - light.garden_switch
+          - light.pot_wall_light
 
   - id: light_garden_party_on
     alias: Light Garden Party On
@@ -607,7 +605,10 @@ automation:
       - entity_id: cover.garage_door
         platform: state
         to: "closing"
-    condition: []
+    condition:
+      - condition: state
+        entity_id: binary_sensor.garage_rear_door
+        state: "Closed"
     action:
     - delay:
         minutes: 5
@@ -624,6 +625,21 @@ automation:
       - entity_id: cover.garage_door
         platform: state
         to: "opening"
+    condition: []
+    action:
+      service: light.turn_on
+      data:
+        entity_id:
+          - light.garage_light
+
+  - id: garage_rear_opening
+    alias: Garage Rear Door Opening
+    description:
+      Turn on the Garage light when the Garage rear door is opening
+    trigger:
+      - entity_id: binary_sensor.garage_rear_door
+        platform: state
+        to: "Open"
     condition: []
     action:
       service: light.turn_on
