@@ -37,10 +37,10 @@ logger:
 
 # Enable Home Assistant API
 api:
-  password: !secret iot
+#  password: !secret iot
 
 ota:
-  password: !secret ota
+#  password: !secret ota
 
 time:
   - platform: homeassistant
