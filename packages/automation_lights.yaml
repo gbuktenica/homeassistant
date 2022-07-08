@@ -639,7 +639,7 @@ automation:
     trigger:
       - entity_id: binary_sensor.garage_rear_door
         platform: state
-        to: "open"
+        to: "on"
     condition: []
     action:
       service: light.turn_on
