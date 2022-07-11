@@ -135,3 +135,17 @@ automation:
       data:
         entity_id:
         - input_boolean.coffee_notify
+
+  - id: coffee_phone_notify_reset
+    alias: Coffee Phone Notify Reset when off
+    trigger:
+    - platform: state
+      entity_id: switch.coffee_machine
+      to: 'off'
+    condition: []
+    action:
+      - service: notify.mobile_app_s21
+        data:
+          message: "clear_notification"
+          data:
+            tag: coffee
