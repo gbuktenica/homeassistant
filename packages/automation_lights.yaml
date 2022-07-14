@@ -608,7 +608,7 @@ automation:
     condition:
       - condition: state
         entity_id: binary_sensor.garage_rear_door
-        state: "Closed"
+        state: "off"
     action:
     - delay:
         minutes: 5
