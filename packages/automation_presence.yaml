@@ -367,24 +367,24 @@ automation:
     trigger:
     - entity_id: binary_sensor.entry_door
       platform: state
-      to: 'off'
+      to: 'off' #closed
       for:
         seconds: 30
     - entity_id: binary_sensor.front_bifold_door
       platform: state
-      to: 'off'
+      to: 'off' #closed
       for:
         seconds: 30
     condition:
       - condition: state
         entity_id: binary_sensor.entry_door
-        state: 'off'
+        state: 'off' #closed
       - condition: state
         entity_id: binary_sensor.front_bifold_door
-        state: 'off'
+        state: 'off' #closed
       - condition: state
         entity_id: binary_sensor.rear_bifold_door
-        state: 'off'
+        state: 'off' #closed
     action:
     - service: input_select.select_option
       target:
@@ -405,13 +405,13 @@ automation:
     trigger:
     - entity_id: binary_sensor.rear_bifold_door
       platform: state
-      to: 'on'
+      to: 'on' #open
     - entity_id: binary_sensor.entry_door
       platform: state
-      to: 'on'
+      to: 'on' #open
     - entity_id: binary_sensor.front_bifold_door
       platform: state
-      to: 'on'
+      to: 'on' #open
     condition: []
     action:
     - service: input_select.select_option

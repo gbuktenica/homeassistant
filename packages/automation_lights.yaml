@@ -19,7 +19,7 @@ automation:
         conditions:
           - condition: state
             entity_id: binary_sensor.front_bifold_door
-            state: "on"
+            state: "on" #open
           - condition: state
             entity_id: switch.front_heater_low
             state: "on"
@@ -59,7 +59,7 @@ automation:
             state: "everyone_home"
           - condition: state
             entity_id: binary_sensor.front_bifold_door
-            state: "on"
+            state: "on" #open
           - condition: state
             entity_id: switch.front_heater_low
             state: "on"
@@ -129,7 +129,7 @@ automation:
         conditions:
           - condition: state
             entity_id: binary_sensor.front_bifold_door
-            state: "on"
+            state: "on" #open
           - condition: state
             entity_id: switch.front_heater_low
             state: "on"
@@ -203,7 +203,7 @@ automation:
     trigger:
       - entity_id: binary_sensor.rear_bifold_door
         platform: state
-        to: "on"
+        to: "on" #open
     condition:
       - condition: state
         entity_id: sun.sun
@@ -255,7 +255,7 @@ automation:
     trigger:
       - entity_id: binary_sensor.entry_door
         platform: state
-        to: "on"
+        to: "on" #open
     condition:
       - condition: state
         entity_id: sun.sun
@@ -608,7 +608,7 @@ automation:
     condition:
       - condition: state
         entity_id: binary_sensor.garage_rear_door
-        state: "off"
+        state: "off" #closed
     action:
     - delay:
         minutes: 5
@@ -639,7 +639,7 @@ automation:
     trigger:
       - entity_id: binary_sensor.garage_rear_door
         platform: state
-        to: "on"
+        to: "on" #open
     condition: []
     action:
       service: light.turn_on

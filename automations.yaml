@@ -88,7 +88,7 @@
   trigger:
   - entity_id: binary_sensor.rear_bifold_door
     platform: state
-    to: 'on'
+    to: 'on' #open
     for:
       seconds: 10
   condition:
@@ -123,7 +123,7 @@
   trigger:
   - entity_id: binary_sensor.rear_bifold_door
     platform: state
-    to: 'off'
+    to: 'off' #closed
   condition:
   - condition: state
     entity_id: input_boolean.party_mode
