@@ -178,11 +178,6 @@ automation:
         entity_id: input_select.nat_presence
         state: 'home'
     action:
-    - service: notify.mobile_app_s21
-      data:
-        message: 'Nat is away.'
-        data:
-        tag: nat
     - service: input_select.select_option
       target:
         entity_id: input_select.nat_presence
@@ -196,6 +191,11 @@ automation:
         entity_id: input_select.beautiful_people
       data:
         option: someone_away
+    - service: notify.mobile_app_s21
+      data:
+        message: 'Nat is away.'
+        data:
+          tag: nat
 
   - id: presence_nat_long_away_day
     alias: Presence Nat Long Away Day
@@ -245,9 +245,6 @@ automation:
         entity_id: device_tracker.nat_unifi
         state: away
     action:
-    - service: notify.mobile_app_s21
-      data:
-        message: 'Nat is long away day.'
     - service: input_select.select_option
       target:
         entity_id: input_select.nat_presence
@@ -261,6 +258,9 @@ automation:
         entity_id: input_select.beautiful_people
       data:
         option: someone_away
+    - service: notify.mobile_app_s21
+      data:
+        message: 'Nat is long away day.'
 
   - id: presence_nat_long_away_night
     alias: Presence Nat Long Away Night
