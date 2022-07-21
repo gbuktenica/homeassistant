@@ -135,17 +135,11 @@ automation:
     alias: Presence Glen Home
     description: Set when Glen is home.
     trigger:
-    - entity_id: device_tracker.glen_unifi
-      platform: state
-      to: home
     - entity_id: device_tracker.glens_phone
       platform: state
       to: home
       for:
-        minutes: 5
-    - entity_id: device_tracker.glen_ping
-      platform: state
-      to: home
+        minutes: 2
     condition:
       - condition: state
         entity_id: input_select.glen_presence
