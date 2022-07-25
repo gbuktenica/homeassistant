@@ -3,12 +3,13 @@ substitutions:
   channel_1: "Car"
   ip: "10.4.4.42"
   ssid: IoTG
-  board: nodemcuv2
+  board: nodemcu-32s
   height: 2.5 # height in metres
 #######################
 esphome:
   name: ${device_name}
-  platform: ESP8266
+
+esp32:
   board: ${board}
 
 wifi:
@@ -50,8 +51,8 @@ sensor:
   - platform: ultrasonic
     id: ultrasonic
     name: "Car_position"
-    trigger_pin: D1
-    echo_pin: D2
+    trigger_pin: GPIO25
+    echo_pin: GPIO26
     update_interval: 60s
 
 binary_sensor:
