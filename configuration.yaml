@@ -24,6 +24,7 @@ history:
      - device_tracker.nat_unifi
      - device_tracker.nat_ping
      - device_tracker.nat_phone
+homeassistant_alerts:
 image:
 input_boolean:
 input_button:
@@ -36,6 +37,7 @@ map:
 media_source:
 mobile_app:
 my:
+person:
 scene: !include scenes.yaml
 script: !include scripts.yaml
 ssdp:
