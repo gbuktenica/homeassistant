@@ -3,6 +3,7 @@
 ##################
 automation: !include automations.yaml
 #backup:
+bluetooth:
 cloud:
 config:
 # counter:
