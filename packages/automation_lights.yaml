@@ -597,8 +597,29 @@ automation:
         entity_id:
           - light.garden_switch
 
-  - id: garage_closing
-    alias: Garage Closing
+  - id: garage_closing_car_present
+    alias: Garage Closing Car Present
+    description:
+      Turn off the Garage light when the Garage door is closing and the car is in the garage.
+    trigger:
+      - entity_id: cover.garage_door
+        platform: state
+        to: "closing"
+    condition: []
+      - condition: state
+        entity_id: binary_sensor.garage_rear_door
+        state: "off" #closed
+      - condition: state
+        entity_id: binary_sensor.car_present
+        state: "on" #Car is Present
+    action:
+    - service: light.turn_off
+      data:
+        entity_id:
+          - light.garage_light
+
+  - id: garage_closing_not_car_present
+    alias: Garage Closing Car Not Present
     description:
       Turn off the Garage light when the Garage door is closing
     trigger:
@@ -609,9 +630,16 @@ automation:
       - condition: state
         entity_id: binary_sensor.garage_rear_door
         state: "off" #closed
+      not:
+      - condition: state
+        entity_id: binary_sensor.car_present
+        state: "on" #Car is Present
     action:
     - delay:
         minutes: 5
+    - condition: state
+      entity_id: binary_sensor.garage_rear_door
+      state: "off" #closed
     - service: light.turn_off
       data:
         entity_id:
