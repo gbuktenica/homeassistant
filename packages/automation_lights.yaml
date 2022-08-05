@@ -605,7 +605,7 @@ automation:
       - entity_id: cover.garage_door
         platform: state
         to: "closing"
-    condition: []
+    condition:
       - condition: state
         entity_id: binary_sensor.garage_rear_door
         state: "off" #closed
@@ -630,10 +630,11 @@ automation:
       - condition: state
         entity_id: binary_sensor.garage_rear_door
         state: "off" #closed
-      not:
-      - condition: state
-        entity_id: binary_sensor.car_present
-        state: "on" #Car is Present
+      condition: not
+      conditions:
+        - condition: state
+          entity_id: binary_sensor.car_present
+          state: "on" #Car is Present
     action:
     - delay:
         minutes: 5
