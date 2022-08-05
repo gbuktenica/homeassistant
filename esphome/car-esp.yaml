@@ -4,7 +4,7 @@ substitutions:
   ip: "10.4.4.42"
   ssid: IoTG
   board: nodemcu-32s
-  height: 2.5 # height in metres
+  height: "1.2" # height in metres
 #######################
 esphome:
   name: ${device_name}
@@ -49,18 +49,18 @@ time:
 #####################################
 sensor:
   - platform: ultrasonic
-    id: ultrasonic
+    id: ultrasonic1
     name: "Car_position"
     trigger_pin: GPIO25
     echo_pin: GPIO26
-    update_interval: 60s
+    update_interval: 10s
 
 binary_sensor:
   - platform: template
     name: "Car Present"
     icon: "mdi:car"
     lambda: |-
-      if (id(ultrasonic).state < ${height}) {
+      if (id(ultrasonic1).state < ${height}) {
         // Car  is present.
         return true;
       } else {

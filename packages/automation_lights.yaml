@@ -613,6 +613,11 @@ automation:
         entity_id: binary_sensor.car_present
         state: "on" #Car is Present
     action:
+    - delay:
+        minutes: 5
+    - condition: state
+      entity_id: binary_sensor.garage_rear_door
+      state: "off" #closed
     - service: light.turn_off
       data:
         entity_id:
@@ -630,17 +635,12 @@ automation:
       - condition: state
         entity_id: binary_sensor.garage_rear_door
         state: "off" #closed
-      condition: not
-      conditions:
-        - condition: state
+      - condition: not
+        conditions:
+          condition: state
           entity_id: binary_sensor.car_present
           state: "on" #Car is Present
     action:
-    - delay:
-        minutes: 5
-    - condition: state
-      entity_id: binary_sensor.garage_rear_door
-      state: "off" #closed
     - service: light.turn_off
       data:
         entity_id:
