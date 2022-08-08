@@ -641,7 +641,13 @@ automation:
           entity_id: binary_sensor.car_present
           state: "on" #Car is Present
     action:
-    - service: light.turn_off
+    - delay:
+        seconds: 10
+    - condition: not
+      conditions:
+        condition: state
+        entity_id: binary_sensor.car_present
+        state: "on" #Car is Present
       data:
         entity_id:
           - light.garage_light
