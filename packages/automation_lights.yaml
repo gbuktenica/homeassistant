@@ -605,6 +605,8 @@ automation:
       - entity_id: cover.garage_door
         platform: state
         to: "closing"
+        for:
+          seconds: 10
     condition:
       - condition: state
         entity_id: binary_sensor.garage_rear_door
@@ -631,6 +633,8 @@ automation:
       - entity_id: cover.garage_door
         platform: state
         to: "closing"
+        for:
+          seconds: 10
     condition:
       - condition: state
         entity_id: binary_sensor.garage_rear_door
@@ -641,13 +645,7 @@ automation:
           entity_id: binary_sensor.car_present
           state: "on" #Car is Present
     action:
-    - delay:
-        seconds: 10
-    - condition: not
-      conditions:
-        condition: state
-        entity_id: binary_sensor.car_present
-        state: "on" #Car is Present
+    - service: light.turn_off
       data:
         entity_id:
           - light.garage_light
