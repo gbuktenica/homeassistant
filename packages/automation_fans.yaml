@@ -26,7 +26,7 @@ automation:
     action:
     - service: fan.turn_on
       entity_id: fan.server_fan
-    - service: fan.set_speed
+    - service: fan.set_percentage
       entity_id: fan.server_fan
       data_template:
         percentage: '{% set temp = states(''sensor.server_temperature'')|float %} {%
@@ -68,7 +68,7 @@ automation:
     action:
     - service: fan.turn_on
       entity_id: fan.amp_fan
-    - service: fan.set_speed
+    - service: fan.set_percentage
       entity_id: fan.amp_fan
       data_template:
         percentage: '{% set temp = states(''sensor.amp_temperature'')|float %} {% if temp

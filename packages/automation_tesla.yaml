@@ -1,27 +1,30 @@
 automation:
-  - id: tesla_night_charging_start
-    alias: Tesla Night Charging Start
-    trigger:
-      platform: time
-      at: '23:01:00'
-    condition: []
-    # - condition: state
-    #   entity_id: input_boolean.tesla_night_charging
-    #   state: 'on'
-    action:
-    - service: switch.turn_on
-      data:
-        entity_id:
-        - switch.lucy_charger_switch
+  # - id: tesla_night_charging_start
+  #   alias: Tesla Night Charging Start
+  #   trigger:
+  #     platform: time
+  #     at: '23:01:00'
+  #   condition:
+  #   - condition: state
+  #     entity_id: binary_sensor.tesla_wall_connector_vehicle_connected
+  #     state: 'on'
+  #   action:
+  #   - service: switch.turn_on
+  #     data:
+  #       entity_id:
+  #       - switch.lucy_charger_switch
 
-  - id: tesla_night_charging_stop
-    alias: Tesla Night Charging Stop
-    trigger:
-      platform: time
-      at: '03:58:00'
-    condition: []
-    action:
-    - service: switch.turn_off
-      data:
-        entity_id:
-        - switch.lucy_charger_switch
+  # - id: tesla_night_charging_stop
+  #   alias: Tesla Night Charging Stop
+  #   trigger:
+  #     platform: time
+  #     at: '03:58:00'
+  #   condition:
+  #   - condition: state
+  #     entity_id: binary_sensor.tesla_wall_connector_vehicle_connected
+  #     state: 'on'
+  #   action:
+  #   - service: switch.turn_off
+  #     data:
+  #       entity_id:
+  #       - switch.lucy_charger_switch
