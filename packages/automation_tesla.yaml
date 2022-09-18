@@ -24,7 +24,27 @@ automation:
         parameters:
           path_vars:
             vehicle_id: '{{ state_attr(''binary_sensor.lucy_online_sensor'', ''id'') }}'
-          charging_amps: '5'
+          charging_amps: '4'
+
+  - id: tesla_solar_charging_stop
+    alias: Tesla Solar Charging Stop
+    trigger:
+    - platform: numeric_state
+      entity_id: sensor.energy_meter_ct1_amps
+      below: '3'
+      for: 00:10:00
+    condition:
+    - condition: state
+      entity_id: binary_sensor.tesla_wall_connector_vehicle_connected
+      state: 'on'
+    - condition: numeric_state
+      entity_id: sensor.lucy_battery_sensor
+      below: 60
+    action:
+    - service: switch.turn_off
+      data:
+        entity_id:
+        - switch.lucy_charger_switch
 
   - id: tesla_plugged_in
     alias: Tesla Plugged In
@@ -43,3 +63,18 @@ automation:
           path_vars:
             vehicle_id: '{{ state_attr(''binary_sensor.lucy_online_sensor'', ''id'') }}'
           charging_amps: '5'
+
+  - id: tesla_Peak_Stop
+    alias: Tesla Peak Stop
+    trigger:
+    - at: '15:00'
+      platform: time
+    condition:
+    - condition: state
+      entity_id: binary_sensor.tesla_wall_connector_vehicle_connected
+      state: 'on'
+    action:
+    - service: switch.turn_off
+      data:
+        entity_id:
+        - switch.lucy_charger_switch
