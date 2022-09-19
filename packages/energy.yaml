@@ -20,6 +20,6 @@ template:
       - name: "Total Solar Current"
         unit_of_measurement: "A"
         state: >
-          {% set ct1  = states('sensor.energy_meter_ct1_amps') | float %}
-          {% set ct2  = states('sensor.energy_meter_ct2_amps') | float %}
+          {% set ct1  = states('sensor.stp5_0_3av_40_411_pv_current_a') | float %}
+          {% set ct2  = states('sensor.stp5_0_3av_40_411_pv_current_b') | float %}
           {{ (ct1 + ct2)  | round(3, default=0) }}
