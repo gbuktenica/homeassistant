@@ -16,3 +16,10 @@ template:
           {% set stairway     = states('sensor.stairway_light_energy') | float %}
           {% set wardrobe   = states('sensor.wardrobe_light_energy') | float %}
           {{ (backyard + coffee + dining + entry + frontyard + garage + hall + kitchen + office_front + office_rear + stairway + wardrobe )  | round(3, default=0) }}
+          
+      - name: "Total Solar Current"
+        unit_of_measurement: "A"
+        state: >
+          {% set ct1  = states('sensor.energy_meter_ct1_amps') | float %}
+          {% set ct2  = states('sensor.energy_meter_ct2_amps') | float %}
+          {{ (ct1 + ct2)  | round(3, default=0) }}
