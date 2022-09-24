@@ -1,13 +1,3 @@
-tesla_charging_amps:
-  sequence:
-  - service: tesla_custom.api
-    data:
-      command: CHARGING_AMPS
-      parameters:
-        path_vars:
-          vehicle_id: '{{ state_attr(''binary_sensor.lucy_online_sensor'', ''id'') }}'
-        charging_amps: '5'
-
 front_heater_off:
   sequence:
   - service: remote.send_command
@@ -175,27 +165,22 @@ washing_notify:
 weekend_music:
   alias: Weekend Music
   sequence:
-  - service: media_player.turn_on
-    data:
-      entity_id: media_player.lounge_amp
   - service: hassio.addon_restart
     data:
       addon: a0d7b954_spotify
+  - service: remote.turn_on
+    target:
+      entity_id: remote.harmony_hub
+    data:
+      activity: hassio
   - service: light.turn_on
     data:
       entity_id: light.kitchen_light
   - service: media_player.select_source
     target:
-      entity_id: media_player.lounge_amp
-    data:
-      source: HEOS Music
-  - delay:
-      seconds: 1
-  - service: media_player.select_source
-    target:
       entity_id: media_player.spotify_york_spotify
     data:
-      source: Lounge Amp
+      source: Home Assistant
   - service: media_player.volume_set
     target:
       entity_id: media_player.spotify_york_spotify

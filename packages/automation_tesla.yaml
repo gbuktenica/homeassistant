@@ -3,8 +3,8 @@ automation:
     alias: Tesla Solar Charging Start
     trigger:
     - platform: numeric_state
-      entity_id: sensor.energy_meter_ct1_amps
-      above: '5'
+      entity_id: sensor.energy_meter_total_watts
+      below: '-1500'
       for: 00:05:00
     condition:
     - condition: state
@@ -13,6 +13,9 @@ automation:
     - condition: numeric_state
       entity_id: sensor.lucy_battery_sensor
       below: 60
+    - condition: time
+      after: 09:00:00
+      before: '15:00:00'
     action:
     - service: switch.turn_on
       data:
@@ -30,9 +33,9 @@ automation:
     alias: Tesla Solar Charging Stop
     trigger:
     - platform: numeric_state
-      entity_id: sensor.energy_meter_ct1_amps
-      below: '3'
-      for: 00:10:00
+      entity_id: sensor.energy_meter_total_watts
+      above: '-1500'
+      for: 00:05:00
     condition:
     - condition: state
       entity_id: binary_sensor.tesla_wall_connector_vehicle_connected
@@ -40,6 +43,9 @@ automation:
     - condition: numeric_state
       entity_id: sensor.lucy_battery_sensor
       below: 60
+    - condition: time
+      after: 09:00:00
+      before: '15:00:00'
     action:
     - service: switch.turn_off
       data:
@@ -62,7 +68,7 @@ automation:
         parameters:
           path_vars:
             vehicle_id: '{{ state_attr(''binary_sensor.lucy_online_sensor'', ''id'') }}'
-          charging_amps: '5'
+          charging_amps: '2'
 
   - id: tesla_Peak_Stop
     alias: Tesla Peak Stop
