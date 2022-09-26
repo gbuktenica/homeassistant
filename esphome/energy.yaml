@@ -157,17 +157,46 @@ sensor:
     unit_of_measurement: W
     icon: "mdi:flash-circle"
     update_interval: ${update_time}
+
+  - platform: template
+    name: ${disp_name} Grin In
+    id: gridin
+    lambda: |-
+      if (id(totalWatts).state > 0) {
+        return id(totalWatts).state ;
+      } else {
+        return 0;
+      }
+    accuracy_decimals: 1
+    unit_of_measurement: W
+    icon: "mdi:flash-circle"
+    update_interval: ${update_time}
+
+  - platform: template
+    name: ${disp_name} Grin Out
+    id: gridout
+    lambda: |-
+      if (id(totalWatts).state < 0) {
+        return id(totalWatts).state * -1;
+      } else {
+        return 0;
+      }
+    accuracy_decimals: 1
+    unit_of_measurement: W
+    icon: "mdi:flash-circle"
+    update_interval: ${update_time}
+
 #kWh
   - platform: total_daily_energy
-    name: ${disp_name} Total kWh
-    power_id: totalWatts
+    name: ${disp_name} Grid In kWh
+    power_id: gridin
     filters:
       - multiply: 0.001
     unit_of_measurement: kWh
 
   - platform: total_daily_energy
-    name: ${disp_name} House kWh
-    power_id: ct4Watts
+    name: ${disp_name} Grid Out kWh
+    power_id: gridout
     filters:
       - multiply: 0.001
     unit_of_measurement: kWh
