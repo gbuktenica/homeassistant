@@ -23,37 +23,3 @@ template:
           {% set ct1  = states('sensor.stp5_0_3av_40_411_pv_current_a') | float %}
           {% set ct2  = states('sensor.stp5_0_3av_40_411_pv_current_b') | float %}
           {{ (ct1 + ct2)  | round(3, default=0) }}
-
-      - name: "Grid In"
-        unit_of_measurement: "W"
-        state_class: measurement
-        device_class: energy
-        state: >
-          {% if states('sensor.energy_meter_total_watts') | float(0) >= 0 %}
-            {% set gridin = states('sensor.energy_meter_total_watts') | float(0) %}
-          {% else %}
-            {% set gridin = 0 %}
-          {% endif %}
-          {{ gridin }}
-
-      - name: "Grid Out"
-        unit_of_measurement: "W"
-        state_class: measurement
-        device_class: energy
-        state: >
-          {% if states('sensor.energy_meter_total_watts') | float(0) =< 0 %}
-            {% set gridout = -states('sensor.energy_meter_total_watts') | float(0) %}
-          {% else %}
-            {% set gridout = 0 %}
-          {% endif %}
-          {{ gridout }}
-
-  - platform: integration
-    source: sensor.grid_in
-    name: "Energy Import"
-    unit_prefix: k
-    round: 2
-  - platform: integration
-    source: sensor.grid_out
-    name: "Energy Export"
-    unit_prefix: k
