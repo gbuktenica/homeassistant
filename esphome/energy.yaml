@@ -165,6 +165,13 @@ sensor:
       - multiply: 0.001
     unit_of_measurement: kWh
 
+  - platform: total_daily_energy
+    name: ${disp_name} House kWh
+    power_id: ct4Watts
+    filters:
+      - multiply: 0.001
+    unit_of_measurement: kWh
+
 switch:
   - platform: restart
     name: ${disp_name} Restart
