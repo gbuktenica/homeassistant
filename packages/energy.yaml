@@ -29,11 +29,12 @@ template:
         state_class: measurement
         device_class: energy
         state: >
-          {% if states('sensor.energy_meter_total_watts') | float ) >= 0 %}
-            {{ states('sensor.energy_meter_total_watts') }}
-          {% else -%}
-            0
+          {% if states('sensor.energy_meter_total_watts') | float(0) >= 0 %}
+            {% set gridin = states('sensor.energy_meter_total_watts') | float(0) %}
+          {% else %}
+            {% set gridin = 0 %}
           {% endif %}
+          {{ gridin }}
         attributes:
           last_reset: '1970-01-01T00:00:00+00:00'
       - name: "Grid Out"
@@ -41,11 +42,12 @@ template:
         state_class: measurement
         device_class: energy
         state: >
-          {% if states('sensor.energy_meter_total_watts') | float ) < 0 %}
-            {{ states('sensor.energy_meter_total_watts') | float | abs }}
-          {% else -%}
-            0
+          {% if states('sensor.energy_meter_total_watts') | float(0) =< 0 %}
+            {% set gridout = -states('sensor.energy_meter_total_watts') | float(0) %}
+          {% else %}
+            {% set gridout = 0 %}
           {% endif %}
+          {{ gridout }}
         attributes:
           last_reset: '1970-01-01T00:00:00+00:00'
 
