@@ -16,10 +16,45 @@ template:
           {% set stairway     = states('sensor.stairway_light_energy') | float %}
           {% set wardrobe   = states('sensor.wardrobe_light_energy') | float %}
           {{ (backyard + coffee + dining + entry + frontyard + garage + hall + kitchen + office_front + office_rear + stairway + wardrobe )  | round(3, default=0) }}
-          
+
       - name: "Total Solar Current"
         unit_of_measurement: "A"
         state: >
           {% set ct1  = states('sensor.stp5_0_3av_40_411_pv_current_a') | float %}
           {% set ct2  = states('sensor.stp5_0_3av_40_411_pv_current_b') | float %}
           {{ (ct1 + ct2)  | round(3, default=0) }}
+
+      - name: "Grid In"
+        unit_of_measurement: "W"
+        state_class: measurement
+        device_class: energy
+        state: >
+          {% if state('sensor.energy_meter_total_watts') | float ) > 0 %}
+            {{ state('sensor.energy_meter_total_watts') }}
+          {% else -%}
+            0
+          {% endif %}
+        attributes:
+          last_reset: '1970-01-01T00:00:00+00:00'
+      - name: "Grid Out"
+        unit_of_measurement: "W"
+        state_class: measurement
+        device_class: energy
+        state: >
+          {% if state('sensor.energy_meter_total_watts') | float ) > 0 %}
+            0
+          {% else -%}
+            {{ state('sensor.energy_meter_total_watts') | float | abs }}
+          {% endif %}
+        attributes:
+          last_reset: '1970-01-01T00:00:00+00:00'
+
+  - platform: integration
+    source: sensor.grid_in
+    name: "Energy Import"
+    unit_prefix: k
+    round: 2
+  - platform: integration
+    source: sensor.grid_out
+    name: "Energy Export"
+    unit_prefix: k
