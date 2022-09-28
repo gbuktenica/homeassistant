@@ -10,6 +10,9 @@ automation:
     - condition: state
       entity_id: binary_sensor.tesla_wall_connector_vehicle_connected
       state: 'on'
+    - condition: state
+      entity_id: input_boolean.charging_override
+      state: 'off'
     - condition: numeric_state
       entity_id: sensor.lucy_battery_sensor
       below: 60
@@ -27,7 +30,7 @@ automation:
         parameters:
           path_vars:
             vehicle_id: '{{ state_attr(''binary_sensor.lucy_online_sensor'', ''id'') }}'
-          charging_amps: '4'
+          charging_amps: '2'
 
   - id: tesla_solar_charging_stop
     alias: Tesla Solar Charging Stop
@@ -40,6 +43,9 @@ automation:
     - condition: state
       entity_id: binary_sensor.tesla_wall_connector_vehicle_connected
       state: 'on'
+    - condition: state
+      entity_id: input_boolean.charging_override
+      state: 'off'
     - condition: numeric_state
       entity_id: sensor.lucy_battery_sensor
       below: 60
@@ -58,6 +64,9 @@ automation:
     - platform: state
       entity_id: binary_sensor.tesla_wall_connector_vehicle_connected
     condition:
+    - condition: state
+      entity_id: input_boolean.charging_override
+      state: 'off'
     - condition: numeric_state
       entity_id: sensor.lucy_battery_sensor
       below: 60
@@ -79,6 +88,9 @@ automation:
     - condition: state
       entity_id: binary_sensor.tesla_wall_connector_vehicle_connected
       state: 'on'
+    - condition: state
+      entity_id: input_boolean.charging_override
+      state: 'off'
     action:
     - service: switch.turn_off
       data:
