@@ -58,7 +58,7 @@ automation:
   - id: tesla_solar_charging_set
     alias: Tesla Solar Charging Set
     trigger:
-    - platform: numeric_state
+    - platform: state
       entity_id: input_number.tesla_charging_amps
     - platform: state
       entity_id: binary_sensor.tesla_wall_connector_contactor_closed
