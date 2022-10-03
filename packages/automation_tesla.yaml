@@ -26,26 +26,46 @@ automation:
       data:
         entity_id:
         - switch.lucy_charger_switch
-    - service: tesla_custom.api
-      data:
-        command: CHARGING_AMPS
-        parameters:
-          path_vars:
-            vehicle_id: '{{ state_attr(''binary_sensor.lucy_online_sensor'', ''id'') }}'
-          charging_amps: input_number.tesla_charging_amps
 
   - id: tesla_charging_stop
     alias: Tesla Charging Stop
     trigger:
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      above: '500'
+      above: '1000'
       for: 00:05:00
     - platform: time
-      at: '15:00'
+      at: '14:59'
+    - platform: state
+      entity_id: binary_sensor.tesla_wall_connector_contactor_closed
+      to: 'on'
     condition:
     - condition: state
-      entity_id: binary_sensor.tesla_wall_connector_vehicle_connected
+      entity_id: binary_sensor.tesla_wall_connector_contactor_closed
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.charging_override
+      state: 'off'
+    - condition: time
+      before: 09:00:00
+      after: '14:58:00'
+    action:
+    - service: switch.turn_off
+      data:
+        entity_id:
+        - switch.lucy_charger_switch
+
+  - id: tesla_solar_charging_set
+    alias: Tesla Solar Charging Set
+    trigger:
+    - platform: numeric_state
+      entity_id: input_number.tesla_charging_amps
+    - platform: state
+      entity_id: binary_sensor.tesla_wall_connector_contactor_closed
+      to: 'on'
+    condition:
+    - condition: state
+      entity_id: binary_sensor.tesla_wall_connector_contactor_closed
       state: 'on'
     - condition: state
       entity_id: input_boolean.charging_override
@@ -56,24 +76,6 @@ automation:
     - condition: time
       after: 09:00:00
       before: '15:00:00'
-    action:
-    - service: switch.turn_off
-      data:
-        entity_id:
-        - switch.lucy_charger_switch
-
-  - id: tesla_plugged_in
-    alias: Tesla Plugged In
-    trigger:
-    - platform: state
-      entity_id: binary_sensor.tesla_wall_connector_vehicle_connected
-    condition:
-    - condition: state
-      entity_id: input_boolean.charging_override
-      state: 'off'
-    - condition: numeric_state
-      entity_id: sensor.lucy_battery_sensor
-      below: input_number.tesla_max_battery
     action:
     - service: tesla_custom.api
       data:
