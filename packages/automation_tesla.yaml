@@ -48,13 +48,12 @@ automation:
           entity_id: sensor.energy_meter_total_watts
           above: '1000'
     action:
-      condition:
-      - condition: state
-          entity_id: binary_sensor.tesla_wall_connector_contactor_closed
-          state: 'on'
-      - condition: state
-          entity_id: input_boolean.charging_override
-          state: 'off'
+    - condition: state
+        entity_id: binary_sensor.tesla_wall_connector_contactor_closed
+        state: 'on'
+    - condition: state
+        entity_id: input_boolean.charging_override
+        state: 'off'
     - service: switch.turn_off
       data:
         entity_id:
