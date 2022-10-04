@@ -49,11 +49,11 @@ automation:
           above: '1000'
     action:
     - condition: state
-        entity_id: binary_sensor.tesla_wall_connector_contactor_closed
-        state: 'on'
+      entity_id: binary_sensor.tesla_wall_connector_contactor_closed
+      state: 'on'
     - condition: state
-        entity_id: input_boolean.charging_override
-        state: 'off'
+      entity_id: input_boolean.charging_override
+      state: 'off'
     - service: switch.turn_off
       data:
         entity_id:
