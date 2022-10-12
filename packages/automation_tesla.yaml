@@ -35,7 +35,7 @@ automation:
     trigger:
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      above: '1000'
+      above: '500'
       for: 00:05:00
     - platform: time
       at: '14:59'
