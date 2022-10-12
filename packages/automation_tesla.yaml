@@ -22,6 +22,9 @@ automation:
       after: 09:00:00
       before: '15:00:00'
     action:
+    - condition: state
+      entity_id: binary_sensor.tesla_wall_connector_contactor_closed
+      state: 'off'
     - service: switch.turn_on
       data:
         entity_id:
