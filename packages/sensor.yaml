@@ -16,24 +16,11 @@ sensor:
         unit_of_measurement: AUD/kWh
         value_template: >
           {% set tariff = { "PE": 0.5, "OP": 0.22, "SOP": 0.08 } %}
-          {% if ((9 < (now().hour)) %}
+          {% if ((9 > (now().hour))) %}
             {{ tariff.OP }}
-          {% elif ((15 < (now().hour)) %}
+          {% elif ((15 > (now().hour))) %}
             {{ tariff.SOP }}
-          {% elif ((21 < (now().hour)) %}
-            {{ tariff.PE }}
-          {% else %}
-            {{ tariff.OP }}
-          {% endif %}
-
-  - platform: template
-    sensors:
-      energy_export:
-        friendly_name: Synergy Export Tariff
-        unit_of_measurement: AUD/kWh
-        value_template: >
-          {% set tariff = { "PE": 0.25, "OP": 0.1} %}
-           {% if ((15 < (now().hour)) %}
+          {% elif ((21 > (now().hour))) %}
             {{ tariff.PE }}
           {% else %}
             {{ tariff.OP }}
