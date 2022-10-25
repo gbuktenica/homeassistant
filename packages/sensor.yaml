@@ -25,3 +25,16 @@ sensor:
           {% else %}
             {{ tariff.OP }}
           {% endif %}
+
+  - platform: template
+    sensors:
+      energy_export:
+        friendly_name: Synergy Export Tariff
+        unit_of_measurement: AUD/kWh
+        value_template: >
+          {% set tariff = { "PE": 0.025, "OP": 0.1} %}
+           {% if ((15 > (now().hour))) %}
+            {{ tariff.PE }}
+          {% else %}
+            {{ tariff.OP }}
+          {% endif %}
