@@ -77,3 +77,4 @@ secrets.yaml
 # Frequent local changes
 known_devices.yaml
 custom_components/
+appdaemon/
