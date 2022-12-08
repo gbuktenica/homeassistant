@@ -79,10 +79,7 @@ automation:
       entity_id: input_boolean.charging_override
       state: 'off'
     action:
-    - service: tesla_custom.api
-      data:
-        command: CHARGING_AMPS
-        parameters:
-          path_vars:
-            vehicle_id: "{{ state_attr('binary_sensor.lucy_online_sensor', 'id') }}"
-          charging_amps: "{{ (states('input_number.tesla_charging_amps')|int) }}"
+    - service: number.set_value
+        data_template:
+          entity_id: number.lucy_charging_amps
+          value: "{{ input_number.tesla_charging_amps }}"
