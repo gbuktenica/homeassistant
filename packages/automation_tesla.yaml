@@ -15,9 +15,9 @@ automation:
     - condition: state
       entity_id: input_boolean.charging_override
       state: 'off'
-    - condition: numeric_state
-      entity_id: sensor.lucy_battery
-      below: number.lucy_charge_limit
+    - condition: template
+      value_template: >-
+        {{ states('sensor.lucy_battery') | int < states('number.lucy_charge_limit') | int }}
     - condition: time
       after: 09:00:00
       before: '15:00:00'
