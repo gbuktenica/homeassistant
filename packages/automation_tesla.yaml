@@ -16,7 +16,7 @@ automation:
       entity_id: input_boolean.charging_override
       state: 'off'
     - condition: numeric_state
-      entity_id: sensor.lucy_battery_sensor
+      entity_id: sensor.lucy_battery
       below: input_number.tesla_max_battery
     - condition: time
       after: 09:00:00
