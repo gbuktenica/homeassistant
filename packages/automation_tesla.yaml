@@ -17,7 +17,7 @@ automation:
       state: 'off'
     - condition: numeric_state
       entity_id: sensor.lucy_battery
-      below: input_number.tesla_max_battery
+      below: number.lucy_charge_limit
     - condition: time
       after: 09:00:00
       before: '15:00:00'
