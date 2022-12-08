@@ -80,6 +80,6 @@ automation:
       state: 'off'
     action:
     - service: number.set_value
-        data_template:
-          entity_id: number.lucy_charging_amps
-          value: "{{ input_number.tesla_charging_amps }}"
+      data_template:
+        entity_id: number.lucy_charging_amps
+        value: "{{ input_number.tesla_charging_amps }}"
