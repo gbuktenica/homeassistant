@@ -34,6 +34,9 @@ automation:
     - service: button.press
       target:
         entity_id: button.lucy_force_data_update
+    - service: notify.mobile_app_s21
+      data:
+        message: 'Lucy Started Charging'
 
   - id: tesla_charging_stop
     alias: Tesla Charging Stop
@@ -71,6 +74,9 @@ automation:
     - service: button.press
       target:
         entity_id: button.lucy_force_data_update
+    - service: notify.mobile_app_s21
+      data:
+        message: 'Lucy Stopped Charging'
 
   - id: tesla_solar_charging_set
     alias: Tesla Solar Charging Set
