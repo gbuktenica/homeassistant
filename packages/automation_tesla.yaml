@@ -29,12 +29,12 @@ automation:
       data:
         entity_id:
         - switch.lucy_charger_switch
-    - delay: 1
+    - delay:
         minutes: 1
     - service: button.press
       target:
         entity_id: button.lucy_force_data_update
-        
+
   - id: tesla_charging_stop
     alias: Tesla Charging Stop
     trigger:
@@ -66,7 +66,7 @@ automation:
       data:
         entity_id:
         - switch.lucy_charger_switch
-    - delay: 1
+    - delay:
         minutes: 1
     - service: button.press
       target:
@@ -93,7 +93,7 @@ automation:
       data_template:
         entity_id: number.lucy_charging_amps
         value: "{{ states('input_number.tesla_charging_amps') }}"
-    - delay: 1
+    - delay:
         minutes: 1
     - service: button.press
       target:
