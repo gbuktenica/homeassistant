@@ -28,7 +28,7 @@ automation:
     - service: switch.turn_on
       data:
         entity_id:
-        - switch.lucy_charger_switch
+        - switch.lucy_charger
     - delay:
         minutes: 1
     - service: button.press
@@ -68,7 +68,7 @@ automation:
     - service: switch.turn_off
       data:
         entity_id:
-        - switch.lucy_charger_switch
+        - switch.lucy_charger
     - delay:
         minutes: 1
     - service: button.press
