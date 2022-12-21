@@ -36,7 +36,16 @@ automation:
         entity_id: button.lucy_force_data_update
     - service: notify.mobile_app_s21
       data:
+        message: clear_notification
+        data:
+          tag: charging
+    - delay:
+        seconds: 10
+    - service: notify.mobile_app_s21
+      data:
         message: "Lucy Started Charging at {{ states('sensor.lucy_battery')}}%"
+        data:
+          tag: charging
 
   - id: tesla_charging_stop
     alias: Tesla Charging Stop
@@ -113,4 +122,13 @@ automation:
         entity_id: button.lucy_force_data_update
     - service: notify.mobile_app_s21
       data:
+        message: clear_notification
+        data:
+          tag: charging
+    - delay:
+        seconds: 10
+    - service: notify.mobile_app_s21
+      data:
         message: "Lucy Stopped Charging at {{ states('sensor.lucy_battery')}}%"
+        data:
+          tag: charging
