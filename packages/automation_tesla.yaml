@@ -36,7 +36,7 @@ automation:
         entity_id: button.lucy_force_data_update
     - service: notify.mobile_app_s21
       data:
-        message: 'Lucy Started Charging at {{ states('sensor.lucy_battery')}}%'
+        message: "Lucy Started Charging at {{ states('sensor.lucy_battery')}}%"
 
   - id: tesla_charging_stop
     alias: Tesla Charging Stop
