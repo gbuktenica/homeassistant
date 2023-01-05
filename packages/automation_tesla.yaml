@@ -4,7 +4,7 @@ automation:
     trigger:
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      below: '-1500'
+      below: '-1000'
       for: 00:05:00
     - platform: time
       at: 09:05:00
@@ -56,7 +56,7 @@ automation:
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
       above: '500'
-      for: 00:05:00
+      for: 00:15:00
     - platform: time
       at: '14:59'
     - platform: state
@@ -82,35 +82,35 @@ automation:
         entity_id:
         - switch.lucy_charger
 
-  - id: tesla_solar_charging_set
-    alias: Tesla Solar Charging Set
-    trigger:
-    - platform: state
-      entity_id: input_number.tesla_charging_amps
-    - platform: state
-      entity_id: binary_sensor.tesla_wall_connector_contactor_closed
-      to: 'on'
-      for: 00:01:00
-    condition: []
-    action:
-    - service: button.press
-      target:
-        entity_id: button.lucy_force_data_update
-    - condition: state
-      entity_id: input_boolean.charging_override
-      state: 'off'
-    - condition: state
-      entity_id: binary_sensor.tesla_wall_connector_contactor_closed
-      state: 'on'
-    - service: number.set_value
-      data_template:
-        entity_id: number.lucy_charging_amps
-        value: "{{ states('input_number.tesla_charging_amps') }}"
-    - delay:
-        minutes: 1
-    - service: button.press
-      target:
-        entity_id: button.lucy_force_data_update
+  # - id: tesla_solar_charging_set
+  #   alias: Tesla Solar Charging Set
+  #   trigger:
+  #   - platform: state
+  #     entity_id: input_number.tesla_charging_amps
+  #   - platform: state
+  #     entity_id: binary_sensor.tesla_wall_connector_contactor_closed
+  #     to: 'on'
+  #     for: 00:01:00
+  #   condition: []
+  #   action:
+  #   - service: button.press
+  #     target:
+  #       entity_id: button.lucy_force_data_update
+  #   - condition: state
+  #     entity_id: input_boolean.charging_override
+  #     state: 'off'
+  #   - condition: state
+  #     entity_id: binary_sensor.tesla_wall_connector_contactor_closed
+  #     state: 'on'
+  #   - service: number.set_value
+  #     data_template:
+  #       entity_id: number.lucy_charging_amps
+  #       value: "{{ states('input_number.tesla_charging_amps') }}"
+  #   - delay:
+  #       minutes: 1
+  #   - service: button.press
+  #     target:
+  #       entity_id: button.lucy_force_data_update
 
   - id: tesla_charging_stopped
     alias: Tesla Charging Stopped
@@ -135,5 +135,95 @@ automation:
     - service: notify.mobile_app_s21
       data:
         message: "Lucy Stopped Charging at {{ states('sensor.lucy_battery')}}%"
+        data:
+          tag: charging
+
+  - id: tesla_solar_charging_more
+    alias: Tesla Solar Charging More
+    trigger:
+    - platform: numeric_state
+      entity_id: sensor.energy_meter_total_watts
+      below: '-750'
+    condition:
+    - condition: state
+      entity_id: binary_sensor.tesla_wall_connector_contactor_closed
+      state: 'on'
+    action:
+    - service: number.set_value
+      data_template:
+        entity_id: number.lucy_charging_amps
+        value: >
+          {% if (states('sensor.energy_meter_total_watts')|int < -4000) %}
+            {% set result = (states('number.lucy_charging_amps')|float + 5 |int) %}
+          {% elif (states('sensor.energy_meter_total_watts')|int < -3000) %}
+            {% set result = (states('number.lucy_charging_amps')|float + 4 |int) %}
+          {% elif (states('sensor.energy_meter_total_watts')|int < -2200) %}
+            {% set result = (states('number.lucy_charging_amps')|float + 4 |int) %}
+          {% elif (states('sensor.energy_meter_total_watts')|int < -1500) %}
+            {% set result = (states('number.lucy_charging_amps')|float + 2 |int) %}
+          {% else %}
+            {% set result = (states('number.lucy_charging_amps')|float + 1 |int) %}
+          {% endif %}
+          {{ result }}
+    - delay:
+        minutes: 1
+    - service: button.press
+      target:
+        entity_id: button.lucy_force_data_update
+    - service: notify.mobile_app_s21
+      data:
+        message: clear_notification
+        data:
+          tag: charging
+    - delay:
+        seconds: 10
+    - service: notify.mobile_app_s21
+      data:
+        message: "Lucy Charging at {{ states('number.lucy_charging_amps')}} Amps"
+        data:
+          tag: charging
+
+  - id: tesla_solar_charging_less
+    alias: Tesla Solar Charging less
+    trigger:
+    - platform: numeric_state
+      entity_id: sensor.energy_meter_total_watts
+      above: '750'
+    condition:
+    - condition: state
+      entity_id: binary_sensor.tesla_wall_connector_contactor_closed
+      state: 'on'
+    action:
+    - service: number.set_value
+      data_template:
+        entity_id: number.lucy_charging_amps
+        value: >
+          {% if (states('sensor.energy_meter_total_watts')|int > 8000) %}
+            {% set result = (states('number.lucy_charging_amps')|float - 11 |int) %}
+          {% elif (states('sensor.energy_meter_total_watts')|int > 4000) %}
+            {% set result = (states('number.lucy_charging_amps')|float - 5 |int) %}
+          {% elif (states('sensor.energy_meter_total_watts')|int > 3000) %}
+            {% set result = (states('number.lucy_charging_amps')|float - 4 |int) %}
+          {% elif (states('sensor.energy_meter_total_watts')|int > 2000) %}
+            {% set result = (states('number.lucy_charging_amps')|float - 2 |int) %}
+          {% else %}
+            {% set result = (states('number.lucy_charging_amps')|float - 1 |int) %}
+          {% endif %}
+          {{ result }}
+    - delay:
+        minutes: 1
+    - service: button.press
+      target:
+        entity_id: button.lucy_force_data_update
+    - service: notify.mobile_app_s21
+      data:
+        message: clear_notification
+        data:
+          tag: charging
+    - delay:
+        seconds: 10
+    - service: notify.mobile_app_s21
+      data:
+        message: "Lucy Charging at {{ states('number.lucy_charging_amps')}} Amps"
         data:
           tag: charging
