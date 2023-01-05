@@ -153,12 +153,12 @@ automation:
       data_template:
         entity_id: number.lucy_charging_amps
         value: >
-          {% if (states('sensor.energy_meter_total_watts')|int < -4000) %}
+          {% if (states('sensor.energy_meter_total_watts')|int < -3800) %}
             {% set result = (states('number.lucy_charging_amps')|float + 5 |int) %}
           {% elif (states('sensor.energy_meter_total_watts')|int < -3000) %}
             {% set result = (states('number.lucy_charging_amps')|float + 4 |int) %}
           {% elif (states('sensor.energy_meter_total_watts')|int < -2200) %}
-            {% set result = (states('number.lucy_charging_amps')|float + 4 |int) %}
+            {% set result = (states('number.lucy_charging_amps')|float + 3 |int) %}
           {% elif (states('sensor.energy_meter_total_watts')|int < -1500) %}
             {% set result = (states('number.lucy_charging_amps')|float + 2 |int) %}
           {% else %}
@@ -198,13 +198,23 @@ automation:
       data_template:
         entity_id: number.lucy_charging_amps
         value: >
-          {% if (states('sensor.energy_meter_total_watts')|int > 8000) %}
-            {% set result = (states('number.lucy_charging_amps')|float - 11 |int) %}
-          {% elif (states('sensor.energy_meter_total_watts')|int > 4000) %}
+          {% if (states('sensor.energy_meter_total_watts')|int > 10000) %}
+            {% set result = (states('number.lucy_charging_amps')|float - 14 |int) %}
+          {% elif (states('sensor.energy_meter_total_watts')|int > 8800) %}
+            {% set result = (states('number.lucy_charging_amps')|float - 12 |int) %}
+          {% elif (states('sensor.energy_meter_total_watts')|int > 7200) %}
+            {% set result = (states('number.lucy_charging_amps')|float - 10 |int) %}
+          {% elif (states('sensor.energy_meter_total_watts')|int > 7200) %}
+            {% set result = (states('number.lucy_charging_amps')|float - 8 |int) %}
+          {% elif (states('sensor.energy_meter_total_watts')|int > 5900) %}
+            {% set result = (states('number.lucy_charging_amps')|float - 6 |int) %}
+          {% elif (states('sensor.energy_meter_total_watts')|int > 3800) %}
             {% set result = (states('number.lucy_charging_amps')|float - 5 |int) %}
           {% elif (states('sensor.energy_meter_total_watts')|int > 3000) %}
             {% set result = (states('number.lucy_charging_amps')|float - 4 |int) %}
-          {% elif (states('sensor.energy_meter_total_watts')|int > 2000) %}
+          {% elif (states('sensor.energy_meter_total_watts')|int > 2200) %}
+            {% set result = (states('number.lucy_charging_amps')|float + 3 |int) %}
+          {% elif (states('sensor.energy_meter_total_watts')|int > 1500) %}
             {% set result = (states('number.lucy_charging_amps')|float - 2 |int) %}
           {% else %}
             {% set result = (states('number.lucy_charging_amps')|float - 1 |int) %}
