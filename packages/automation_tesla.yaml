@@ -148,6 +148,9 @@ automation:
     - condition: state
       entity_id: binary_sensor.tesla_wall_connector_contactor_closed
       state: 'on'
+    - condition: state
+      entity_id: input_boolean.charging_override
+      state: 'off'
     action:
     - service: number.set_value
       data_template:
@@ -193,6 +196,9 @@ automation:
     - condition: state
       entity_id: binary_sensor.tesla_wall_connector_contactor_closed
       state: 'on'
+    - condition: state
+      entity_id: input_boolean.charging_override
+      state: 'off'
     action:
     - service: number.set_value
       data_template:
