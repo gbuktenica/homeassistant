@@ -140,10 +140,13 @@ automation:
 
   - id: tesla_solar_charging_more
     alias: Tesla Solar Charging More
+    mode: single
     trigger:
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
       below: '-750'
+      for:
+        minutes: 2
     condition:
     - condition: state
       entity_id: binary_sensor.tesla_wall_connector_contactor_closed
@@ -188,10 +191,13 @@ automation:
 
   - id: tesla_solar_charging_less
     alias: Tesla Solar Charging less
+    mode: single
     trigger:
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
       above: '750'
+      for:
+        minutes: 2
     condition:
     - condition: state
       entity_id: binary_sensor.tesla_wall_connector_contactor_closed
