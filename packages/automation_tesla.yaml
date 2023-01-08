@@ -55,7 +55,7 @@ automation:
     trigger:
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      above: '500'
+      above: '1000'
       for: 00:15:00
     - platform: time
       at: '14:59'
@@ -144,7 +144,7 @@ automation:
     trigger:
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      below: '-750'
+      below: '-1000'
       for:
         minutes: 2
     condition:
@@ -195,7 +195,7 @@ automation:
     trigger:
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      above: '750'
+      above: '500'
       for:
         minutes: 2
     condition:
@@ -210,26 +210,25 @@ automation:
       data_template:
         entity_id: number.lucy_charging_amps
         value: >
-          {% if (states('sensor.energy_meter_total_watts')|int > 10000) %}
-            {% set result = (states('number.lucy_charging_amps')|float - 14 |int) %}
-          {% elif (states('sensor.energy_meter_total_watts')|int > 8800) %}
-            {% set result = (states('number.lucy_charging_amps')|float - 12 |int) %}
+          {% if (states('sensor.energy_meter_total_watts')|int > 7200) %}
+            {% set result =  1 | int %}
           {% elif (states('sensor.energy_meter_total_watts')|int > 7200) %}
-            {% set result = (states('number.lucy_charging_amps')|float - 10 |int) %}
-          {% elif (states('sensor.energy_meter_total_watts')|int > 7200) %}
-            {% set result = (states('number.lucy_charging_amps')|float - 8 |int) %}
+            {% set result = (states('number.lucy_charging_amps')|float - 8 | int) %}
           {% elif (states('sensor.energy_meter_total_watts')|int > 5900) %}
-            {% set result = (states('number.lucy_charging_amps')|float - 6 |int) %}
+            {% set result = (states('number.lucy_charging_amps')|float - 6 | int) %}
           {% elif (states('sensor.energy_meter_total_watts')|int > 3800) %}
-            {% set result = (states('number.lucy_charging_amps')|float - 5 |int) %}
+            {% set result = (states('number.lucy_charging_amps')|float - 5 | int) %}
           {% elif (states('sensor.energy_meter_total_watts')|int > 3000) %}
-            {% set result = (states('number.lucy_charging_amps')|float - 4 |int) %}
+            {% set result = (states('number.lucy_charging_amps')|float - 4 | int) %}
           {% elif (states('sensor.energy_meter_total_watts')|int > 2200) %}
-            {% set result = (states('number.lucy_charging_amps')|float + 3 |int) %}
+            {% set result = (states('number.lucy_charging_amps')|float - 3 | int) %}
           {% elif (states('sensor.energy_meter_total_watts')|int > 1500) %}
-            {% set result = (states('number.lucy_charging_amps')|float - 2 |int) %}
+            {% set result = (states('number.lucy_charging_amps')|float - 2 | int) %}
           {% else %}
-            {% set result = (states('number.lucy_charging_amps')|float - 1 |int) %}
+            {% set result = (states('number.lucy_charging_amps')|float - 1 | int) %}
+          {% endif %}
+          {% if result < 0 %}
+            {% set result = 0 %}
           {% endif %}
           {{ result }}
     - delay:
