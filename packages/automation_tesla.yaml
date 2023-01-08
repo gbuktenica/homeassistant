@@ -147,6 +147,11 @@ automation:
       below: '-1000'
       for:
         minutes: 2
+    - platform: state
+      entity_id: binary_sensor.tesla_wall_connector_contactor_closed
+      to: 'on'
+      for:
+        minutes: 2
     condition:
     - condition: state
       entity_id: binary_sensor.tesla_wall_connector_contactor_closed
@@ -154,6 +159,9 @@ automation:
     - condition: state
       entity_id: input_boolean.charging_override
       state: 'off'
+    - condition: numeric_state
+      entity_id: sensor.energy_meter_total_watts
+      below: '-1000'
     action:
     - service: number.set_value
       data_template:
@@ -198,6 +206,11 @@ automation:
       above: '500'
       for:
         minutes: 2
+    - platform: state
+      entity_id: binary_sensor.tesla_wall_connector_contactor_closed
+      to: 'on'
+      for:
+        minutes: 2
     condition:
     - condition: state
       entity_id: binary_sensor.tesla_wall_connector_contactor_closed
@@ -205,6 +218,9 @@ automation:
     - condition: state
       entity_id: input_boolean.charging_override
       state: 'off'
+    - condition: numeric_state
+      entity_id: sensor.energy_meter_total_watts
+      above: '500'
     action:
     - service: number.set_value
       data_template:
