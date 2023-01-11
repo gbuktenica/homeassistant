@@ -114,7 +114,7 @@ automation:
     trigger:
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      below: '-900'
+      below: '-1000'
       for:
         minutes: 2
     - platform: state
@@ -131,7 +131,7 @@ automation:
       state: 'off'
     - condition: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      below: '-900'
+      below: '-1000'
     action:
     - service: number.set_value
       data_template:
@@ -173,7 +173,7 @@ automation:
     trigger:
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      above: '300'
+      above: '200'
       for:
         minutes: 2
     - platform: state
@@ -190,7 +190,7 @@ automation:
       state: 'off'
     - condition: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      above: '300'
+      above: '200'
     action:
     - service: number.set_value
       data_template:
