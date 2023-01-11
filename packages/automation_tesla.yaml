@@ -69,7 +69,7 @@ automation:
           after: '14:58:00'
         - condition: numeric_state
           entity_id: sensor.energy_meter_total_watts
-          above: '500'
+          above: '1000'
     action:
     - condition: state
       entity_id: binary_sensor.tesla_wall_connector_contactor_closed
