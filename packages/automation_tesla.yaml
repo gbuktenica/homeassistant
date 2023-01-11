@@ -190,7 +190,7 @@ automation:
       state: 'off'
     - condition: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      above: '500'
+      above: '300'
     action:
     - service: number.set_value
       data_template:
