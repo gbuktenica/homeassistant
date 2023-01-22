@@ -193,6 +193,11 @@ automation:
       above: '200'
       for:
         minutes: 6
+    - platform: numeric_state
+      entity_id: sensor.energy_meter_total_watts
+      above: '200'
+      for:
+        minutes: 8
     - platform: state
       entity_id: binary_sensor.tesla_wall_connector_contactor_closed
       to: 'on'
