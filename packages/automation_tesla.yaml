@@ -221,20 +221,22 @@ automation:
           {% set charging = (states('number.lucy_charging_amps')|int) %}
           {% set grid = (states('sensor.energy_meter_total_watts')|int) %}
           {% if grid > 9000 %}
-            {% set result = charging - 13 | int %}
+            {% set result = charging - 14 | int %}
           {% elif grid > 7500 %}
-            {% set result = charging - 11 | int %}
+            {% set result = charging - 12 | int %}
           {% elif grid > 6000 %}
-            {% set result = charging - 9 | int %}
+            {% set result = charging - 10 | int %}
           {% elif grid > 4000 %}
-            {% set result = charging - 6 | int %}
+            {% set result = charging - 7 | int %}
           {% elif grid > 3100 %}
+            {% set result = charging - 6 | int %}
+          {% elif grid > 2200 %}
             {% set result = charging - 5 | int %}
-          {% elif grid > 2400 %}
-            {% set result = charging - 4 | int %}
           {% elif grid > 1700 %}
-            {% set result = charging - 3 | int %}
+            {% set result = charging - 4 | int %}
           {% elif grid > 1400 %}
+            {% set result = charging - 3 | int %}
+          {% elif grid > 700 %}
             {% set result = charging - 2 | int %}
           {% else %}
             {% set result = charging - 1 | int %}
