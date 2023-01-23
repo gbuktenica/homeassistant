@@ -229,7 +229,7 @@ automation:
           {% elif grid > 4500 %}
             {% set result = charging - 11 | int %}
           {% elif grid > 3000 %}
-            {% set result = charging - 6 | int %}
+            {% set result = charging - 8 | int %}
           {% elif grid > 2200 %}
             {% set result = charging - 5 | int %}
           {% elif grid > 1700 %}
