@@ -20,7 +20,7 @@ automation:
       state: 'off'
     - condition: template
       value_template: >-
-        {{ states('sensor.lucy_battery') | int < states('number.lucy_charge_limit') | int }}
+        {{ (states('sensor.lucy_battery') | int + 2 ) < states('number.lucy_charge_limit') | int }}
     - condition: time
       after: 09:00:00
       before: '15:00:00'
