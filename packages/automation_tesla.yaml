@@ -55,7 +55,7 @@ automation:
     trigger:
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      above: '500'
+      above: '100'
       for: 00:15:00
     - platform: time
       at: '14:59'
@@ -69,7 +69,7 @@ automation:
           after: '14:58:00'
         - condition: numeric_state
           entity_id: sensor.energy_meter_total_watts
-          above: '500'
+          above: '100'
     action:
     - condition: state
       entity_id: binary_sensor.tesla_wall_connector_contactor_closed
@@ -180,22 +180,22 @@ automation:
     trigger:
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      above: '200'
+      above: '0'
       for:
         minutes: 2
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      above: '200'
+      above: '0'
       for:
         minutes: 4
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      above: '200'
+      above: '0'
       for:
         minutes: 6
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      above: '200'
+      above: '0'
       for:
         minutes: 8
     - platform: state
@@ -212,7 +212,7 @@ automation:
       state: 'off'
     - condition: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      above: '200'
+      above: '0'
     action:
     - service: number.set_value
       data_template:
