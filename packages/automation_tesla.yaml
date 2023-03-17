@@ -114,12 +114,12 @@ automation:
     trigger:
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      below: '-1000'
+      below: '-1100'
       for:
         minutes: 2
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      below: '-1000'
+      below: '-1100'
       for:
         minutes: 4
     - platform: state
@@ -136,7 +136,7 @@ automation:
       state: 'off'
     - condition: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      below: '-1000'
+      below: '-1100'
     action:
     - service: number.set_value
       data_template:
@@ -150,7 +150,7 @@ automation:
             {% set result = charge + 4 |int %}
           {% elif grid < -2300 %}
             {% set result = charge + 3 |int %}
-          {% elif grid < -1600 %}
+          {% elif grid < -1700 %}
             {% set result = charge + 2 |int %}
           {% else %}
             {% set result = charge + 1 |int %}
@@ -180,22 +180,22 @@ automation:
     trigger:
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      above: '0'
+      above: '-100'
       for:
         minutes: 2
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      above: '0'
+      above: '100'
       for:
         minutes: 4
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      above: '0'
+      above: '-100'
       for:
         minutes: 6
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      above: '0'
+      above: '-100'
       for:
         minutes: 8
     - platform: state
