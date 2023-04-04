@@ -180,3 +180,25 @@
     data:
       entity_id: input_boolean.recycling_day
 
+- id: door_bell
+  alias: Door Bell
+  trigger:
+    - platform: state
+      entity_id:
+        - binary_sensor.g4_doorbell_doorbell
+      to: 'on'
+  condition:
+    - condition: time
+      after: '05:30:00'
+      before: '22:00:00'
+  action:
+    - service: media_player.play_media
+      data:
+        media_content_id: /local/doorbell.mp3
+        media_content_type: music
+        announce: false
+      target:
+        entity_id: media_player.bedroom_speaker
+
+
+
