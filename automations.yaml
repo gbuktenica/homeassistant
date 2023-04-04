@@ -198,7 +198,8 @@
         media_content_type: music
         announce: false
       target:
-        entity_id: media_player.bedroom_speaker
-
-
-
+        entity_id:
+        - "media_player.bedroom_speaker"
+        - "media_player.den_display"
+        - "media_player.workshop_speaker"
+        - "media_player.kitchen_display"
