@@ -180,22 +180,22 @@ automation:
     trigger:
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      above: '100'
+      above: '200'
       for:
         minutes: 2
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      above: '100'
+      above: '200'
       for:
         minutes: 4
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      above: '100'
+      above: '200'
       for:
         minutes: 6
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      above: '100'
+      above: '200'
       for:
         minutes: 8
     - platform: state
@@ -212,7 +212,7 @@ automation:
       state: 'off'
     - condition: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      above: '0'
+      above: '220'
     action:
     - service: number.set_value
       data_template:
