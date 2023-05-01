@@ -4,6 +4,7 @@ substitutions:
   name: "Server"
   ssid: IoTL2
   board: nodemcuv2
+  # https://esphome.io/devices/nodemcu_esp8266.html
 #####################################
 esphome:
   name: ${device_name}

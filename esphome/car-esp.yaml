@@ -4,6 +4,7 @@ substitutions:
   ip: "10.4.4.42"
   ssid: IoTG
   board: nodemcu-32s
+  # https://esphome.io/devices/nodemcu_esp32.html
   height: "1.2" # height in metres
 #######################
 esphome:

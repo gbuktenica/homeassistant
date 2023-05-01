@@ -1,13 +1,16 @@
 substitutions:
-  device_name: front-esp
-  ip: "10.4.4.27"
-  ssid: IoTL1
-  board: nodemcuv2
-  # https://esphome.io/devices/nodemcu_esp8266.html
-#####################################
+  device_name: gate-esp
+  channel_1: "vehicle gate"
+  channel_2: "pedestrian gate"
+  ip: "10.4.4.44"
+  ssid: IoTG
+  board: nodemcu-32s
+  # https://esphome.io/devices/nodemcu_esp32.html
+#######################
 esphome:
   name: ${device_name}
-  platform: ESP8266
+
+esp32:
   board: ${board}
 
 wifi:
@@ -38,37 +41,20 @@ logger:
 api:
   encryption:
     key: !secret api
-  
+
 ota:
-  password: !secret ota
-  
+  password: !secret iot
+
 time:
   - platform: homeassistant
     id: homeassistant_time
 #####################################
-binary_sensor:
+
+switch:
   - platform: gpio
-    pin:
-      number: D5
-      mode: INPUT_PULLUP
-    name: "Entry Door"
-    device_class: door
-    filters:
-      - delayed_on: 10ms
+    name: ${channel_1}
+    pin: GPIO23
+
   - platform: gpio
-    pin:
-      number: D6
-      mode: INPUT_PULLUP
-    name: "Front BiFold Door"
-    device_class: door
-    filters:
-      - delayed_on: 10ms
-sensor:
-  - platform: dht
-    model: DHT22
-    pin: D7
-    temperature:
-      name: "Lounge Room Temperature"
-    humidity:
-      name: "Lounge Room Humidity"
-    update_interval: 30s
+    name: ${channel_2}
+    pin: GPIO22

@@ -7,15 +7,8 @@ substitutions:
 
 # Interval of how often the power is updated
   update_time: 10s
-# Current Transformers:
-#  20A/25mA SCT-006: 11143
-#  30A/1V SCT-013-030: 8650
-#  50A/1V SCT-013-050: 15420
-#  80A/26.6mA SCT-010: 41660
-#  100A/50ma SCT-013-000: 27518
-#  120A/40mA: SCT-016: 41787
-#  200A/100mA SCT-024: 27518
-  current_cal: '27518'
+  current_cal1: '39000'
+  current_cal2: '39000'
   voltage_cal: '14150'
 
 esphome:
@@ -65,17 +58,13 @@ sensor:
       current:
         name: ${disp_name} CT1 Amps
         id: ct1Amps
-# The max value for current that the meter can output is 65.535. If you expect to measure current over 65A,
-# divide the gain_ct by 2 (120A CT) or 4 (200A CT) and multiply the current and power values by 2 or 4 by uncommenting the filter below
-#        filters:
-#          - multiply: 2
       power:
         name: ${disp_name} CT1 Watts
         id: ct1Watts
-#        filters:
-#          - multiply: 2
+      reactive_power:
+        name: ${disp_name} CT1  Reactive Watts
       gain_voltage: ${voltage_cal}
-      gain_ct: ${current_cal}
+      gain_ct: ${current_cal1}
     phase_b:
       current:
         name: ${disp_name} CT2 Amps
@@ -84,7 +73,7 @@ sensor:
         name: ${disp_name} CT2 Watts
         id: ct2Watts
       gain_voltage: ${voltage_cal}
-      gain_ct: ${current_cal}
+      gain_ct: ${current_cal1}
     phase_c:
       current:
         name: ${disp_name} CT3 Amps
@@ -93,17 +82,19 @@ sensor:
         name: ${disp_name} CT3 Watts
         id: ct3Watts
       gain_voltage: ${voltage_cal}
-      gain_ct: ${current_cal}
+      gain_ct: ${current_cal1}
     frequency:
       name: ${disp_name} Freq A
-    line_frequency: 60Hz
+    line_frequency: 50Hz
     gain_pga: 1X
     update_interval: ${update_time}
+    current_phases: 3
+    chip_temperature:
+      name: ${disp_name} Temp A
 #IC2
   - platform: atm90e32
     cs_pin: 4
     phase_a:
-#this voltage is only needed if monitoring 2 voltages
       voltage:
         name: ${disp_name} Volts B
         id: ic2Volts
@@ -115,7 +106,7 @@ sensor:
         name: ${disp_name} CT4 Watts
         id: ct4Watts
       gain_voltage: ${voltage_cal}
-      gain_ct: ${current_cal}
+      gain_ct: ${current_cal2}
     phase_b:
       current:
         name: ${disp_name} CT5 Amps
@@ -124,7 +115,7 @@ sensor:
         name: ${disp_name} CT5 Watts
         id: ct5Watts
       gain_voltage: ${voltage_cal}
-      gain_ct: ${current_cal}
+      gain_ct: ${current_cal2}
     phase_c:
       current:
         name: ${disp_name} CT6 Amps
@@ -133,13 +124,16 @@ sensor:
         name: ${disp_name} CT6 Watts
         id: ct6Watts
       gain_voltage: ${voltage_cal}
-      gain_ct: ${current_cal}
+      gain_ct: ${current_cal2}
     frequency:
       name: ${disp_name} Freq B
-    line_frequency: 60Hz
+    line_frequency: 50Hz
     gain_pga: 1X
     update_interval: ${update_time}
-
+    current_phases: 3
+    chip_temperature:
+      name: ${disp_name} Temp B
+      
 #Total Amps
   - platform: template
     name: ${disp_name} Total Amps
