@@ -4,7 +4,8 @@ substitutions:
   ip: "10.4.4.60"
   ssid: IoTG
   board: nodemcu-32s
-
+  # https://esphome.io/devices/nodemcu_esp32.html
+  
 # Interval of how often the power is updated
   update_time: 10s
   current_cal1: '39000'
