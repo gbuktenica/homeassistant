@@ -203,3 +203,20 @@
         - "media_player.den_display"
         - "media_player.workshop_speaker"
         - "media_player.kitchen_display"
+
+- id: harmony_off
+  alias: Harmony Remote Off
+  trigger:
+    - platform: state
+      entity_id:
+        - select.harmony_hub_activities
+      to: 'power_off'
+  condition:
+  - condition: state
+    entity_id: media_player.spotify_york_spotify
+    state: 'playing'
+  action:
+    - service: media_player.media_pause
+      data: {}
+      target:
+        entity_id: media_player.spotify_york_spotify
