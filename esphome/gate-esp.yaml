@@ -53,8 +53,8 @@ time:
 switch:
   - platform: gpio
     name: ${channel_1}
-    pin: GPIO23
+    pin: GPIO2
 
   - platform: gpio
     name: ${channel_2}
-    pin: GPIO22
+    pin: GPIO15
