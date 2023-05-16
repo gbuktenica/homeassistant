@@ -1,10 +1,13 @@
 automation:
-  - id: coffee_midday_off
-    alias: Coffee Midday Off
-    description: Turns off the coffee machine at midday.
+  - id: coffee_off
+    alias: Coffee Off
+    description: Turns off the coffee machine when on too long.
     trigger:
-      platform: time
-      at: '12:30:00'
+    - entity_id: switch.coffee_machine
+      platform: state
+      to: 'on'
+      for:
+        minutes: 30
     condition: []
     action:
       service: switch.turn_off
@@ -86,9 +89,9 @@ automation:
       entity_id: input_boolean.coffee_notify
       state: 'off'
     - condition: time
-      after: '05:30:00'
+      after: '04:30:00'
     - condition: time
-      before: '13:00:00'
+      before: '17:00:00'
     - condition: state
       entity_id: switch.coffee_machine
       state: 'on'
