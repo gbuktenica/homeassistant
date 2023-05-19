@@ -271,12 +271,12 @@ automation:
         data:
           entity_id:
             - light.frontyard_light
-      - delay:
-          minutes: 15
-      - service: light.turn_off
-        data:
-          entity_id:
-            - light.frontyard_light
+      # - delay:
+      #     minutes: 15
+      # - service: light.turn_off
+      #   data:
+      #     entity_id:
+      #       - light.frontyard_light
 
   - id: light_front_lounge_light_on
     alias: Light Front Lounge Lights On
