@@ -1,7 +1,7 @@
 substitutions:
   device_name: gate-esp
-  channel_1: "vehicle gate"
-  channel_2: "pedestrian gate"
+  channel_1: "vehicle"
+  channel_2: "pedestrian"
   ip: "10.4.4.44"
   ssid: IoTG
   board: nodemcu-32s
@@ -50,11 +50,22 @@ time:
     id: homeassistant_time
 #####################################
 
-switch:
+output:
   - platform: gpio
-    name: ${channel_1}
+    id: ${channel_1}output
     pin: GPIO2
-
   - platform: gpio
-    name: ${channel_2}
-    pin: GPIO15
+    id: ${channel_2}output
+    pin: GPIO0
+
+button:
+  - platform: output
+    id: ${channel_1}button
+    name: ${channel_1} button
+    output: ${channel_1}output
+    duration: 500ms
+  - platform: output
+    id: ${channel_2}button
+    name: ${channel_2} button
+    output: ${channel_2}output
+    duration: 500ms
