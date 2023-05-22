@@ -231,11 +231,11 @@ automation:
 
   - id: light_night_frontyard_on
     alias: Light Night Frontyard Light On
-    description: Turns on the front yard light when the at night.
+    description: Turns on the front yard light at sunset.
     trigger:
-      - event: sunset
-        offset: 00:15:00
-        platform: sun
+      - platform: sun
+        event: sunset
+        offset: 00:10:00
     condition:
       - condition: state
         entity_id: sun.sun
@@ -277,6 +277,25 @@ automation:
       #   data:
       #     entity_id:
       #       - light.frontyard_light
+
+  - id: light_day_frontyard_off
+    alias: Light Day Frontyard  Light Off
+    description: Turns off the front yard light in the morning.
+    trigger:
+      - platform: sun
+        event: sunrise
+    condition:
+      - condition: state
+        entity_id: input_boolean.party_mode
+        state: "off"
+      - condition: state
+        entity_id: light.frontyard_light
+        state: "on"
+    action:
+      - service: light.turn_off
+        data:
+          entity_id:
+            - light.frontyard_light
 
   - id: light_front_lounge_light_on
     alias: Light Front Lounge Lights On
