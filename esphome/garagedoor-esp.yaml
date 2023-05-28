@@ -66,6 +66,7 @@ binary_sensor:
         input: true
         pullup: true
     name: ${channel_2}
-    device_class: door
     filters:
       - delayed_on: 10ms
+      - invert
+      
