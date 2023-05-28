@@ -38,10 +38,10 @@ logger:
 api:
   encryption:
     key: !secret api
-  
+
 ota:
   password: !secret ota
-  
+
 time:
   - platform: homeassistant
     id: homeassistant_time
@@ -50,7 +50,9 @@ binary_sensor:
   - platform: gpio
     pin:
       number: D5
-      mode: INPUT_PULLUP
+      mode:
+        input: true
+        pullup: true
     name: "Entry Door"
     device_class: door
     filters:
@@ -58,7 +60,9 @@ binary_sensor:
   - platform: gpio
     pin:
       number: D6
-      mode: INPUT_PULLUP
+      mode:
+        input: true
+        pullup: true
     name: "Front BiFold Door"
     device_class: door
     filters:
