@@ -1,0 +1,71 @@
+substitutions:
+  device_name: garagerear-esp
+  channel_1: "Garage Rear Door"
+  channel_2: "Garage Rear Button"
+  ip: "10.4.4.45"
+  ssid: IoTG
+  board: nodemcuv2
+#####################################
+esphome:
+  name: ${device_name}
+  platform: ESP8266
+  board: ${board}
+
+wifi:
+  ssid: ${ssid}
+  password: !secret iot
+  fast_connect: on
+  use_address: ${ip}
+  manual_ip:
+    static_ip: ${ip}
+    gateway: 10.4.4.1
+    subnet: 255.255.255.0
+
+  # Enable fallback hotspot  in case wifi connection fails
+  ap:
+    ssid: ${device_name}
+    password: !secret iot
+    manual_ip:
+      static_ip: 192.168.100.2
+      gateway: 192.168.100.1
+      subnet: 255.255.255.0
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: !secret api
+
+ota:
+  password: !secret iot
+
+time:
+  - platform: homeassistant
+    id: homeassistant_time
+#####################################
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: D1
+      mode:
+        input: true
+        pullup: true
+    name: ${channel_1}
+    device_class: door
+    filters:
+      - delayed_on: 10ms
+  - platform: gpio
+    pin:
+      number: D2
+      mode:
+        input: true
+        pullup: true
+    name: ${channel_2}
+    device_class: door
+    filters:
+      - delayed_on: 10ms
