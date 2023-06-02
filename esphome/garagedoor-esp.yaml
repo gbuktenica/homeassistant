@@ -69,4 +69,3 @@ binary_sensor:
     filters:
       - delayed_on: 10ms
       - invert
-      
