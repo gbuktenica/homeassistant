@@ -63,25 +63,6 @@ sensor:
     current_b:
       name: ${channel_1} current
       internal: true
-    active_power_a:
-      name: ${channel_2} power
-      id: power_channel_2
-      filters:
-        - multiply: 1
-        - calibrate_linear:
-            # Map 0.0 (from sensor) to 0.0 (true value)
-            - 0.0 -> 0.0
-            - 24 -> 24
-      on_value_range:
-        - above: ${max_power}
-          then:
-            - light.turn_off: lightid2
-            - homeassistant.service:
-                service: persistent_notification.create
-                data:
-                  title: Message from ${device_name}
-                data_template:
-                  message: Switch turned off because power exceeded ${max_power}W
     active_power_b:
       name: ${channel_1} power
       id: power_channel_1
@@ -111,14 +92,6 @@ sensor:
       - multiply: 0.001
     unit_of_measurement: kWh
 
-  - platform: total_daily_energy
-    name: ${channel_2} energy
-    power_id: power_channel_2
-    filters:
-      # Multiplication factor from W to kW is 0.001
-      - multiply: 0.001
-    unit_of_measurement: kWh
-
   # NTC Temperature
   - platform: ntc
     sensor: temp_resistance_reading
@@ -134,7 +107,6 @@ sensor:
       - above: ${max_temp}
         then:
           - light.turn_off: lightid1
-          - light.turn_off: lightid2
           - homeassistant.service:
               service: persistent_notification.create
               data:
