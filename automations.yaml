@@ -9,7 +9,6 @@
       addon:
       - core_letsencrypt
       - a0d7b954_spotify
-
 - id: reboot_host
   alias: Reboot host
   description: Turn the amplifier on and restart the NUC. This is to make sure the
@@ -37,7 +36,6 @@
   - delay:
       minutes: 1
   - service: hassio.host_reboot
-
 - id: after_reboot_host
   alias: After Reboot host
   description: Turn the amplifier off after the reboot in reboot_host
@@ -61,7 +59,6 @@
   action:
   - service: script.turn_on
     entity_id: script.harmony_off
-
 - id: morning_aircon
   alias: Morning AirCon
   description: ''
@@ -81,14 +78,13 @@
     data:
       entity_id: climate.daikin_ac
       fan_mode: Low/Auto
-
 - id: weekend_outside_speakers_on
   alias: Weekend Outside Speakers On
   description: Turns on the outside speakers when the rear bi fold is opened.
   trigger:
   - entity_id: binary_sensor.rear_bifold_door
     platform: state
-    to: 'on' #open
+    to: 'on'
     for:
       seconds: 10
   condition:
@@ -106,24 +102,23 @@
     state: 'off'
   - condition: or
     conditions:
-      - condition: state
-        entity_id: switch.lounge_hub_music
-        state: 'on'
-      - condition: state
-        entity_id: switch.lounge_hub_hassio
-        state: 'on'
+    - condition: state
+      entity_id: switch.lounge_hub_music
+      state: 'on'
+    - condition: state
+      entity_id: switch.lounge_hub_hassio
+      state: 'on'
   action:
   - service: script.outside_speakers_on
   mode: queued
   max: 10
-
 - id: weekend_outside_speakers_off
   alias: Weekend Outside Speakers Off
   description: Turns off the outside speakers if the rear bifold is closed
   trigger:
   - entity_id: binary_sensor.rear_bifold_door
     platform: state
-    to: 'off' #closed
+    to: 'off'
   condition:
   - condition: state
     entity_id: input_boolean.party_mode
@@ -135,42 +130,41 @@
   - service: script.outside_speakers_off
   mode: queued
   max: 10
-
 - id: recycling_on
   alias: recycling on
   trigger:
   - platform: time
-    at: '06:00:00'
+    at: 06:00:00
   condition:
   - condition: time
     weekday:
     - mon
   - condition: template
-    value_template: '{{((as_timestamp(now()) - as_timestamp("2021-01-18 00:00:00"))/86400) | int % 14  == 0}}'
+    value_template: '{{((as_timestamp(now()) - as_timestamp("2021-01-18 00:00:00"))/86400)
+      | int % 14  == 0}}'
   action:
   - service: input_boolean.turn_on
     data:
       entity_id: input_boolean.recycling_day
   - service: notify.mobile_app_s21
     data:
-      message: 'It is recycling day.'
+      message: It is recycling day.
   - service: notify.mobile_app_natalies_iphone
     data:
-      message: 'It is recycling day.'
+      message: It is recycling day.
   - delay:
       hours: 10
   - service: notify.mobile_app_s21
     data:
-      message: 'It is recycling day.'
+      message: It is recycling day.
   - service: notify.mobile_app_natalies_iphone
     data:
-      message: 'It is recycling day.'
-
+      message: It is recycling day.
 - id: recycling_off
   alias: recycling off
   trigger:
   - platform: time
-    at: '09:00:00'
+    at: 09:00:00
   condition:
   - condition: time
     weekday:
@@ -179,44 +173,70 @@
   - service: input_boolean.turn_off
     data:
       entity_id: input_boolean.recycling_day
-
 - id: door_bell
   alias: Door Bell
   trigger:
-    - platform: state
-      entity_id:
-        - binary_sensor.g4_doorbell_doorbell
-      to: 'on'
+  - platform: state
+    entity_id:
+    - binary_sensor.g4_doorbell_doorbell
+    to: 'on'
   condition:
-    - condition: time
-      after: '05:30:00'
-      before: '22:00:00'
+  - condition: time
+    after: 05:30:00
+    before: '22:00:00'
   action:
-    - service: media_player.play_media
-      data:
-        media_content_id: /local/doorbell.mp3
-        media_content_type: music
-        announce: false
-      target:
-        entity_id:
-        - "media_player.bedroom_speaker"
-        - "media_player.den_display"
-        - "media_player.workshop_speaker"
-        - "media_player.kitchen_display"
-
+  - service: media_player.play_media
+    data:
+      media_content_id: /local/doorbell.mp3
+      media_content_type: music
+      announce: false
+    target:
+      entity_id:
+      - media_player.bedroom_speaker
+      - media_player.den_display
+      - media_player.workshop_speaker
+      - media_player.kitchen_display
 - id: harmony_off
   alias: Harmony Remote Off
   trigger:
-    - platform: state
-      entity_id:
-        - select.harmony_hub_activities
-      to: 'power_off'
+  - platform: state
+    entity_id:
+    - select.harmony_hub_activities
+    to: power_off
   condition:
   - condition: state
     entity_id: media_player.spotify_york_spotify
-    state: 'playing'
+    state: playing
   action:
-    - service: media_player.media_pause
-      data: {}
-      target:
-        entity_id: media_player.spotify_york_spotify
+  - service: media_player.media_pause
+    data: {}
+    target:
+      entity_id: media_player.spotify_york_spotify
+- id: '1685076776161'
+  alias: Tag Letterbox is scanned
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: 46485bc4-907e-473b-9697-8b330c58c001
+  condition: []
+  action:
+  - service: button.press
+    data: {}
+    target:
+      entity_id: button.vehicle_button
+  mode: single
+- id: '1685262366338'
+  alias: Press Garage Gate Button
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.garage_rear_button
+    to: 'off'
+  condition: []
+  action:
+  - service: button.press
+    data: {}
+    target:
+      entity_id: button.vehicle_button
+  mode: single
