@@ -1,7 +1,7 @@
 substitutions:
   device_name: garage-s25
   channel_1: Garage Light"
-  channel_2: Garden Door
+  channel_2: Garage Door
   max_power: "2000.0" # watt
   max_temp: "80.0" # °C
   ip: "10.4.4.46"
@@ -154,7 +154,9 @@ binary_sensor:
     pin:
       number: GPIO5
     name: "${channel_2} input"
+    filters:
+      - invert:
     device_class: door
-    on_release:
+    on_press:
       then:
         - light.turn_on: lightid1
