@@ -2,15 +2,18 @@
 # default_config #
 ##################
 automation: !include automations.yaml
+assist_pipeline:
 #backup:
 bluetooth:
-cloud:
+# cloud:
 config:
+# conversation:
 # counter:
 
 dhcp:
 energy:
 frontend:
+hardware:
 history:
   exclude:
     domains:
@@ -26,6 +29,7 @@ history:
      - device_tracker.nat_ping
      - device_tracker.nat_phone
 homeassistant_alerts:
+image_upload:
 input_boolean:
 input_button:
 input_datetime:
@@ -33,12 +37,15 @@ input_number:
 input_select:
 input_text:
 logbook:
+logger:
 map:
 media_source:
 mobile_app:
 my:
+network:
 person:
 scene: !include scenes.yaml
+schedule:
 script: !include scripts.yaml
 ssdp:
 stream:
@@ -80,9 +87,9 @@ route53:
   records:
     - york
 
-spotcast:
-  sp_dc: !secret sp_dc
-  sp_key: !secret sp_key
+# spotcast:
+#   sp_dc: !secret sp_dc
+#   sp_key: !secret sp_key
 
 smartir:
 climate:
