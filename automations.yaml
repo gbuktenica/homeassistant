@@ -130,49 +130,48 @@
   - service: script.outside_speakers_off
   mode: queued
   max: 10
-- id: recycling_on
-  alias: recycling on
+
+- id: bin_week_yellow
+  alias: Bin Week Yellow
   trigger:
   - platform: time
-    at: 06:00:00
+    at: 15:00:00
   condition:
   - condition: time
     weekday:
+    - sun
     - mon
   - condition: template
-    value_template: '{{((as_timestamp(now()) - as_timestamp("2021-01-18 00:00:00"))/86400)
+    value_template: '{{((as_timestamp(now()) - as_timestamp("2023-06-05 00:00:00"))/86400)
       | int % 14  == 0}}'
   action:
-  - service: input_boolean.turn_on
-    data:
-      entity_id: input_boolean.recycling_day
   - service: notify.mobile_app_s21
     data:
-      message: It is recycling day.
+      message: It is yellow bin week.
   - service: notify.mobile_app_natalies_iphone
     data:
-      message: It is recycling day.
-  - delay:
-      hours: 10
-  - service: notify.mobile_app_s21
-    data:
-      message: It is recycling day.
-  - service: notify.mobile_app_natalies_iphone
-    data:
-      message: It is recycling day.
-- id: recycling_off
-  alias: recycling off
+      message: It is yellow bin week.
+
+- id: bin_week_red
+  alias: Bin Week Red
   trigger:
   - platform: time
-    at: 09:00:00
+    at: 15:00:00
   condition:
   - condition: time
     weekday:
-    - tue
+    - sun
+  - condition: template
+    value_template: '{{((as_timestamp(now()) - as_timestamp("2023-06-12 00:00:00"))/86400)
+      | int % 14  == 0}}'
   action:
-  - service: input_boolean.turn_off
+  - service: notify.mobile_app_s21
     data:
-      entity_id: input_boolean.recycling_day
+      message: It is red bin week.
+  - service: notify.mobile_app_natalies_iphone
+    data:
+      message: It is red bin week.
+
 - id: door_bell
   alias: Door Bell
   trigger:

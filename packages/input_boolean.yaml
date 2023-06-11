@@ -7,10 +7,6 @@ input_boolean:
     name: Party Mode
     initial: off
     icon: mdi:party-popper
-  recycling_day:
-    name: Recycling Day
-    initial: off
-    icon: mdi:recycle
   washing_running:
     name: Washing Running
     initial: off
