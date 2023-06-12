@@ -1,6 +1,6 @@
 substitutions:
   device_name: garage-s25
-  channel_1: Garage Light"
+  channel_1: Garage Light
   channel_2: Garage Door
   max_power: "2000.0" # watt
   max_temp: "80.0" # °C
