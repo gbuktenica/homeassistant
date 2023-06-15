@@ -102,13 +102,3 @@ climate:
     temperature_sensor: sensor.lounge_room_temperature
     humidity_sensor: sensor.lounge_room_humidity
     power_sensor: binary_sensor.lounge_ac_power
-
-light:
-  - platform: group
-    name: Office Lights
-    entities:
-      - light.0146087784cca88b6294
-      - light.0000178484cca88bafb5
-      - light.0146087784cca88bbee1
-      - light.0000178484cca88bafd1
-

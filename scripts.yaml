@@ -145,7 +145,7 @@ washing_notify:
   - service: notify.mobile_app_natalies_iphone
     data:
       message: 'The washing machine is finished.'
-  - service: notify.mobile_app_sm_g996b
+  - service: notify.mobile_app_s21
     data:
       message: 'The washing machine is finished.'
       data:

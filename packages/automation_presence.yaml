@@ -191,7 +191,7 @@ automation:
         entity_id: input_select.beautiful_people
       data:
         option: someone_away
-    - service: notify.mobile_app_sm_g996b
+    - service: notify.mobile_app_s21
       data:
         message: 'Nat is away.'
         data:
@@ -258,7 +258,7 @@ automation:
         entity_id: input_select.beautiful_people
       data:
         option: someone_away
-    - service: notify.mobile_app_sm_g996b
+    - service: notify.mobile_app_s21
       data:
         message: 'Nat is long away day.'
 
@@ -300,7 +300,7 @@ automation:
         entity_id: device_tracker.nat_iphonedetect
         state: 'away'
     action:
-    - service: notify.mobile_app_sm_g996b
+    - service: notify.mobile_app_s21
       data:
         message: 'Nat is long away night.'
     - service: input_select.select_option
@@ -347,7 +347,7 @@ automation:
         entity_id: input_select.doors_opened
       data:
         option: closed
-    - service: notify.mobile_app_sm_g996b
+    - service: notify.mobile_app_s21
       data:
         message: clear_notification
         data:

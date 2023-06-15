@@ -111,7 +111,7 @@ automation:
       data:
         entity_id:
         - input_boolean.coffee_notify
-    - service: notify.mobile_app_sm_g996b
+    - service: notify.mobile_app_s21
       data:
         message: 'The coffee machine is ready.'
         data:
@@ -147,7 +147,7 @@ automation:
       to: 'off'
     condition: []
     action:
-      - service: notify.mobile_app_sm_g996b
+      - service: notify.mobile_app_s21
         data:
           message: "clear_notification"
           data:
