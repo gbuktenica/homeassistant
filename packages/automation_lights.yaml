@@ -35,13 +35,13 @@ automation:
       - service: cover.set_cover_position
         data:
           entity_id: cover.night_blind
-          position: 0
+          position: 0 # Closed
       - delay:
-          seconds: 8
+          seconds: 20
       - service: cover.set_cover_position
         data:
           entity_id: cover.day_blind
-          position: 100
+          position: 100 # Open
 
   - id: cover_sunset_blind_down
     alias: Cover Sunset Blind Down
@@ -75,13 +75,13 @@ automation:
       - service: cover.set_cover_position
         data:
           entity_id: cover.night_blind
-          position: 20
+          position: 20 # Mostly Closed
       - delay:
-          seconds: 8
+          seconds: 20
       - service: cover.set_cover_position
         data:
           entity_id: cover.day_blind
-          position: 100
+          position: 100 # Open
 
   - id: cover_weekday_morning_blind_up
     alias: Cover Weekday Morning Blind Up
@@ -105,11 +105,13 @@ automation:
       - service: cover.set_cover_position
         data:
           entity_id: cover.night_blind
-          position: 100
+          position: 100 # Open
+      - delay:
+          seconds: 20
       - service: cover.set_cover_position
         data:
           entity_id: cover.day_blind
-          position: 50
+          position: 50 # Half Open
 
   - id: cover_sunset_blind_down_home
     alias: Cover Sunset Blind Down Home
@@ -145,11 +147,13 @@ automation:
       - service: cover.set_cover_position
         data:
           entity_id: cover.night_blind
-          position: 0
+          position: 0 # Closed
+      - delay:
+          seconds: 20
       - service: cover.set_cover_position
         data:
           entity_id: cover.day_blind
-          position: 100
+          position: 100 # Open
 
   - id: cover_weekend_morning_blind_up
     alias: Cover Weekend Morning Blind Up
@@ -165,11 +169,11 @@ automation:
       - service: cover.set_cover_position
         data:
           entity_id: cover.night_blind
-          position: 100
+          position: 100 # Open
       - service: cover.set_cover_position
         data:
           entity_id: cover.day_blind
-          position: 100
+          position: 100 # Open
 
   - id: light_sunset_outside_lights_on
     alias: Light Sunset Outside Lights On
