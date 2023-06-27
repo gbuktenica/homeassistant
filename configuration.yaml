@@ -102,3 +102,6 @@ climate:
     temperature_sensor: sensor.lounge_room_temperature
     humidity_sensor: sensor.lounge_room_humidity
     power_sensor: binary_sensor.lounge_ac_power
+
+recorder:
+  purge_keep_days: 20
