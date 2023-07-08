@@ -280,3 +280,8 @@ hot_lucy:
       option: Auto
     target:
       entity_id: select.lucy_heated_seat_right
+
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.lucy_heated_steering
