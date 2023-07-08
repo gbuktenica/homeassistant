@@ -259,3 +259,24 @@ hottest_100:
       seconds: 1
   - service: media_player.media_play
     entity_id: media_player.spotify_york_spotify
+
+hot_lucy:
+  alias: Hot Lucy
+  sequence:
+  - service: climate.set_hvac_mode
+    data:
+      hvac_mode: heat_cool
+    target:
+      entity_id: climate.lucy_hvac_climate_system
+
+  - service: select.select_option
+    data:
+      option: Auto
+    target:
+      entity_id: select.lucy_heated_seat_left
+
+  - service: select.select_option
+    data:
+      option: Auto
+    target:
+      entity_id: select.lucy_heated_seat_right
