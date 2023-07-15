@@ -62,6 +62,8 @@ URLs are found here: <https://github.com/yaourdt/mgos-to-tasmota>
 
 1. Flash straight to ESPHome (no need for Tasmota)
 
+1. Connect GPIO0 to Ground to enable flash mode.
+
 ## Flash Sonoff S26 to ESPHome
 
 <https://www.instructables.com/Home-Automation-Using-the-Sonoff-S26-Smart-Socket/>
