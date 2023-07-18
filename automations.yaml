@@ -234,24 +234,24 @@
   #         - action: "trigger_gate"
   #           title: "Acknowledge"
 
-  - id: doorbell_gate_action
-    alias: Doorbell Gate Action
-    description: Open the gate when the door bell notification button is pressed.
-    trigger:
-    - platform: event
-      event_type: mobile_app_notification_action
-      event_data:
-        action: trigger_gate
-    action:
-    - service: button.press
-      data: {}
-      target:
-        entity_id: button.vehicle_button
-    - service: notify.mobile_app_s21
+- id: doorbell_gate_action
+  alias: Doorbell Gate Action
+  description: Open the gate when the door bell notification button is pressed.
+  trigger:
+  - platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: trigger_gate
+  action:
+  - service: button.press
+    data: {}
+    target:
+      entity_id: button.vehicle_button
+  - service: notify.mobile_app_s21
+    data:
+      message: clear_notification
       data:
-        message: clear_notification
-        data:
-          tag: doorbell
+        tag: doorbell
 
 - id: harmony_off
   alias: Harmony Remote Off
