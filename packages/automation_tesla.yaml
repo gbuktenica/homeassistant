@@ -4,7 +4,7 @@ automation:
     trigger:
     - platform: numeric_state
       entity_id: sensor.energy_meter_total_watts
-      below: '-1000'
+      below: '-900'
       for: 00:05:00
     - platform: time
       at: 09:05:00
@@ -15,15 +15,17 @@ automation:
     - condition: state
       entity_id: binary_sensor.tesla_wall_connector_vehicle_connected
       state: 'on'
-    - condition: state
-      entity_id: input_boolean.charging_override
-      state: 'off'
     - condition: template
       value_template: >-
         {{ (states('sensor.lucy_battery') | int + 2 ) < states('number.lucy_charge_limit') | int }}
     - condition: time
       after: 09:00:00
       before: '15:00:00'
+    - condition: not
+      conditions:
+        - condition: state
+          entity_id: input_select.charging_mode
+          state: "Manual"
     action:
     - condition: state
       entity_id: binary_sensor.tesla_wall_connector_contactor_closed
@@ -81,6 +83,11 @@ automation:
       data:
         entity_id:
         - switch.lucy_charger
+    - service: notify.mobile_app_s21
+      data:
+        message: clear_notification
+        data:
+          tag: charging
 
   - id: tesla_charging_stopped
     alias: Tesla Charging Stopped
