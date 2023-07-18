@@ -210,7 +210,7 @@
   action:
   - service: camera.snapshot
     data:
-      filename: /home/homeassistant/.homeassistant/www/doorbell.png
+      filename: /config/www/doorbell.png
     entity_id: camera.g4_doorbell_high
   - service: notify.mobile_app_s21
     data:
