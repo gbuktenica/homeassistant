@@ -142,9 +142,7 @@
     - sun
     - mon
   - condition: template
-    value_template: '{{((as_timestamp(now()) - as_timestamp("2023-06-05 00:00:00"))/86400)
-      | int % 14  == 0}}'
-  action:
+    value_template: "{{ not now().isocalendar()[1] % 2 }}"
   - service: notify.mobile_app_s21
     data:
       message: It is yellow bin week.
@@ -162,8 +160,7 @@
     weekday:
     - sun
   - condition: template
-    value_template: '{{((as_timestamp(now()) - as_timestamp("2023-06-12 00:00:00"))/86400)
-      | int % 14  == 0}}'
+    value_template: "{{ now().isocalendar()[1] % 2 }}"
   action:
   - service: notify.mobile_app_s21
     data:
@@ -217,7 +214,6 @@
       message: Someone has pressed the doorbell.
       data:
         image: https://hassio.buktenica.com:8123/local/doorbell.png
-      data:
         tag: doorbell
         sticky: 'true'
         actions:
