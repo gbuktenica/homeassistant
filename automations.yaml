@@ -135,14 +135,16 @@
   alias: Bin Week Yellow
   trigger:
   - platform: time
-    at: 15:00:00
+    at: "15:00:00"
   condition:
   - condition: time
     weekday:
     - sun
     - mon
   - condition: template
-    value_template: "{{ not now().isocalendar()[1] % 2 }}"
+    value_template: '{{((as_timestamp(now()) - as_timestamp("2023-06-05 00:00:00"))/86400)
+      | int % 14  == 0}}'
+  action:
   - service: notify.mobile_app_s21
     data:
       message: It is yellow bin week.
@@ -154,13 +156,14 @@
   alias: Bin Week Red
   trigger:
   - platform: time
-    at: 15:00:00
+    at: "15:00:00"
   condition:
   - condition: time
     weekday:
     - sun
   - condition: template
-    value_template: "{{ now().isocalendar()[1] % 2 }}"
+    value_template: '{{((as_timestamp(now()) - as_timestamp("2023-06-12 00:00:00"))/86400)
+      | int % 14  == 0}}'
   action:
   - service: notify.mobile_app_s21
     data:
