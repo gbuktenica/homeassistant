@@ -172,8 +172,8 @@
     data:
       message: It is red bin week.
 
-- id: door_bell
-  alias: Door Bell
+- id: door_bell_chime
+  alias: Door Bell Chime
   trigger:
   - platform: state
     entity_id:
@@ -195,6 +195,29 @@
       - media_player.den_display
       - media_player.workshop_speaker
       - media_player.kitchen_display
+
+- id: door_bell_notification
+  alias: Door Bell Notification
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.g4_doorbell_doorbell
+    to: 'on'
+  condition:
+  - condition: time
+    after: 05:30:00
+    before: '22:00:00'
+  action:
+  - service: camera.snapshot
+    data:
+      filename: /home/homeassistant/.homeassistant/www/doorbell.png
+    entity_id: camera.g4_doorbell_high
+  - service: notify.mobile_app_s21
+    data:
+      message: Someone has pressed the doorbell.
+      data:
+        image: https://hassio.buktenica.com:8123/local/doorbell.png
+
 - id: harmony_off
   alias: Harmony Remote Off
   trigger:
