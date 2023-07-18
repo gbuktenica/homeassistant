@@ -222,17 +222,16 @@
         actions:
           - action: "trigger_gate"
             title: "Gate"
-  # - service: notify.mobile_app_natalies_iphone
-  #   data:
-  #     message: Someone has pressed the doorbell.
-  #     data:
-  #       image: https://hassio.buktenica.com:8123/local/doorbell.png
-  #     data:
-  #       tag: doorbell
-  #       sticky: 'true'
-  #       actions:
-  #         - action: "trigger_gate"
-  #           title: "Acknowledge"
+  - service: notify.mobile_app_natalies_iphone
+    data:
+      message: Someone has pressed the doorbell.
+      data:
+        image: https://hassio.buktenica.com:8123/local/doorbell.png
+        tag: doorbell
+        sticky: 'true'
+        actions:
+          - action: "trigger_gate"
+            title: "Gate"
 
 - id: doorbell_gate_action
   alias: Doorbell Gate Action
