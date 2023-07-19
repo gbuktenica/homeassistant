@@ -1,12 +1,12 @@
 substitutions:
-  friendly_name: ONT
-  device_name: ont
+  friendly_name: Coffee
+  device_name: coffee-s26
   ip: "10.4.4.26"
   ssid: IoTL1
   board: esp01_1m
 #####################################
 esphome:
-  name: ${device_name}-s26
+  name: ${device_name}
   platform: ESP8266
   board: ${board}
   board_flash_mode: dout
@@ -71,8 +71,8 @@ sensor:
 switch:
   - platform: gpio
     name: ${friendly_name} Relay
+    icon: "mdi:coffee-maker"
     pin: GPIO12
     id: 'relay'
-    restore_mode: ALWAYS_ON
   - platform: restart
     name: ${friendly_name} Restart
