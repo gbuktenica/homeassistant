@@ -43,15 +43,14 @@ sensor:
 
 light:
     - platform: shelly_dimmer
-      name: Shelly Dimmer 2 Light
-      id: thislight
-      power:
-        name: Shelly Dimmer 2 Light Power
-      voltage:
-        name: Shelly Dimmer 2 Light Voltage
-      current:
-        name: Shelly Dimmer 2 Light Current
-      max_brightness: 500
+      name: ${light_name}
+      id: dimmer
+      leading_edge: false
+      min_brightness: 470
+      max_brightness: 1000
+      restore_mode: ALWAYS_OFF
+      default_transition_length: 1s
+      gamma_correct: 0 
       firmware:
         version: "51.6"
         update: true
