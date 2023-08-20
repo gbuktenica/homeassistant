@@ -1,0 +1,56 @@
+substitutions:
+  device_name: dimmer2-58
+  ip: "10.4.4.58"
+  ssid: IoTL1
+#####################################
+esphome:
+  name: ${device_name}
+
+esp8266:
+  board: esp01_1m
+
+wifi:
+  ssid: ${ssid}
+  password: !secret iot
+  fast_connect: on
+  use_address: ${ip}
+  manual_ip:
+    static_ip: ${ip}
+    gateway: 10.4.4.1
+    subnet: 255.255.255.0
+
+# Enable logging
+logger:
+    baud_rate: 0
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: !secret api
+
+ota:
+  password: !secret iot
+
+time:
+  - platform: homeassistant
+    id: homeassistant_time
+
+uart:
+    tx_pin: 1
+    rx_pin: 3
+    baud_rate: 115200
+sensor:
+
+light:
+    - platform: shelly_dimmer
+      name: ${device_name}
+      id: dimmer
+      leading_edge: false
+      min_brightness: 470
+      max_brightness: 1000
+      restore_mode: ALWAYS_OFF
+      default_transition_length: 1s
+      gamma_correct: 0
+      firmware:
+        version: "51.6"
+        update: true
