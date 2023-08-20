@@ -9,7 +9,7 @@ substitutions:
 #####################################
 # For PCB v0.1.9 with dual core ESP32
 esphome:
-  name: ${devicename}
+  name: ${device_name}
 
 esp32:
   board: esp32doit-devkit-v1
@@ -57,7 +57,7 @@ switch:
 binary_sensor:
   # Button on device
   - platform: gpio
-    name: "${devicename} Button"
+    name: "${device_name} Button"
     pin:
       number: GPIO4
       inverted: yes
@@ -91,7 +91,7 @@ sensor:
   - platform: ade7953
     irq_pin: GPIO27
     voltage:
-      name: "${devicename} Voltage"
+      name: "${device_name} Voltage"
       entity_category: 'diagnostic'
     current_a:
       name: "${channel_2} Current"
@@ -114,7 +114,7 @@ sensor:
   # Internal NTC Temperature sensor
   - platform: ntc
     sensor: temp_resistance_reading
-    name: "${devicename} Temperature"
+    name: "${device_name} Temperature"
     unit_of_measurement: "°C"
     accuracy_decimals: 1
     icon: "mdi:thermometer"
