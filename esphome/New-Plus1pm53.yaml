@@ -34,8 +34,6 @@ wifi:
     gateway: 10.4.4.1
     subnet: 255.255.255.0
 
-captive_portal:
-
 # Enable logging
 logger:
 
