@@ -1,0 +1,139 @@
+substitutions:
+  device_name: plus2pm51
+  channel_1: plus2pm51 1
+  channel_2: plus2pm51 2
+  max_power: "2000.0" # watt
+  max_temp: "80.0" # °C
+  ip: "10.4.4.51"
+  ssid: IoTL1
+#####################################
+# For PCB v0.1.9 with dual core ESP32
+esphome:
+  name: ${device_name}
+
+esp32:
+  board: esp32doit-devkit-v1
+  framework:
+    type: arduino
+
+logger:
+
+api:
+
+ota:
+
+wifi:
+  ssid: ${ssid}
+  password: !secret iot
+  fast_connect: on
+  use_address: ${ip}
+  manual_ip:
+    static_ip: ${ip}
+    gateway: 10.4.4.1
+    subnet: 255.255.255.0
+
+i2c:
+  sda: GPIO26
+  scl: GPIO25
+
+output:
+  - platform: gpio
+    id: "relay_output_1"
+    pin: GPIO12
+  - platform: gpio
+    id: "relay_output_2"
+    pin: GPIO13
+
+switch:
+  - platform: output
+    id: "relay_1"
+    name: "${channel_1}"
+    output: "relay_output_1"
+  - platform: output
+    id: "relay_2"
+    name: "${channel_2}"
+    output: "relay_output_2"
+
+binary_sensor:
+  # Button on device
+  - platform: gpio
+    name: "${device_name} Button"
+    pin:
+      number: GPIO4
+      inverted: yes
+      mode:
+        input: true
+        pullup: true
+    internal: true
+  # Input 1
+  - platform: gpio
+    name: "${channel_1}"
+    pin: GPIO5
+    filters:
+      - delayed_on_off: 50ms
+    on_press:
+      then:
+        - switch.toggle: relay_1
+    internal: true
+  # Input 2
+  - platform: gpio
+    name: "${channel_2}"
+    pin: GPIO18
+    filters:
+      - delayed_on_off: 50ms
+    on_press:
+      then:
+        - switch.toggle: relay_2
+    internal: true
+
+sensor:
+  # Power Sensor
+  - platform: ade7953
+    irq_pin: GPIO27
+    voltage:
+      name: "${device_name} Voltage"
+      entity_category: 'diagnostic'
+    current_a:
+      name: "${channel_2} Current"
+      entity_category: 'diagnostic'
+    active_power_a:
+      name: "${channel_2} Power"
+      id: power_channel_2
+      entity_category: 'diagnostic'
+      filters:
+        - multiply: -1
+    current_b:
+      name: "${channel_1} Current"
+      entity_category: 'diagnostic'
+    active_power_b:
+      name: "${channel_1} Power"
+      id: power_channel_1
+      entity_category: 'diagnostic'
+    update_interval: 10s
+
+  # Internal NTC Temperature sensor
+  - platform: ntc
+    sensor: temp_resistance_reading
+    name: "${device_name} Temperature"
+    unit_of_measurement: "°C"
+    accuracy_decimals: 1
+    icon: "mdi:thermometer"
+    entity_category: 'diagnostic'
+    calibration:
+      b_constant: 3350
+      reference_resistance: 4.7kOhm
+      reference_temperature: 298.15K
+
+  # Required for NTC sensor
+  - platform: resistance
+    id: temp_resistance_reading
+    sensor: temp_analog_reading
+    configuration: DOWNSTREAM
+    resistor: 5.6kOhm
+
+  # Required for NTC sensor
+  - platform: adc
+    id: temp_analog_reading
+    pin: GPIO35
+    attenuation: 11db
+    update_interval: 10s
