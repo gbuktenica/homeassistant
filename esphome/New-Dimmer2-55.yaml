@@ -1,6 +1,6 @@
 substitutions:
   device_name: dimmer2-55
-  ip: "10.4.4.54"
+  ip: "10.4.4.55"
   ssid: IoTL1
 #####################################
 esphome:
