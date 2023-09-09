@@ -1,0 +1,134 @@
+substitutions:
+  device_name: FR
+  ip: "10.4.4.58"
+  ssid: IoTL1
+#####################################
+esphome:
+  name: ${device_name}
+
+esp8266:
+  board: esp01_1m
+
+wifi:
+  ssid: ${ssid}
+  password: !secret iot
+  fast_connect: on
+  use_address: ${ip}
+  manual_ip:
+    static_ip: ${ip}
+    gateway: 10.4.4.1
+    subnet: 255.255.255.0
+
+# Enable logging
+logger:
+    baud_rate: 0
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: !secret api
+
+ota:
+  password: !secret iot
+
+time:
+  - platform: homeassistant
+    id: homeassistant_time
+
+uart:
+    tx_pin: 1
+    rx_pin: 3
+    baud_rate: 115200
+sensor:
+
+light:
+    - platform: shelly_dimmer
+      name: ${device_name}
+      id: dimmer
+      leading_edge: false
+      min_brightness: 470
+      max_brightness: 1000
+      restore_mode: ALWAYS_OFF
+      default_transition_length: 1s
+      gamma_correct: 0
+      firmware:
+        version: "51.6"
+        update: true
+
+binary_sensor:
+  - platform: gpio
+    name: 'Switch 1'
+    id: switchID_1
+    pin:
+      number: GPIO14
+      mode: INPUT
+    internal: true
+    filters:
+      - delayed_on_off: 50ms
+    on_multi_click:
+
+      # single click
+      - timing:
+        - ON for at most 1s
+        - OFF for at least 0.5s
+        then:
+          - logger.log: "Single-Clicked"
+          - light.toggle: dimmer
+
+      # double click
+      - timing:
+        - ON for at most 0.5s
+        - OFF for at most 0.5s
+        - ON for at most 0.5s
+        - OFF for at least 0.2s
+        then:
+          - logger.log: "Double-Clicked"
+          - light.turn_on:
+              id: dimmer
+              brightness: 100%
+
+      # triple click
+      - timing:
+        - ON for at most 0.5s
+        - OFF for at most 0.5s
+        - ON for at most 0.5s
+        - OFF for at most 0.5s
+        - ON for at most 0.5s
+        - OFF for at least 0.2s
+        then:
+          - logger.log: "Triple-Clicked"
+          - light.turn_on:
+              id: dimmer
+              brightness: 25%
+
+      # Press and Hold button
+      - timing:
+        - ON for at most 0.5s
+        - OFF for at least 0.1s
+        - ON for at least 1s
+        then:
+          - logger.log: "Press and Hold - Dim DOWN"
+          - while:
+                condition:
+                  - binary_sensor.is_on: switchID_1
+                then:
+                  - light.dim_relative:
+                      id: dimmer
+                      relative_brightness: -1%
+                      transition_length: 0.01s
+                  - delay: 0.01s
+
+      # Hold button
+      - timing:
+        - ON for at least 1s
+        then:
+          - logger.log: "Hold - Dim UP"
+          - while:
+                condition:
+                  - binary_sensor.is_on: switchID_1
+                then:
+                  - light.dim_relative:
+                      id: dimmer
+                      relative_brightness: +1%
+                      transition_length: 0.01s
+                  - delay: 0.01s
