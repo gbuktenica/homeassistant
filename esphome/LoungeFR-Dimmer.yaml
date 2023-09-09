@@ -1,5 +1,6 @@
 substitutions:
-  device_name: FR
+  device_name: lounge_fr
+  light_name: FR
   ip: "10.4.4.58"
   ssid: IoTL1
 #####################################
@@ -43,7 +44,7 @@ sensor:
 
 light:
     - platform: shelly_dimmer
-      name: ${device_name}
+      name: ${light_name}
       id: dimmer
       leading_edge: false
       min_brightness: 470
