@@ -1,5 +1,5 @@
 substitutions:
-  device_name: lounge_fr
+  device_name: lounge-fr
   light_name: FR
   ip: "10.4.4.58"
   ssid: IoTL1
