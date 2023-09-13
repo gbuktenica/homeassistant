@@ -1,7 +1,7 @@
 substitutions:
-  device_name: plus2pm51
-  channel_1: plus2pm51 1
-  channel_2: plus2pm51 2
+  device_name: kitchen-2pm
+  channel_1: Kitchen
+  channel_2: Litchen LED
   max_power: "2000.0" # watt
   max_temp: "80.0" # °C
   ip: "10.4.4.51"
@@ -39,10 +39,10 @@ i2c:
 output:
   - platform: gpio
     id: "relay_output_1"
-    pin: GPIO12
+    pin: GPIO13
   - platform: gpio
     id: "relay_output_2"
-    pin: GPIO13
+    pin: GPIO12
 
 switch:
   - platform: output
