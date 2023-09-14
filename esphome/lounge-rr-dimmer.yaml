@@ -1,6 +1,6 @@
 substitutions:
-  device_name: dimmer2-55
-  light_name: UN
+  device_name: lounge-rr
+  light_name: RR
   ip: "10.4.4.55"
   ssid: IoTL1
 #####################################
