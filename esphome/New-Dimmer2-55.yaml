@@ -1,5 +1,6 @@
 substitutions:
   device_name: dimmer2-55
+  light_name: UN
   ip: "10.4.4.55"
   ssid: IoTL1
 #####################################
@@ -43,15 +44,92 @@ sensor:
 
 light:
     - platform: shelly_dimmer
-      name: Shelly Dimmer 2 Light
-      id: thislight
-      power:
-        name: Shelly Dimmer 2 Light Power
-      voltage:
-        name: Shelly Dimmer 2 Light Voltage
-      current:
-        name: Shelly Dimmer 2 Light Current
-      max_brightness: 500
+      name: ${light_name}
+      id: dimmer
+      leading_edge: false
+      min_brightness: 470
+      max_brightness: 1000
+      restore_mode: ALWAYS_OFF
+      default_transition_length: 1s
+      gamma_correct: 0
       firmware:
         version: "51.6"
         update: true
+
+binary_sensor:
+  - platform: gpio
+    name: 'Switch 1'
+    id: switchID_1
+    pin:
+      number: GPIO14
+      mode: INPUT
+    internal: true
+    filters:
+      - delayed_on_off: 50ms
+    on_multi_click:
+
+      # single click
+      - timing:
+        - ON for at most 1s
+        - OFF for at least 0.5s
+        then:
+          - logger.log: "Single-Clicked"
+          - light.toggle: dimmer
+
+      # double click
+      - timing:
+        - ON for at most 0.5s
+        - OFF for at most 0.5s
+        - ON for at most 0.5s
+        - OFF for at least 0.2s
+        then:
+          - logger.log: "Double-Clicked"
+          - light.turn_on:
+              id: dimmer
+              brightness: 100%
+
+      # triple click
+      - timing:
+        - ON for at most 0.5s
+        - OFF for at most 0.5s
+        - ON for at most 0.5s
+        - OFF for at most 0.5s
+        - ON for at most 0.5s
+        - OFF for at least 0.2s
+        then:
+          - logger.log: "Triple-Clicked"
+          - light.turn_on:
+              id: dimmer
+              brightness: 25%
+
+      # Press and Hold button
+      - timing:
+        - ON for at most 0.5s
+        - OFF for at least 0.1s
+        - ON for at least 1s
+        then:
+          - logger.log: "Press and Hold - Dim DOWN"
+          - while:
+                condition:
+                  - binary_sensor.is_on: switchID_1
+                then:
+                  - light.dim_relative:
+                      id: dimmer
+                      relative_brightness: -1%
+                      transition_length: 0.01s
+                  - delay: 0.01s
+
+      # Hold button
+      - timing:
+        - ON for at least 1s
+        then:
+          - logger.log: "Hold - Dim UP"
+          - while:
+                condition:
+                  - binary_sensor.is_on: switchID_1
+                then:
+                  - light.dim_relative:
+                      id: dimmer
+                      relative_brightness: +1%
+                      transition_length: 0.01s
+                  - delay: 0.01s

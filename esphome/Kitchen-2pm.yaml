@@ -1,7 +1,7 @@
 substitutions:
   device_name: kitchen-2pm
   channel_1: Kitchen
-  channel_2: Litchen LED
+  channel_2: Kitchen LED
   max_power: "2000.0" # watt
   max_temp: "80.0" # °C
   ip: "10.4.4.51"
@@ -44,12 +44,12 @@ output:
     id: "relay_output_2"
     pin: GPIO12
 
-switch:
-  - platform: output
+light:
+  - platform: binary
     id: "relay_1"
     name: "${channel_1}"
     output: "relay_output_1"
-  - platform: output
+  - platform: binary
     id: "relay_2"
     name: "${channel_2}"
     output: "relay_output_2"
@@ -73,7 +73,7 @@ binary_sensor:
       - delayed_on_off: 50ms
     on_press:
       then:
-        - switch.toggle: relay_1
+        - light.toggle: relay_1
     internal: true
   # Input 2
   - platform: gpio
@@ -83,7 +83,7 @@ binary_sensor:
       - delayed_on_off: 50ms
     on_press:
       then:
-        - switch.toggle: relay_2
+        - light.toggle: relay_2
     internal: true
 
 sensor:
