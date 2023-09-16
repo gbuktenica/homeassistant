@@ -2,7 +2,7 @@ substitutions:
   friendly_name: Coffee
   device_name: coffee-s26
   ip: "10.4.4.26"
-  ssid: IoTL1
+  ssid: IoTG
   board: esp01_1m
 #####################################
 esphome:
