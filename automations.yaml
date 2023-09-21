@@ -344,32 +344,32 @@
   trigger:
     - entity_id: binary_sensor.downstairs_input
       platform: state
-    condition:
-      or:
-        - condition: state
-          entity_id: light.kitchen
-          state: "on"
-        - condition: state
-          entity_id: light.kitchen_led
-          state: "on"
-        - condition: state
-          entity_id: light.fl
-          state: "on"
-        - condition: state
-          entity_id: light.fr
-          state: "on"
-        - condition: state
-          entity_id: light.rl
-          state: "on"
-        - condition: state
-          entity_id: light.rr
-          state: "on"
-        - condition: state
-          entity_id: light.dining_west
-          state: "on"
-        - condition: state
-          entity_id: light.dining_east
-          state: "on"
+  condition:
+    or:
+      - condition: state
+        entity_id: light.kitchen
+        state: "on"
+      - condition: state
+        entity_id: light.kitchen_led
+        state: "on"
+      - condition: state
+        entity_id: light.fl
+        state: "on"
+      - condition: state
+        entity_id: light.fr
+        state: "on"
+      - condition: state
+        entity_id: light.rl
+        state: "on"
+      - condition: state
+        entity_id: light.rr
+        state: "on"
+      - condition: state
+        entity_id: light.dining_west
+        state: "on"
+      - condition: state
+        entity_id: light.dining_east
+        state: "on"
 
   action:
     service: light.turn_off
