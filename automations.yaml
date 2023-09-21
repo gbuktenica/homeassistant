@@ -296,3 +296,90 @@
     target:
       entity_id: button.vehicle_button
   mode: single
+
+- id: light_downstairs_switch_on
+  alias: Light Downstairs Switch On
+  description: Turn on the Lounge and Dining lights
+  trigger:
+    - entity_id: binary_sensor.downstairs_input
+      platform: state
+  condition:
+    - condition: state
+      entity_id: light.kitchen
+      state: "off"
+    - condition: state
+      entity_id: light.kitchen_led
+      state: "off"
+    - condition: state
+      entity_id: light.fl
+      state: "off"
+    - condition: state
+      entity_id: light.fr
+      state: "off"
+    - condition: state
+      entity_id: light.rl
+      state: "off"
+    - condition: state
+      entity_id: light.rr
+      state: "off"
+    - condition: state
+      entity_id: light.dining_west
+      state: "off"
+    - condition: state
+      entity_id: light.dining_east
+      state: "off"
+  action:
+    service: light.turn_on
+    data:
+      entity_id:
+        - light.kitchen
+        - light.rl
+        - light.rr
+        - light.dining_west
+        - light.dining_east
+
+- id: light_downstairs_switch_off
+  alias: Light Downstairs Switch Off
+  description: Turn off the Lounge and Dining lights
+  trigger:
+    - entity_id: binary_sensor.downstairs_input
+      platform: state
+    condition:
+      or:
+        - condition: state
+          entity_id: light.kitchen
+          state: "on"
+        - condition: state
+          entity_id: light.kitchen_led
+          state: "on"
+        - condition: state
+          entity_id: light.fl
+          state: "on"
+        - condition: state
+          entity_id: light.fr
+          state: "on"
+        - condition: state
+          entity_id: light.rl
+          state: "on"
+        - condition: state
+          entity_id: light.rr
+          state: "on"
+        - condition: state
+          entity_id: light.dining_west
+          state: "on"
+        - condition: state
+          entity_id: light.dining_east
+          state: "on"
+
+  action:
+    service: light.turn_off
+    data:
+      entity_id:
+        - light.kitchen
+        - light.kitchen_led
+        - light.fl
+        - light.fr
+        - light.rl
+        - light.rr
+        - light.dining_west
+        - light.dining_east
