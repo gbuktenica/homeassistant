@@ -303,6 +303,7 @@
   trigger:
     - entity_id: binary_sensor.downstairs_input
       platform: state
+      to: "on"
   condition:
     - condition: state
       entity_id: light.kitchen
@@ -344,6 +345,7 @@
   trigger:
     - entity_id: binary_sensor.downstairs_input
       platform: state
+      to: "on"
   condition:
     or:
       - condition: state
@@ -370,7 +372,6 @@
       - condition: state
         entity_id: light.dining_east
         state: "on"
-
   action:
     service: light.turn_off
     data:
