@@ -1,7 +1,7 @@
 substitutions:
   device_name: front-s25
   channel_1: Frontyard Light
-  channel_2: Entry Light
+  channel_2: Downstairs
   max_power: "2000.0" # watt
   max_temp: "80.0" # °C
   ip: "10.4.4.34"
