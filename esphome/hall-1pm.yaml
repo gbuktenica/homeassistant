@@ -96,3 +96,5 @@ binary_sensor:
         - light.toggle: lightid
     internal: true
     id: switchid
+    filters:
+      - delayed_on_off: 100ms

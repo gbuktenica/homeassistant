@@ -47,7 +47,7 @@ light:
       name: ${device_name}
       id: dimmer
       leading_edge: false
-      min_brightness: 470
+      min_brightness: 300
       max_brightness: 1000
       restore_mode: ALWAYS_OFF
       default_transition_length: 1s
