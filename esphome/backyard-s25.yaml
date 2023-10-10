@@ -182,7 +182,7 @@ binary_sensor:
     pin:
       number: GPIO13
     name: "${channel_1} input"
-    on_state:
+    on_press:
       then:
         - light.toggle: lightid1
   - platform: gpio

@@ -91,7 +91,7 @@ binary_sensor:
       #mode: INPUT_PULLUP
       #inverted: True
     name: ${channel_1} Button
-    on_state:
+    on_press:
       then:
         - light.toggle: lightid
     internal: true
