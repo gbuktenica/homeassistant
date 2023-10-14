@@ -73,6 +73,7 @@ zwcfg_*.xml
 
 # Don't Store Secrets
 secrets.yaml
+somfy_secrets.h
 
 # Frequent local changes
 known_devices.yaml

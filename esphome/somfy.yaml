@@ -57,8 +57,7 @@ cover:
   - platform: custom
     lambda: |-
       auto somfy_remote = new SomfyESPRemote();
-      somfy_remote->add_cover("somfy", "badezimmer", SOMFY_REMOTE_BADEZIMMER);
-      somfy_remote->add_cover("somfy", "kinderzimmer", SOMFY_REMOTE_KINDERZIMMER);
+      somfy_remote->add_cover("somfy", "awning", SOMFY_REMOTE_AWNING);
       App.register_component(somfy_remote);
       return somfy_remote->covers;
 
