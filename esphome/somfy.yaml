@@ -1,6 +1,7 @@
 substitutions:
+  device_name: awning
   ip: "10.4.4.59"
-
+  ssid: IoTL1
 esphome:
   name: somfy
   platform: ESP32
