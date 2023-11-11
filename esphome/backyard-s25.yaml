@@ -189,3 +189,6 @@ binary_sensor:
     pin:
       number: GPIO5
     name: "${channel_2} input"
+    on_press:
+      then:
+        - light.toggle: lightid2
