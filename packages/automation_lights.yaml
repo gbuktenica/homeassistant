@@ -501,7 +501,7 @@ automation:
             - light.hall_light
             - light.office_front_light
             - light.office_rear_light
-            - light.kitchen_light
+            - light.kitchen
       - condition: state
         entity_id: sun.sun
         state: "above_horizon"

@@ -92,7 +92,7 @@ automation:
           sticky: 'true'
     - service: light.turn_on
       data:
-        entity_id: light.kitchen_light
+        entity_id: light.kitchen
 
   - id: coffee_notify_reset
     alias: Coffee Notify Reset on start
