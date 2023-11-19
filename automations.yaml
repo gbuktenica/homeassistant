@@ -162,7 +162,7 @@
     weekday:
     - sun
   - condition: template
-    value_template: '{{((as_timestamp(now()) - as_timestamp("2023-06-12 00:00:00"))/86400)
+    value_template: '{{((as_timestamp(now()) - as_timestamp("2023-06-11 00:00:00"))/86400)
       | int % 14  == 0}}'
   action:
   - service: notify.mobile_app_s21
