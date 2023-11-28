@@ -3,7 +3,7 @@ substitutions:
   channel_1: Garage Light
   channel_2: Garage Door
   max_power: "2000.0" # watt
-  max_temp: "80.0" # °C
+  max_temp: "100.0" # °C
   ip: "10.4.4.46"
   ssid: IoTG
   board: esp01_1m
@@ -54,7 +54,7 @@ i2c:
   scl: GPIO14
 
 sensor:
-  - platform: ade7953
+  - platform: ade7953_i2c
     voltage:
       name: ${device_name} voltage
     current_a:
