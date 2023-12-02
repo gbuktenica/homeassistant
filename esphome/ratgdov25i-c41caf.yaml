@@ -1,0 +1,26 @@
+substitutions:
+  name: ratgdo
+  friendly_name: ratgdo
+  ip: "10.4.4.48"
+  ssid: IoTL1
+
+packages:
+  ratgdo.esphome: github://ratgdo/esphome-ratgdo/v25iboard.yaml@main
+esphome:
+  name: ${name}
+  name_add_mac_suffix: false
+  friendly_name: ${friendly_name}
+api:
+  encryption:
+    key: !secret api
+
+
+wifi:
+  ssid: ${ssid}
+  password: !secret iot
+  fast_connect: on
+  use_address: ${ip}
+  manual_ip:
+    static_ip: ${ip}
+    gateway: 10.4.4.1
+    subnet: 255.255.255.0
