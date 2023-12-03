@@ -3,7 +3,7 @@ substitutions:
   channel_1: "vehicle"
   channel_2: "pedestrian"
   channel_3: "tesla_gate"
-  channel_3: "gate_status"
+  channel_4: "gate_status"
   ip: "10.4.4.44"
   ssid: IoTG
   board: nodemcu-32s
