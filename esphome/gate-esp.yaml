@@ -88,6 +88,6 @@ binary_sensor:
       number: GPIO22
       mode:
         input: true
-        pullup: true
+        pullup: false
     name: ${channel_4}
     device_class: GARAGE_DOOR
