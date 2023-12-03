@@ -3,6 +3,7 @@ substitutions:
   channel_1: "vehicle"
   channel_2: "pedestrian"
   channel_3: "tesla_gate"
+  channel_3: "gate_status"
   ip: "10.4.4.44"
   ssid: IoTG
   board: nodemcu-32s
@@ -70,7 +71,7 @@ button:
     name: ${channel_2} button
     output: ${channel_2}output
     duration: 500ms
-    
+
 binary_sensor:
   - platform: gpio
     pin:
@@ -82,3 +83,11 @@ binary_sensor:
     device_class: GARAGE_DOOR
     filters:
       - delayed_on: 10ms
+  - platform: gpio
+    pin:
+      number: GPIO22
+      mode:
+        input: true
+        pullup: true
+    name: ${channel_4}
+    device_class: GARAGE_DOOR
