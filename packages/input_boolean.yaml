@@ -23,3 +23,7 @@ input_boolean:
     name: Tesla Night Charging
     initial: off
     icon: mdi:lightning-bolt
+  evie_mode:
+    name: Evie Mode
+    initial: off
+    icon: mdi:dog-side
