@@ -406,6 +406,7 @@
       entity_id:
       - "media_player.bedroom_speaker"
       - "media_player.den_display"
+      - "media_player.kitchen_display"
       - "media_player.workshop_speaker"
   - service: notify.mobile_app_s21
     data:
