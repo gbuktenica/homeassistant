@@ -91,3 +91,34 @@ binary_sensor:
         pullup: false
     name: ${channel_4}
     device_class: GARAGE_DOOR
+    on_multi_click:
+      # Closed
+      - timing:
+        - OFF for at least 1.5s
+        then:
+          - logger.log: "Closed"
+          #- light.toggle: dimmer
+
+      # Open
+      - timing:
+        - ON for at least 1.5s
+        then:
+          - logger.log: "Open"
+
+      # Opening
+      - timing:
+        - ON for at least 0.2s
+        - OFF for at least 0.2s
+        - ON for at least 0.2s
+        - OFF for at least 0.2s
+        then:
+          - logger.log: "Opening"
+
+      # Closing
+      - timing:
+        - ON for at most 0.13s
+        - OFF for at most 0.13s
+        - ON for at most 0.13s
+        - OFF for at most 0.13s
+        then:
+          - logger.log: "Closing"
