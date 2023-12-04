@@ -8,6 +8,7 @@ substitutions:
   ssid: IoTG
   board: nodemcu-32s
   # https://esphome.io/devices/nodemcu_esp32.html
+  # https://github.com/wernerhp/esphome/blob/main/centurion-d5-evo/centurion-d5-evo.yaml
 #######################
 esphome:
   name: ${device_name}
