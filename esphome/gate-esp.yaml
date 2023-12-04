@@ -224,3 +224,9 @@ cover:
     stop_action:
       - button.press: ${channel_1}button
     optimistic: false
+
+text_sensor:
+  - platform: template
+    icon: mdi:information-outline
+    id: status
+    name: "Status"
