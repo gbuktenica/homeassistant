@@ -408,11 +408,15 @@
       - "media_player.den_display"
       - "media_player.kitchen_display"
       - "media_player.workshop_speaker"
+  - service: camera.snapshot
+    data:
+      filename: /config/www/garage.png
+    entity_id: camera.g4_pro_high
   - service: notify.mobile_app_s21
     data:
       message: 'The gate is open'
       data:
-        image: https://hassio.buktenica.com:8123/local/doorbell.png
+        image: https://hassio.buktenica.com:8123/local/garage.png
         tag: gate
         sticky: 'true'
 
