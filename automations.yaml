@@ -412,5 +412,28 @@
     data:
       message: 'The gate is open'
       data:
+        image: https://hassio.buktenica.com:8123/local/doorbell.png
         tag: gate
         sticky: 'true'
+
+- id: garage_door_close_leaving
+  alias: Garage Door Close Leaving
+  description: Close the Garage door when Lucy is leaving
+  trigger:
+  - entity_id: binary_sensor.ratgdo_obstruction
+    platform: state
+    to: 'off'
+    for:
+      seconds: 2
+  condition:
+  - condition: state
+    entity_id: cover.gate
+    state: 'open'
+  - condition: state
+    entity_id: cover.garage_door
+    state: 'open'
+  action:
+  - service: cover.close_cover
+    target:
+      entity_id: cover.garage_door
+    data: {}
