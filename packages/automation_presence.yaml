@@ -391,7 +391,7 @@ automation:
       target:
         entity_id: input_select.doors_opened
       data:
-        option: Closed
+        option: closed
 
   - id: presence_doors_open
     alias: Presence Doors Open
