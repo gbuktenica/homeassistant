@@ -1,6 +1,6 @@
 substitutions:
-  device_name: laundrysouth-mini
-  channel_1: "Laundry LED"
+  device_name: laundry-heater-mini
+  channel_1: "Laundry Heater"
   ip: "10.4.4.20"
   ssid: IoTL1
   board: esp01_1m
