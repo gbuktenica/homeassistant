@@ -1,7 +1,7 @@
 substitutions:
-  device_name: garden-mini
-  id: garden_lights
-  name: "Garden Lights"
+  device_name: laundry-fan-mini
+  id: Laundry Fan
+  name: "Laundry Fan"
   ip: "10.4.4.23"
   ssid: IoTL1
   board: esp01_1m
@@ -51,9 +51,13 @@ output:
   - platform: gpio
     id: relay
     pin: GPIO12
-
-light:
-  - platform: binary
-    id: ${id}
     name: ${name}
-    output: relay
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO04
+    name: "${name} input"
+    on_state:
+      then:
+        - relay.toggle: relay
