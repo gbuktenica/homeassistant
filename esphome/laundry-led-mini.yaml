@@ -1,7 +1,7 @@
 substitutions:
-  device_name: party-mini
-  id: party_lights
-  name: "Party Lights"
+  device_name: laundry-led-mini
+  id: laundry_led
+  name: "Laundry LED"
   ip: "10.4.4.24"
   ssid: IoTL1
   board: esp01_1m
@@ -57,3 +57,12 @@ light:
     id: ${id}
     name: ${name}
     output: relay
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO04
+    name: "${name} input"
+    on_state:
+      then:
+        - light.toggle: ${id}
