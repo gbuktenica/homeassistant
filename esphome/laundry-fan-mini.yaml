@@ -47,11 +47,12 @@ time:
   - platform: homeassistant
     id: homeassistant_time
 #####################################
-output:
+switch:
   - platform: gpio
     id: relay
     pin: GPIO12
     name: ${name}
+    icon: "mdi:fan"
 
 binary_sensor:
   - platform: gpio
@@ -60,4 +61,4 @@ binary_sensor:
     name: "${name} input"
     on_state:
       then:
-        - relay.toggle: relay
+        - switch.toggle: relay
