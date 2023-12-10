@@ -1,7 +1,7 @@
 substitutions:
-  device_name: plus2pm50
-  channel_1: plus2pm50 1
-  channel_2: plus2pm50 2
+  device_name: garden
+  channel_1: garden_lights
+  channel_2: party_lights
   max_power: "2000.0" # watt
   max_temp: "80.0" # °C
   ip: "10.4.4.50"
