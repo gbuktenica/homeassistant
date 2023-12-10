@@ -2,7 +2,7 @@ substitutions:
   name: ratgdo
   friendly_name: ratgdo
   ip: "10.4.4.48"
-  ssid: IoTL1
+  ssid: IoTG
 
 packages:
   ratgdo.esphome: github://ratgdo/esphome-ratgdo/v25iboard.yaml@main
