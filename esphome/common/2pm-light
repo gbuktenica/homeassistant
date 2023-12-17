@@ -1,13 +1,3 @@
-substitutions:
-  device_name: plus2pm52
-  channel_1: plus2pm52 1
-  channel_2: plus2pm52 2
-  max_power: "2000.0" # watt
-  max_temp: "80.0" # °C
-  ip: "10.4.4.52"
-  ssid: IoTL1
-#####################################
-# For PCB v0.1.9 with dual core ESP32
 esphome:
   name: ${device_name}
 
@@ -16,22 +6,6 @@ esp32:
   framework:
     type: arduino
 
-logger:
-
-api:
-
-ota:
-
-wifi:
-  ssid: ${ssid}
-  password: !secret iot
-  fast_connect: on
-  use_address: ${ip}
-  manual_ip:
-    static_ip: ${ip}
-    gateway: 10.4.4.1
-    subnet: 255.255.255.0
-
 i2c:
   sda: GPIO26
   scl: GPIO25
@@ -39,17 +13,17 @@ i2c:
 output:
   - platform: gpio
     id: "relay_output_1"
-    pin: GPIO12
+    pin: GPIO13
   - platform: gpio
     id: "relay_output_2"
-    pin: GPIO13
+    pin: GPIO12
 
-switch:
-  - platform: output
+light:
+  - platform: binary
     id: "relay_1"
     name: "${channel_1}"
     output: "relay_output_1"
-  - platform: output
+  - platform: binary
     id: "relay_2"
     name: "${channel_2}"
     output: "relay_output_2"
@@ -73,7 +47,7 @@ binary_sensor:
       - delayed_on_off: 50ms
     on_press:
       then:
-        - switch.toggle: relay_1
+        - light.toggle: relay_1
     internal: true
   # Input 2
   - platform: gpio
@@ -83,12 +57,12 @@ binary_sensor:
       - delayed_on_off: 50ms
     on_press:
       then:
-        - switch.toggle: relay_2
+        - light.toggle: relay_2
     internal: true
 
 sensor:
   # Power Sensor
-  - platform: ade7953
+  - platform: ade7953_i2c
     irq_pin: GPIO27
     voltage:
       name: "${device_name} Voltage"
