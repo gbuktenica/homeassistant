@@ -44,7 +44,7 @@ binary_sensor:
     pin:
       number: GPIO4
     name: ${channel_1} Button
-    on_state:
+    ${button_action}:
       then:
         - light.toggle: lightid
     internal: true
