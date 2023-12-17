@@ -9,4 +9,4 @@ substitutions:
 #####################################
 packages:
   common_base: !include common/base.yaml
-  device_base: !include common/s25_base.yaml
+  device_base: !include common/s25-light.yaml
