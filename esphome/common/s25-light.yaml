@@ -1,3 +1,7 @@
+esphome:
+  name: ${device_name}
+  platform: ESP8266
+  board: esp01_1m
 i2c:
   sda: GPIO12
   scl: GPIO14

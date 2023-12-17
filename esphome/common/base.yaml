@@ -1,8 +1,3 @@
-esphome:
-  name: ${device_name}
-  platform: ${platform}
-  board: ${board}
-
 wifi:
   ssid: ${ssid}
   password: !secret iot

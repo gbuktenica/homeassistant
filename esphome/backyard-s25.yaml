@@ -6,8 +6,6 @@ substitutions:
   max_temp: "80.0" # °C
   ip: "10.4.4.33"
   ssid: IoTL1
-  board: esp01_1m
-  platform: ESP8266
 #####################################
 packages:
   common_base: !include common/base.yaml
