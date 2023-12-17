@@ -1,0 +1,10 @@
+substitutions:
+  device_name: potwall-1pm
+  channel_1: "Pot Wall Light"
+  ip: "10.4.4.39"
+  ssid: IoTL2
+  calibrate: "163 -> 18"
+#####################################
+packages:
+  common_base: !include common/base.yaml
+  device_base: !include common/1pm-light.yaml
