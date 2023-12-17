@@ -4,6 +4,7 @@ substitutions:
   ip: "10.4.4.70"
   ssid: IoTG
   calibrate: "196 -> 12"
+  button_action: "on_press" #on_state
 #####################################
 packages:
   common_base: !include common/base.yaml

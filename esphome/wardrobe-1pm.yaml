@@ -4,6 +4,7 @@ substitutions:
   ip: "10.4.4.38"
   ssid: IoTL2
   calibrate: "187 -> 12"
+  button_action: "on_state" #on_state
 #####################################
 packages:
   common_base: !include common/base.yaml
