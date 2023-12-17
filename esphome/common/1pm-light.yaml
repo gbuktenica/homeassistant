@@ -1,0 +1,53 @@
+esphome:
+  name: ${device_name}
+  platform: ESP8266
+  board: esp01_1m
+
+sensor:
+  - platform: hlw8012
+    sel_pin:
+      number: GPIO3
+      inverted: True
+    cf_pin: GPIO5 #5
+    cf1_pin: GPIO14 #14
+    current_resistor: 0.001
+    voltage_divider: 4600
+    power:
+      name: ${channel_1} Power
+      unit_of_measurement: W
+      id: power_channel_1
+      filters:
+        - calibrate_linear:
+            - 0.0 -> 0.0
+            - ${calibrate}
+  - platform: total_daily_energy
+    name: ${channel_1} Energy
+    power_id: power_channel_1
+    filters:
+      # Multiplication factor from W to kW is 0.001
+      - multiply: 0.001
+    unit_of_measurement: kWh
+
+output:
+  - platform: gpio
+    pin: GPIO15
+    id: relay
+
+light:
+  - platform: binary
+    name: ${channel_1}
+    output: relay
+    id: lightid
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO4
+    name: ${channel_1} Button
+    on_state:
+      then:
+        - light.toggle: lightid
+    internal: true
+    id: switchid
+    filters:
+      - delayed_on_off: 100ms
