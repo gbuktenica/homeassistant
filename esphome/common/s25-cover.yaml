@@ -34,10 +34,10 @@ binary_sensor:
         - lambda: |
             if (id(blind).current_operation == COVER_OPERATION_IDLE) {
               // Cover is idle
-              id(blind).open();
+              id(blind)..make_call().set_command_open().perform();
             } else {
               // Cover is opening / closing. Stop it.
-              id(blind).stop();
+              id(blind).make_call().set_command_stop().perform();
             }
 
   - platform: gpio
@@ -51,10 +51,10 @@ binary_sensor:
         - lambda: |
             if (id(blind).current_operation == COVER_OPERATION_IDLE) {
               // Cover is idle
-              id(blind).close();
+              id(blind).make_call().set_command_close().perform();
             } else {
               // Cover is opening / closing. Stop it.
-              id(blind).stop();
+              id(blind).make_call().set_command_stop().perform();
             }
 cover:
   - platform: time_based
