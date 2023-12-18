@@ -3,42 +3,21 @@ substitutions:
   disp_name: "Energy Meter"
   ip: "10.4.4.60"
   ssid: IoTG
-  board: nodemcu-32s
-  # https://esphome.io/devices/nodemcu_esp32.html
-  
-# Interval of how often the power is updated
+
   update_time: 10s
   current_cal1: '39000'
   current_cal2: '39000'
   voltage_cal: '14150'
-
+#######################
 esphome:
   name: ${device_name}
   platform: ESP32
-  board: ${board}
+  board: nodemcu-32s
+  # https://esphome.io/devices/nodemcu_esp32.html
 
-wifi:
-  ssid: ${ssid}
-  password: !secret iot
-  fast_connect: on
-  manual_ip:
-    static_ip: ${ip}
-    gateway: 10.4.4.1
-    subnet: 255.255.255.0
-
-# Enable logging
-logger:
-
-# Enable Home Assistant API
-api:
-  encryption:
-    key: !secret api
-ota:
-
-time:
-  - platform: homeassistant
-    id: homeassistant_time
-
+packages:
+  common_base: !include common/base.yaml
+#######################
 spi:
   clk_pin: 18
   miso_pin: 19
@@ -134,7 +113,7 @@ sensor:
     current_phases: 3
     chip_temperature:
       name: ${disp_name} Temp B
-      
+
 #Total Amps
   - platform: template
     name: ${disp_name} Total Amps

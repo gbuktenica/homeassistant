@@ -3,50 +3,16 @@ substitutions:
   channel_1: "Coffee"
   ip: "10.4.4.31"
   ssid: IoTL1
-  board: esp01_1m
-  update_interval_fast: 20sec
+  calibrate: "15000 -> 1400"
   update_interval_slow: 20sec
 #######################
 esphome:
   name: ${device_name}
   platform: ESP8266
-  board: ${board}
+  board: esp01_1m
 
-wifi:
-  ssid: ${ssid}
-  password: !secret iot
-  fast_connect: on
-  use_address: ${ip}
-  manual_ip:
-    static_ip: ${ip}
-    gateway: 10.4.4.1
-    subnet: 255.255.255.0
-
-  # Enable fallback hotspot  in case wifi connection fails
-  ap:
-    ssid: ${device_name}
-    password: !secret iot
-    manual_ip:
-      static_ip: 192.168.100.2
-      gateway: 192.168.100.1
-      subnet: 255.255.255.0
-
-captive_portal:
-
-# Enable logging
-logger:
-
-# Enable Home Assistant API
-api:
-  encryption:
-    key: !secret api
-
-ota:
-  password: !secret iot
-
-time:
-  - platform: homeassistant
-    id: homeassistant_time
+packages:
+  common_base: !include common/base.yaml
 #####################################
 sensor:
   - platform: hlw8012
@@ -71,7 +37,7 @@ sensor:
         - calibrate_linear:
             # Map 0.0 (from sensor) to 0.0 (true value)
             - 0.0 -> 0.0
-            - 15000 -> 1400
+            - ${calibrate}
         # Make everything below 10W appear as just 0W.
         - lambda: if (x < (10 + 1)) return 0; else return (x - 1);
 
@@ -99,13 +65,3 @@ binary_sensor:
       inverted: true
     on_press:
       - switch.toggle: relay
-
-# interval:
-#   - interval: ${update_interval_fast}
-#     then:
-#       - if:
-#           condition:
-#             - switch.is_on: relay
-#           then:
-#             - component.update: sensor_id
-            

@@ -11,41 +11,8 @@ esphome:
   platform: ESP8266
   board: ${board}
 
-wifi:
-  ssid: ${ssid}
-  password: !secret iot
-  fast_connect: on
-  use_address: ${ip}
-  manual_ip:
-    static_ip: ${ip}
-    gateway: 10.4.4.1
-    subnet: 255.255.255.0
-
-  # Enable fallback hotspot  in case wifi connection fails
-  ap:
-    ssid: ${device_name}
-    password: !secret iot
-    manual_ip:
-      static_ip: 192.168.100.2
-      gateway: 192.168.100.1
-      subnet: 255.255.255.0
-
-captive_portal:
-
-# Enable logging
-logger:
-
-# Enable Home Assistant API
-api:
-  encryption:
-    key: !secret api
-
-ota:
-  password: !secret iot
-
-time:
-  - platform: homeassistant
-    id: homeassistant_time
+packages:
+  common_base: !include common/base.yaml
 #####################################
 
 binary_sensor:

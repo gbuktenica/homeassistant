@@ -3,48 +3,15 @@ substitutions:
   ip: "10.4.4.29"
   name: "Server"
   ssid: IoTL2
-  board: nodemcuv2
   # https://esphome.io/devices/nodemcu_esp8266.html
 #####################################
 esphome:
   name: ${device_name}
   platform: ESP8266
-  board: ${board}
+  board: nodemcuv2
 
-wifi:
-  ssid: ${ssid}
-  password: !secret iot
-  fast_connect: on
-  use_address: ${ip}
-  manual_ip:
-    static_ip: ${ip}
-    gateway: 10.4.4.1
-    subnet: 255.255.255.0
-
-  # Enable fallback hotspot  in case wifi connection fails
-  ap:
-    ssid: ${device_name}
-    password: !secret iot
-    manual_ip:
-      static_ip: 192.168.100.2
-      gateway: 192.168.100.1
-      subnet: 255.255.255.0
-
-captive_portal:
-
-# Enable logging
-logger:
-
-# Enable Home Assistant API
-api:
-  password: !secret iot
-
-ota:
-  password: !secret ota
-
-time:
-  - platform: homeassistant
-    id: homeassistant_time
+packages:
+  common_base: !include common/base.yaml
 #####################################
 sensor:
   - platform: dht
