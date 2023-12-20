@@ -511,8 +511,9 @@
   description: ''
   trigger:
   - platform: numeric_state
-    entity_id: sensor.coffee_power
-    below: 110
+    entity_id:
+    - sensor.coffee_power
+    below: 500
   condition:
   - condition: state
     entity_id: input_boolean.coffee_notify
@@ -520,7 +521,7 @@
   - condition: time
     after: 04:30:00
   - condition: time
-    before: '17:00:00'
+    before: '21:00:00'
   - condition: state
     entity_id: switch.coffee_machine
     state: 'on'
@@ -528,7 +529,7 @@
   - delay: 00:00:16
   - condition: numeric_state
     entity_id: sensor.coffee_power
-    below: 110
+    below: 500
   - service: tts.google_translate_say
     data:
       message: The coffee machine is ready.
@@ -577,6 +578,15 @@
       minutes: 30
   condition: []
   action:
+  - service: tts.google_translate_say
+    data:
+      message: The coffee machine is off
+      entity_id: media_player.kitchen_display
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 30
+      milliseconds: 0
   - service: switch.turn_off
     data:
       entity_id:
