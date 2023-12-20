@@ -67,7 +67,7 @@
     platform: time
   condition:
   - condition: state
-    entity_id: climate.daikin_ac
+    entity_id: climate.daikin
     state: cool
   action:
   - service: climate.set_temperature
@@ -130,12 +130,11 @@
   - service: script.outside_speakers_off
   mode: queued
   max: 10
-
 - id: bin_week_yellow
   alias: Bin Week Yellow
   trigger:
   - platform: time
-    at: "15:00:00"
+    at: '15:00:00'
   condition:
   - condition: time
     weekday:
@@ -151,12 +150,11 @@
   - service: notify.mobile_app_natalies_iphone
     data:
       message: It is yellow bin week.
-
 - id: bin_week_red
   alias: Bin Week Red
   trigger:
   - platform: time
-    at: "15:00:00"
+    at: '15:00:00'
   condition:
   - condition: time
     weekday:
@@ -171,7 +169,6 @@
   - service: notify.mobile_app_natalies_iphone
     data:
       message: It is red bin week.
-
 - id: door_bell_chime
   alias: Door Bell Chime
   trigger:
@@ -195,7 +192,6 @@
       - media_player.den_display
       - media_player.workshop_speaker
       - media_player.kitchen_display
-
 - id: door_bell_notification
   alias: Door Bell Notification
   trigger:
@@ -220,8 +216,8 @@
         tag: doorbell
         sticky: 'true'
         actions:
-          - action: "trigger_gate"
-            title: "Gate"
+        - action: trigger_gate
+          title: Gate
   - service: notify.mobile_app_natalies_iphone
     data:
       message: Someone has pressed the doorbell.
@@ -230,9 +226,8 @@
         tag: doorbell
         sticky: 'true'
         actions:
-          - action: "trigger_gate"
-            title: "Gate"
-
+        - action: trigger_gate
+          title: Gate
 - id: doorbell_gate_action
   alias: Doorbell Gate Action
   description: Open the gate when the door bell notification button is pressed.
@@ -251,7 +246,6 @@
       message: clear_notification
       data:
         tag: doorbell
-
 - id: harmony_off
   alias: Harmony Remote Off
   trigger:
@@ -296,130 +290,122 @@
     target:
       entity_id: button.vehicle_button
   mode: single
-
 - id: light_downstairs_switch_on
   alias: Light Downstairs Switch On
   description: Turn on the Lounge and Dining lights
   trigger:
-    - entity_id: binary_sensor.downstairs_input
-      platform: state
-      to: "on"
+  - entity_id: binary_sensor.downstairs_input
+    platform: state
+    to: 'on'
   condition:
-    - condition: state
-      entity_id: light.kitchen
-      state: "off"
-    - condition: state
-      entity_id: light.kitchen_led
-      state: "off"
-    - condition: state
-      entity_id: light.fl
-      state: "off"
-    - condition: state
-      entity_id: light.fr
-      state: "off"
-    - condition: state
-      entity_id: light.rl
-      state: "off"
-    - condition: state
-      entity_id: light.rr
-      state: "off"
-    - condition: state
-      entity_id: light.dining_west
-      state: "off"
-    - condition: state
-      entity_id: light.dining_east
-      state: "off"
+  - condition: state
+    entity_id: light.kitchen
+    state: 'off'
+  - condition: state
+    entity_id: light.kitchen_led
+    state: 'off'
+  - condition: state
+    entity_id: light.fl
+    state: 'off'
+  - condition: state
+    entity_id: light.fr
+    state: 'off'
+  - condition: state
+    entity_id: light.rl
+    state: 'off'
+  - condition: state
+    entity_id: light.rr
+    state: 'off'
+  - condition: state
+    entity_id: light.dining_west
+    state: 'off'
+  - condition: state
+    entity_id: light.dining_east
+    state: 'off'
   action:
     service: light.turn_on
     data:
       entity_id:
-        - light.kitchen
-        - light.rl
-        - light.rr
-        - light.dining_west
-        - light.dining_east
-
+      - light.kitchen
+      - light.rl
+      - light.rr
+      - light.dining_west
+      - light.dining_east
 - id: light_downstairs_switch_off
   alias: Light Downstairs Switch Off
   description: Turn off the Lounge and Dining lights
   trigger:
-    - entity_id: binary_sensor.downstairs_input
-      platform: state
-      to: "on"
+  - entity_id: binary_sensor.downstairs_input
+    platform: state
+    to: 'on'
   condition:
     or:
-      - condition: state
-        entity_id: light.kitchen
-        state: "on"
-      - condition: state
-        entity_id: light.kitchen_led
-        state: "on"
-      - condition: state
-        entity_id: light.fl
-        state: "on"
-      - condition: state
-        entity_id: light.fr
-        state: "on"
-      - condition: state
-        entity_id: light.rl
-        state: "on"
-      - condition: state
-        entity_id: light.rr
-        state: "on"
-      - condition: state
-        entity_id: light.dining_west
-        state: "on"
-      - condition: state
-        entity_id: light.dining_east
-        state: "on"
+    - condition: state
+      entity_id: light.kitchen
+      state: 'on'
+    - condition: state
+      entity_id: light.kitchen_led
+      state: 'on'
+    - condition: state
+      entity_id: light.fl
+      state: 'on'
+    - condition: state
+      entity_id: light.fr
+      state: 'on'
+    - condition: state
+      entity_id: light.rl
+      state: 'on'
+    - condition: state
+      entity_id: light.rr
+      state: 'on'
+    - condition: state
+      entity_id: light.dining_west
+      state: 'on'
+    - condition: state
+      entity_id: light.dining_east
+      state: 'on'
   action:
     service: light.turn_off
     data:
       entity_id:
-        - light.kitchen
-        - light.kitchen_led
-        - light.fl
-        - light.fr
-        - light.rl
-        - light.rr
-        - light.dining_west
-        - light.
-
+      - light.kitchen
+      - light.kitchen_led
+      - light.fl
+      - light.fr
+      - light.rl
+      - light.rr
+      - light.dining_west
+      - light.
 - id: gate_notify
   alias: Gate Notify
   trigger:
   - platform: state
     entity_id: cover.gate
-    to: 'opening'
+    to: opening
   condition:
   - condition: state
     entity_id: input_boolean.evie_mode
     state: 'on'
   - condition: time
-    after: '04:30:00'
+    after: 04:30:00
   - condition: time
     before: '22:00:00'
   action:
   - service: tts.google_translate_say
     data:
-      message: 'The gate is open.'
-      entity_id:
-      - "media_player.bedroom_speaker"
-      - "media_player.den_display"
-      - "media_player.kitchen_display"
-      - "media_player.workshop_speaker"
+      message: The gate is open.
+      entity_id: media_player.bedroom_speaker
   - service: camera.snapshot
     data:
       filename: /config/www/garage.png
     entity_id: camera.g4_pro_high
   - service: notify.mobile_app_s21
     data:
-      message: 'The gate is open'
+      message: The gate is open
       data:
         image: https://hassio.buktenica.com:8123/local/garage.png
         tag: gate
         sticky: 'true'
-
 - id: garage_door_close_leaving
   alias: Garage Door Close Leaving
   description: Close the Garage door when Lucy is leaving
@@ -432,12 +418,1569 @@
   condition:
   - condition: state
     entity_id: cover.gate
-    state: 'open'
+    state: open
   - condition: state
     entity_id: cover.garage_door
-    state: 'open'
+    state: open
   action:
   - service: cover.close_cover
     target:
       entity_id: cover.garage_door
     data: {}
+- id: '1702824777001'
+  alias: Light Night Backyard Light On
+  description: Turns on the Backyard light when the rear bifold is opened.
+  trigger:
+  - entity_id: binary_sensor.rear_bifold_door
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  - condition: state
+    entity_id: input_boolean.party_mode
+    state: 'off'
+  - condition: state
+    entity_id: light.party_lights
+    state: 'off'
+  - condition: state
+    entity_id: light.backyard_light
+    state: 'off'
+  action:
+  - service: light.turn_on
+    data:
+      entity_id:
+      - light.backyard_light
+  - delay:
+      minutes: 10
+  - service: light.turn_off
+    data:
+      entity_id:
+      - light.backyard_light
+  mode: restart
+- id: '1703032591707'
+  alias: Amp Fan Off
+  description: Turn the Amp fan off when temp reached
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.amp_temperature
+    below: 27
+  condition: []
+  action:
+  - service: fan.turn_off
+    data:
+      entity_id: fan.amp_fan
+  mode: single
+- id: '1703032656513'
+  alias: Amp Fan Speed Change
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.amp_temperature
+    above: 27
+  - platform: numeric_state
+    entity_id: sensor.amp_temperature
+    below: 30
+  - platform: numeric_state
+    entity_id: sensor.amp_temperature
+    above: 30
+  - platform: numeric_state
+    entity_id: sensor.amp_temperature
+    below: 32
+  - platform: numeric_state
+    entity_id: sensor.amp_temperature
+    above: 32
+  condition:
+  - condition: and
+    conditions:
+    - condition: numeric_state
+      entity_id: sensor.amp_temperature
+      above: 27
+  action:
+  - service: fan.turn_on
+    entity_id: fan.amp_fan
+  - service: fan.set_percentage
+    entity_id: fan.amp_fan
+    data_template:
+      percentage: '{% set temp = states(''sensor.amp_temperature'')|float %} {% if
+        temp < 30 %} 1 {% elif temp < 32 %} 20 {% else %} 100 {% endif %}'
+  mode: single
+- id: '1703032677772'
+  alias: Coffee Notify
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.coffee_power
+    below: 110
+  condition:
+  - condition: state
+    entity_id: input_boolean.coffee_notify
+    state: 'off'
+  - condition: time
+    after: 04:30:00
+  - condition: time
+    before: '17:00:00'
+  - condition: state
+    entity_id: switch.coffee_machine
+    state: 'on'
+  action:
+  - delay: 00:00:16
+  - condition: numeric_state
+    entity_id: sensor.coffee_power
+    below: 110
+  - service: tts.google_translate_say
+    data:
+      message: The coffee machine is ready.
+      entity_id: media_player.bedroom_speaker
+  - service: input_boolean.turn_on
+    data:
+      entity_id:
+      - input_boolean.coffee_notify
+  - service: notify.mobile_app_s21
+    data:
+      message: The coffee machine is ready.
+      data:
+        tag: coffee
+        sticky: 'true'
+  - service: light.turn_on
+    data:
+      entity_id: light.kitchen
+  mode: single
+- id: '1703032695615'
+  alias: Coffee Notify Reset on start
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: switch.coffee_machine
+    to: 'on'
+  condition: []
+  action:
+  - service: input_boolean.turn_on
+    data:
+      entity_id:
+      - input_boolean.coffee_notify
+  - delay: 00:02:00
+  - service: input_boolean.turn_off
+    data:
+      entity_id:
+      - input_boolean.coffee_notify
+  mode: single
+- id: '1703032740519'
+  alias: Coffee Off
+  description: Turns off the coffee machine when on too long.
+  trigger:
+  - entity_id: switch.coffee_machine
+    platform: state
+    to: 'on'
+    for:
+      minutes: 30
+  condition: []
+  action:
+  - service: switch.turn_off
+    data:
+      entity_id:
+      - switch.coffee_machine
+  mode: single
+- id: '1703032755607'
+  alias: Coffee One Off On
+  description: Turns off the coffee machine on a date set by GUI.
+  trigger:
+  - platform: time
+    at: input_datetime.coffee_time
+  condition: []
+  action:
+  - service: switch.turn_on
+    data:
+      entity_id:
+      - switch.coffee_relay
+  mode: single
+- id: '1703032781557'
+  alias: Coffee On Weekday Morning
+  description: Turns on the coffee machine on weekdays when Glen is at yoga.
+  trigger:
+  - platform: time
+    at: 06:50:00
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  - condition: zone
+    entity_id: person.glen
+    zone: zone.bby
+  - condition: state
+    entity_id: input_boolean.holiday_mode
+    state: 'off'
+  action:
+  - service: switch.turn_on
+    data:
+      entity_id:
+      - switch.coffee_machine
+  mode: single
+- id: '1703032799319'
+  alias: Coffee Phone Notify Reset when off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: switch.coffee_machine
+    to: 'off'
+  condition: []
+  action:
+  - service: notify.mobile_app_s21
+    data:
+      message: clear_notification
+      data:
+        tag: coffee
+  mode: single
+- id: '1703032810915'
+  alias: Cover Night Front Blind Closed
+  description: Closes the lounge blind after sunset when the Front Bi Fold closes
+    or when everyone comes home.
+  trigger:
+  - entity_id: input_select.beautiful_people
+    platform: state
+    to: everyone_home
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  - condition: state
+    entity_id: input_boolean.party_mode
+    state: 'off'
+  - condition: time
+    after: '17:00:00'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.front_bifold_door
+      state: 'on'
+    - condition: state
+      entity_id: switch.front_heater_low
+      state: 'on'
+    - condition: state
+      entity_id: switch.front_heater_med
+      state: 'on'
+    - condition: state
+      entity_id: switch.front_heater_high
+      state: 'on'
+  action:
+  - service: cover.set_cover_position
+    data:
+      entity_id: cover.night_blind
+      position: 0
+  - delay:
+      seconds: 20
+  - service: cover.set_cover_position
+    data:
+      entity_id: cover.day_blind
+      position: 100
+  mode: single
+- id: '1703032827976'
+  alias: Cover Sunset Blind Down
+  description: Closes the lounge blind at sunset if the Bi Fold is closed and someone
+    is away.
+  trigger:
+  - event: sunset
+    offset: 00:15:00
+    platform: sun
+  condition:
+  - condition: state
+    entity_id: input_boolean.party_mode
+    state: 'off'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: input_select.beautiful_people
+      state: everyone_home
+    - condition: state
+      entity_id: binary_sensor.front_bifold_door
+      state: 'on'
+    - condition: state
+      entity_id: switch.front_heater_low
+      state: 'on'
+    - condition: state
+      entity_id: switch.front_heater_med
+      state: 'on'
+    - condition: state
+      entity_id: switch.front_heater_high
+      state: 'on'
+  action:
+  - service: cover.set_cover_position
+    data:
+      entity_id: cover.night_blind
+      position: 20
+  - delay:
+      seconds: 20
+  - service: cover.set_cover_position
+    data:
+      entity_id: cover.day_blind
+      position: 100
+  mode: single
+- id: '1703032841151'
+  alias: Cover Sunset Blind Down Home
+  description: Closes the lounge blind at sunset if the Bi Fold is closed and people
+    are home.
+  trigger:
+  - event: sunset
+    offset: 00:15:00
+    platform: sun
+  condition:
+  - condition: state
+    entity_id: input_boolean.party_mode
+    state: 'off'
+  - condition: state
+    entity_id: input_select.beautiful_people
+    state: everyone_home
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.front_bifold_door
+      state: 'on'
+    - condition: state
+      entity_id: switch.front_heater_low
+      state: 'on'
+    - condition: state
+      entity_id: switch.front_heater_med
+      state: 'on'
+    - condition: state
+      entity_id: switch.front_heater_high
+      state: 'on'
+  action:
+  - service: cover.set_cover_position
+    data:
+      entity_id: cover.night_blind
+      position: 0
+  - delay:
+      seconds: 20
+  - service: cover.set_cover_position
+    data:
+      entity_id: cover.day_blind
+      position: 100
+  mode: single
+- id: '1703032854202'
+  alias: Cover Weekday Morning Blind Up
+  description: Opens the lounge blinds on weekdays only.
+  trigger:
+  - platform: time
+    at: 05:45:00
+  - event: sunrise
+    offset: -00:15:00
+    platform: sun
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  - condition: sun
+    after: sunrise
+    after_offset: -00:16:00
+  - condition: time
+    after: 05:45:00
+  action:
+  - service: cover.set_cover_position
+    data:
+      entity_id: cover.night_blind
+      position: 100
+  - delay:
+      seconds: 20
+  - service: cover.set_cover_position
+    data:
+      entity_id: cover.day_blind
+      position: 50
+  mode: single
+- id: '1703032885187'
+  alias: Garage Closing Car Not Present
+  description: Turn off the Garage light when the Garage door is closing
+  trigger:
+  - entity_id: cover.garage_door
+    platform: state
+    to: closing
+    for:
+      seconds: 10
+  condition:
+  - condition: state
+    entity_id: binary_sensor.garage_rear_door
+    state: 'off'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.car_present
+      state: 'on'
+  action:
+  - service: light.turn_off
+    data:
+      entity_id:
+      - light.garage_light
+  mode: single
+- id: '1703032897936'
+  alias: Garage Closing Car Present
+  description: Turn off the Garage light when the Garage door is closing and the car
+    is in the garage.
+  trigger:
+  - entity_id: cover.garage_door
+    platform: state
+    to: closing
+    for:
+      seconds: 10
+  condition:
+  - condition: state
+    entity_id: binary_sensor.garage_rear_door
+    state: 'off'
+  - condition: state
+    entity_id: binary_sensor.car_present
+    state: 'on'
+  action:
+  - delay:
+      minutes: 5
+  - condition: state
+    entity_id: binary_sensor.garage_rear_door
+    state: 'off'
+  - service: light.turn_off
+    data:
+      entity_id:
+      - light.garage_light
+  mode: single
+- id: '1703032913005'
+  alias: Garage Opening
+  description: Turn on the Garage light when the Garage door is opening
+  trigger:
+  - entity_id: cover.garage_door
+    platform: state
+    to: opening
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      entity_id:
+      - light.garage_light
+  mode: single
+- id: '1703032922802'
+  alias: Garage Rear Door Opening
+  description: Turn on the Garage light when the Garage rear door is opening
+  trigger:
+  - entity_id: binary_sensor.garage_rear_door
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      entity_id:
+      - light.garage_light
+  mode: single
+- id: '1703032963205'
+  alias: Holiday Lights Off
+  description: In holiday mode turn all the lights off after 22:00 with a random delay
+    of 2 hours.
+  trigger:
+  - at: '22:00:00'
+    platform: time
+  condition:
+  - condition: state
+    entity_id: input_boolean.holiday_mode
+    state: 'on'
+  action:
+  - delay: '{{ range(0, 120)|random|multiply(60) }}'
+  - service: light.turn_off
+    data:
+      entity_id: all
+  mode: single
+- id: '1703032973859'
+  alias: Holiday Lights On
+  description: In holiday mode turn some of the lights on after sunset with a random
+    delay.
+  trigger:
+  - event: sunset
+    platform: sun
+  condition:
+  - condition: state
+    entity_id: input_boolean.holiday_mode
+    state: 'on'
+  action:
+  - delay: '{{ range(15, 60)|random|multiply(60) }}'
+  - service: light.turn_on
+    data:
+      entity_id:
+      - light.rl_light
+      - light.rr_light
+  - delay: '{{ range(15, 60)|random|multiply(60) }}'
+  - service: light.turn_on
+    data:
+      entity_id:
+      - light.wardrobe_light
+  mode: single
+- id: '1703032983564'
+  alias: Light Day Frontyard  Light Off
+  description: Turns off the front yard light in the morning.
+  trigger:
+  - platform: sun
+    event: sunrise
+  condition:
+  - condition: state
+    entity_id: input_boolean.party_mode
+    state: 'off'
+  - condition: state
+    entity_id: light.frontyard_light
+    state: 'on'
+  action:
+  - service: light.turn_off
+    data:
+      entity_id:
+      - light.frontyard_light
+  mode: single
+- id: '1703033014493'
+  alias: Light everyone away
+  description: Turns off most of the lights when everyone is away
+  trigger:
+  - entity_id: input_select.beautiful_people
+    platform: state
+    from: everyone_home
+  condition:
+  - condition: state
+    entity_id: input_boolean.party_mode
+    state: 'off'
+  action:
+  - service: light.turn_off
+    data:
+      entity_id:
+      - light.glens_light
+      - light.fl_light
+      - light.fr_light
+      - light.rl_light
+      - light.rr_light
+      - light.shelf_light
+  - condition: sun
+    before: sunset
+    before_offset: -00:30:00
+  - condition: sun
+    after: sunrise
+    after_offset: 00:30:00
+  - service: light.turn_off
+    data:
+      entity_id:
+      - light.entry_light
+      - light.stairway_light
+      - light.wardrobe_light
+  mode: single
+- id: '1703033028038'
+  alias: Light Garden Party Off
+  description: Turn off the garden switch
+  trigger:
+  - entity_id: light.garden_lights
+    platform: state
+    to: 'off'
+  - entity_id: light.party_lights
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: light.garden_lights
+    state: 'off'
+  - condition: state
+    entity_id: light.party_lights
+    state: 'off'
+  action:
+  - service: light.turn_off
+    data:
+      entity_id:
+      - light.garden_switch
+  mode: single
+- id: '1703033040387'
+  alias: Light Garden Party On
+  description: Turn on the garden switch
+  trigger:
+  - entity_id: light.garden_lights
+    platform: state
+    to: 'on'
+  - entity_id: light.party_lights
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      entity_id:
+      - light.garden_switch
+  mode: single
+- id: '1703033054063'
+  alias: Light Garden Switch Off
+  description: Turn off the garden and party lights
+  trigger:
+  - entity_id: binary_sensor.garden_switch_input
+    platform: state
+  condition:
+  - condition: state
+    entity_id: light.garden_switch
+    state: 'on'
+  action:
+  - service: light.turn_off
+    data:
+      entity_id:
+      - light.garden_lights
+      - light.party_lights
+      - light.garden_switch
+      - light.pot_wall_light
+  mode: single
+- id: '1703033064675'
+  alias: Light Garden Switch On
+  description: Turn on the garden and party lights
+  trigger:
+  - entity_id: binary_sensor.garden_switch_input
+    platform: state
+  condition:
+  - condition: state
+    entity_id: light.garden_switch
+    state: 'off'
+  action:
+  - service: light.turn_on
+    data:
+      entity_id:
+      - light.garden_lights
+      - light.party_lights
+      - light.garden_switch
+      - light.pot_wall_light
+  mode: single
+- id: '1703033081803'
+  alias: Light Nat away
+  description: Turns off Nats lights because she cant
+  trigger:
+  - entity_id: input_select.nat_presence
+    platform: state
+    from: Home
+  condition:
+  - condition: state
+    entity_id: input_boolean.party_mode
+    state: 'off'
+  action:
+  - service: light.turn_off
+    data:
+      entity_id:
+      - light.hall_light
+      - light.office_front_light
+      - light.office_rear_light
+      - light.kitchen
+  - condition: state
+    entity_id: sun.sun
+    state: above_horizon
+  - service: light.turn_off
+    data:
+      entity_id:
+      - light.dining_light
+  mode: single
+- id: '1703033103448'
+  alias: Light Night Frontyard Door Light On
+  description: Turns on the front yard light when the front door is opened.
+  trigger:
+  - entity_id: binary_sensor.entry_door
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  - condition: state
+    entity_id: input_boolean.party_mode
+    state: 'off'
+  - condition: state
+    entity_id: light.frontyard_light
+    state: 'off'
+  action:
+  - service: light.turn_on
+    data:
+      entity_id:
+      - light.frontyard_light
+  mode: single
+- id: '1703033114029'
+  alias: Light Night Frontyard Light On
+  description: Turns on the front yard light at sunset.
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: 00:10:00
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  - condition: state
+    entity_id: input_boolean.party_mode
+    state: 'off'
+  action:
+  - service: light.turn_on
+    data:
+      entity_id:
+      - light.frontyard_light
+  mode: single
+- id: '1703033125844'
+  alias: Light Strata Off
+  description: Turn off the strata lights 1 hour after sunset.
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: 01:00:00
+  condition: []
+  action:
+  - service: light.turn_off
+    data:
+      entity_id:
+      - light.strata_lights
+  mode: single
+- id: '1703033137006'
+  alias: Light Sunset Inside Lights On
+  description: Turns On the inside lights 15 minutes before sunset.
+  trigger:
+  - event: sunset
+    offset: -00:20:00
+    platform: sun
+  condition:
+  - condition: state
+    entity_id: input_boolean.party_mode
+    state: 'off'
+  action:
+  - service: light.turn_on
+    data:
+      entity_id:
+      - light.stairway_light
+      - light.entry_light
+  - condition: state
+    entity_id: input_select.beautiful_people
+    state: everyone_away
+  - service: light.turn_on
+    data:
+      entity_id:
+      - light.wardrobe_light
+      - light.dining_light
+  mode: single
+- id: '1703033147242'
+  alias: Light Sunset Outside Lights On
+  description: Turns On the outside lights 15 minutes after sunset.
+  trigger:
+  - event: sunset
+    offset: 00:15:00
+    platform: sun
+  condition: []
+  action:
+  - service: light.turn_on
+    data:
+      entity_id:
+      - light.frontyard_light
+  mode: single
+- id: '1703033209185'
+  alias: Presence Doors Open
+  description: Set when any of the doors are still open.
+  trigger:
+  - entity_id: binary_sensor.rear_bifold_door
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.entry_door
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.front_bifold_door
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - service: input_select.select_option
+    target:
+      entity_id: input_select.doors_opened
+    data:
+      option: closed
+  mode: single
+- id: '1703033221845'
+  alias: Presence Doors opened
+  description: Set when any of the front doors have been opened and then all doors
+    are closed.
+  trigger:
+  - entity_id: binary_sensor.entry_door
+    platform: state
+    to: 'off'
+    for:
+      seconds: 30
+  - entity_id: binary_sensor.front_bifold_door
+    platform: state
+    to: 'off'
+    for:
+      seconds: 30
+  condition:
+  - condition: state
+    entity_id: binary_sensor.entry_door
+    state: 'off'
+  - condition: state
+    entity_id: binary_sensor.front_bifold_door
+    state: 'off'
+  - condition: state
+    entity_id: binary_sensor.rear_bifold_door
+    state: 'off'
+  action:
+  - service: input_select.select_option
+    target:
+      entity_id: input_select.doors_opened
+    data:
+      option: opened
+  - delay:
+      minutes: 10
+  - service: input_select.select_option
+    target:
+      entity_id: input_select.doors_opened
+    data:
+      option: closed
+  mode: restart
+- id: '1703033282438'
+  alias: Presence Glen Away
+  description: Set when Glen is away.
+  trigger:
+  - entity_id: device_tracker.glens_phone
+    platform: state
+    from: home
+  - entity_id: device_tracker.glen_ping
+    platform: state
+    from: home
+  condition:
+  - condition: state
+    entity_id: input_select.doors_opened
+    state: opened
+  - condition: state
+    entity_id: input_select.glen_presence
+    state: home
+  action:
+  - service: input_select.select_option
+    target:
+      entity_id: input_select.glen_presence
+    data:
+      option: away
+  - condition: state
+    entity_id: input_select.nat_presence
+    state: home
+  - service: input_select.select_option
+    target:
+      entity_id: input_select.beautiful_people
+    data:
+      option: someone_away
+  mode: single
+- id: '1703033335762'
+  alias: Presence Glen Home
+  description: Set when Glen is home.
+  trigger:
+  - entity_id: device_tracker.glens_phone
+    platform: state
+    to: home
+    for:
+      minutes: 2
+  condition:
+  - condition: state
+    entity_id: input_select.glen_presence
+    state: away
+  action:
+  - service: input_select.select_option
+    target:
+      entity_id: input_select.glen_presence
+    data:
+      option: home
+  - delay:
+      minutes: 3
+  - service: input_select.select_option
+    target:
+      entity_id: input_select.doors_opened
+    data:
+      option: closed
+  mode: single
+- id: '1703033346831'
+  alias: Presence Glen Long Away
+  description: Set when Nat is away for over 8 minutes and all trackers are away.
+  trigger:
+  - entity_id: device_tracker.glen_unifi
+    platform: state
+    from: home
+    for:
+      minutes: 8
+  - entity_id: device_tracker.glens_phone
+    platform: state
+    from: home
+    for:
+      minutes: 4
+  - entity_id: device_tracker.glen_ping
+    platform: state
+    from: home
+    for:
+      minutes: 8
+  condition:
+  - condition: state
+    entity_id: input_select.glen_presence
+    state: home
+  - condition: state
+    entity_id: device_tracker.glen_unifi
+    state: away
+  - condition: state
+    entity_id: device_tracker.glens_phone
+    state: away
+  - condition: state
+    entity_id: device_tracker.glen_ping
+    state: away
+  action:
+  - service: input_select.select_option
+    target:
+      entity_id: input_select.glen_presence
+    data:
+      option: away
+  - condition: state
+    entity_id: input_select.nat_presence
+    state: home
+  - service: input_select.select_option
+    target:
+      entity_id: input_select.beautiful_people
+    data:
+      option: someone_away
+  mode: single
+- id: '1703033590760'
+  alias: Presence Nat Away
+  description: Set when Nat is away.
+  trigger:
+  - entity_id: device_tracker.nat_unifi
+    platform: state
+    from: home
+    for:
+      minutes: 4
+  - entity_id: device_tracker.nat_iphonedetect
+    platform: state
+    from: home
+  condition:
+  - condition: state
+    entity_id: input_select.doors_opened
+    state: opened
+  - condition: state
+    entity_id: input_select.nat_presence
+    state: home
+  action:
+  - service: input_select.select_option
+    target:
+      entity_id: input_select.nat_presence
+    data:
+      option: away
+  - condition: state
+    entity_id: input_select.glen_presence
+    state: home
+  - service: input_select.select_option
+    target:
+      entity_id: input_select.beautiful_people
+    data:
+      option: someone_away
+  - service: notify.mobile_app_s21
+    data:
+      message: Nat is away.
+      data:
+        tag: nat
+  mode: single
+- id: '1703033618536'
+  alias: Presence People Away
+  description: Testing when people are away.
+  trigger:
+  - entity_id: input_select.glen_presence
+    platform: state
+    from: home
+  - entity_id: input_select.nat_presence
+    platform: state
+    from: home
+  condition:
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: input_select.glen_presence
+      state: home
+    - condition: state
+      entity_id: input_select.nat_presence
+      state: home
+  action:
+  - service: input_select.select_option
+    target:
+      entity_id: input_select.beautiful_people
+    data:
+      option: everyone_away
+  mode: single
+- id: '1703033636549'
+  alias: Presence People Home
+  description: Testing when people are home.
+  trigger:
+  - entity_id: input_select.glen_presence
+    platform: state
+    to: home
+  - entity_id: input_select.nat_presence
+    platform: state
+    to: home
+  condition:
+  - condition: state
+    entity_id: input_select.glen_presence
+    state: home
+  - condition: state
+    entity_id: input_select.nat_presence
+    state: home
+  action:
+  - service: input_select.select_option
+    target:
+      entity_id: input_select.beautiful_people
+    data:
+      option: everyone_home
+  mode: single
+- id: '1703033703206'
+  alias: Server Fan Speed Change
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.server_temperature
+    above: 26
+  - platform: numeric_state
+    entity_id: sensor.server_temperature
+    below: 28
+  - platform: numeric_state
+    entity_id: sensor.server_temperature
+    above: 28
+  - platform: numeric_state
+    entity_id: sensor.server_temperature
+    below: 30
+  - platform: numeric_state
+    entity_id: sensor.server_temperature
+    above: 30
+  condition:
+  - condition: and
+    conditions:
+    - condition: numeric_state
+      entity_id: sensor.server_temperature
+      above: 26
+  action:
+  - service: fan.turn_on
+    entity_id: fan.server_fan
+  - service: fan.set_percentage
+    entity_id: fan.server_fan
+    data_template:
+      percentage: '{% set temp = states(''sensor.server_temperature'')|float %} {%
+        if temp < 28 %} 85 {% elif temp < 30 %} 92 {% else %} 100 {% endif %}'
+  mode: single
+- id: '1703033718442'
+  alias: Server Fan Off
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.server_temperature
+    below: 26
+  condition: []
+  action:
+  - service: fan.turn_off
+    entity_id: fan.server_fan
+  mode: single
+- id: '1703033778440'
+  alias: Tesla Charging Stop
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.energy_meter_total_watts
+    above: '100'
+    for: 00:15:00
+  - platform: time
+    at: '14:59:00'
+  - platform: state
+    entity_id: binary_sensor.tesla_wall_connector_contactor_closed
+    to: 'on'
+  condition:
+  - or:
+    - condition: time
+      before: 09:00:00
+      after: '14:58:00'
+    - condition: numeric_state
+      entity_id: sensor.energy_meter_total_watts
+      above: '100'
+  action:
+  - condition: state
+    entity_id: binary_sensor.tesla_wall_connector_contactor_closed
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.charging_override
+    state: 'off'
+  - service: switch.turn_off
+    data:
+      entity_id:
+      - switch.lucy_charger
+  - service: notify.mobile_app_s21
+    data:
+      message: clear_notification
+      data:
+        tag: charging
+  mode: single
+- id: '1703033987206'
+  alias: Tesla Solar Charging less
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.energy_meter_total_watts
+    above: '200'
+    for:
+      minutes: 2
+  - platform: numeric_state
+    entity_id: sensor.energy_meter_total_watts
+    above: '200'
+    for:
+      minutes: 4
+  - platform: numeric_state
+    entity_id: sensor.energy_meter_total_watts
+    above: '200'
+    for:
+      minutes: 6
+  - platform: numeric_state
+    entity_id: sensor.energy_meter_total_watts
+    above: '200'
+    for:
+      minutes: 8
+  - platform: state
+    entity_id: binary_sensor.tesla_wall_connector_contactor_closed
+    to: 'on'
+    for:
+      minutes: 2
+  condition:
+  - condition: state
+    entity_id: binary_sensor.tesla_wall_connector_contactor_closed
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.charging_override
+    state: 'off'
+  - condition: numeric_state
+    entity_id: sensor.energy_meter_total_watts
+    above: '220'
+  action:
+  - service: number.set_value
+    data_template:
+      entity_id: number.lucy_charging_amps
+      value: "{% set charging = (states('number.lucy_charging_amps')|int) %} {% set
+        grid = (states('sensor.energy_meter_total_watts')|int) %} {% if grid > 7000
+        %}\n  {% set result = charging - 15 | int %}\n{% elif grid > 6000 %}\n  {%
+        set result = charging - 13 | int %}\n{% elif grid > 5000 %}\n  {% set result
+        = charging - 12 | int %}\n{% elif grid > 4500 %}\n  {% set result = charging
+        - 11 | int %}\n{% elif grid > 3000 %}\n  {% set result = charging - 8 | int
+        %}\n{% elif grid > 2200 %}\n  {% set result = charging - 5 | int %}\n{% elif
+        grid > 1700 %}\n  {% set result = charging - 4 | int %}\n{% elif grid > 1400
+        %}\n  {% set result = charging - 3 | int %}\n{% elif grid > 700 %}\n  {% set
+        result = charging - 2 | int %}\n{% else %}\n  {% set result = charging - 1
+        | int %}\n{% endif %} {% if result < 0 %}\n  {% set result = 0 %}\n{% endif
+        %} {{ result }}\n"
+  - delay:
+      minutes: 1
+  - service: button.press
+    target:
+      entity_id: button.lucy_force_data_update
+    data: {}
+  - service: notify.mobile_app_s21
+    data:
+      message: clear_notification
+      data:
+        tag: charging
+  - delay:
+      seconds: 10
+  - service: notify.mobile_app_s21
+    data:
+      message: Lucy Charging at {{ states('number.lucy_charging_amps')}} Amps
+      data:
+        tag: charging
+  mode: single
+- id: '1703034358078'
+  alias: Tesla Solar Charging More
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.energy_meter_total_watts
+    below: '-850'
+    for:
+      minutes: 2
+  - platform: numeric_state
+    entity_id: sensor.energy_meter_total_watts
+    below: '-850'
+    for:
+      minutes: 4
+  - platform: state
+    entity_id: binary_sensor.tesla_wall_connector_contactor_closed
+    to: 'on'
+    for:
+      minutes: 2
+  condition:
+  - condition: state
+    entity_id: binary_sensor.tesla_wall_connector_contactor_closed
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.charging_override
+    state: 'off'
+  - condition: numeric_state
+    entity_id: sensor.energy_meter_total_watts
+    below: '-850'
+  action:
+  - service: number.set_value
+    data_template:
+      entity_id: number.lucy_charging_amps
+      value: "{% set charge = (states('number.lucy_charging_amps')|int) %} {% set
+        grid = (states('sensor.energy_meter_total_watts')|int) %} {% if grid < -3800
+        %}\n  {% set result = charge + 5 |int %}\n{% elif grid < -3000 %}\n  {% set
+        result = charge + 4 |int %}\n{% elif grid < -2300 %}\n  {% set result = charge
+        + 3 |int %}\n{% elif grid < -1700 %}\n  {% set result = charge + 2 |int %}\n{%
+        else %}\n  {% set result = charge + 1 |int %}\n{% endif %} {{ result }}\n"
+  - delay:
+      minutes: 1
+  - service: button.press
+    target:
+      entity_id: button.lucy_force_data_update
+    data: {}
+  - service: notify.mobile_app_s21
+    data:
+      message: clear_notification
+      data:
+        tag: charging
+  - delay:
+      seconds: 10
+  - service: notify.mobile_app_s21
+    data:
+      message: Lucy Charging at {{ states('number.lucy_charging_amps')}} Amps
+      data:
+        tag: charging
+  mode: single
+- id: '1703034369179'
+  alias: Tesla Solar Charging Start
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.energy_meter_total_watts
+    below: '-900'
+    for: 00:05:00
+  - platform: time
+    at: 09:05:00
+  - platform: state
+    entity_id: binary_sensor.tesla_wall_connector_vehicle_connected
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.tesla_wall_connector_vehicle_connected
+    state: 'on'
+  - condition: template
+    value_template: '{{ (states(''sensor.lucy_battery'') | int + 2 ) < states(''number.lucy_charge_limit'')
+      | int }}'
+  - condition: time
+    after: 09:00:00
+    before: '15:00:00'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: input_select.charging_mode
+      state: Manual
+  action:
+  - condition: state
+    entity_id: binary_sensor.tesla_wall_connector_contactor_closed
+    state: 'off'
+  - service: switch.turn_on
+    data:
+      entity_id:
+      - switch.lucy_charger
+  - delay:
+      minutes: 1
+  - service: button.press
+    target:
+      entity_id: button.lucy_force_data_update
+    data: {}
+  - service: notify.mobile_app_s21
+    data:
+      message: clear_notification
+      data:
+        tag: charging
+  - delay:
+      seconds: 10
+  - service: notify.mobile_app_s21
+    data:
+      message: Lucy Started Charging at {{ states('sensor.lucy_battery')}}%
+      data:
+        tag: charging
+  mode: single
+- id: '1703034379747'
+  alias: Washing Alarm Acknowledged
+  description: Clear the washing machine finished notification
+  trigger:
+  - platform: time
+    at: '22:00:00'
+  - platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: acknowledge_washing
+  - platform: state
+    entity_id: switch.kitchen_light
+    to: 'on'
+  - platform: state
+    entity_id: switch.kitchen_light
+    to: 'off'
+  - platform: state
+    entity_id: input_boolean.washing_finished
+    to: 'off'
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.washing_finished
+  - service: notify.mobile_app_s21
+    data:
+      message: clear_notification
+      data:
+        tag: washing
+  mode: single
+- id: '1703034389653'
+  alias: Washing Finished
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.smart_switch_power
+    below: 1
+    for:
+      seconds: 15
+  condition:
+  - condition: time
+    after: 05:00:00
+    before: '22:00:00'
+  - condition: numeric_state
+    entity_id: sensor.smart_switch_power
+    below: '1'
+  - condition: state
+    entity_id: input_boolean.washing_running
+    state: 'on'
+  action:
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.washing_running
+  - service: input_boolean.turn_on
+    data:
+      entity_id: input_boolean.washing_finished
+  mode: single
+- id: '1703034398056'
+  alias: Washing Finished Notification
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.washing_finished
+    to: 'on'
+  - platform: state
+    entity_id: input_boolean.washing_finished
+    to: 'on'
+    for:
+      minutes: 10
+  - platform: state
+    entity_id: input_boolean.washing_finished
+    to: 'on'
+    for:
+      minutes: 20
+  - platform: state
+    entity_id: input_boolean.washing_finished
+    to: 'on'
+    for:
+      minutes: 60
+  condition:
+  - condition: time
+    after: 05:00:00
+    before: '22:00:00'
+  - condition: state
+    entity_id: input_boolean.washing_running
+    state: 'off'
+  action:
+  - service: script.turn_on
+    entity_id: script.washing_notify
+  mode: single
+- id: '1703034407474'
+  alias: Washing Started
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.smart_switch_power
+    above: 10
+    for:
+      minutes: 2
+  condition:
+  - condition: state
+    entity_id: input_boolean.washing_running
+    state: 'off'
+  action:
+  - service: input_boolean.turn_on
+    data:
+      entity_id: input_boolean.washing_running
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.washing_finished
+  mode: single
+- id: '1703034538857'
+  alias: Presence Nat Home
+  description: Set when Nat is home.
+  trigger:
+  - entity_id: device_tracker.nat_unifi
+    platform: state
+    to: home
+  - entity_id: device_tracker.nat_iphonedetect
+    platform: state
+    to: home
+  - entity_id: device_tracker.nat_ping
+    platform: state
+    to: home
+  condition:
+  - condition: state
+    entity_id: input_select.nat_presence
+    state: away
+  action:
+  - service: input_select.select_option
+    target:
+      entity_id: input_select.nat_presence
+    data:
+      option: home
+  - delay:
+      minutes: 3
+  - service: input_select.select_option
+    target:
+      entity_id: input_select.doors_opened
+    data:
+      option: closed
+  - service: notify.mobile_app_s21
+    data:
+      message: clear_notification
+      data:
+        tag: nat
+  mode: single
+- id: '1703034573354'
+  alias: Presence Nat Long Away Day
+  description: Set when Nat is away for over 8 minutes during the day and all trackers
+    away.
+  trigger:
+  - entity_id: device_tracker.nat_unifi
+    platform: state
+    from: home
+    for:
+      minutes: 8
+  - entity_id: device_tracker.nat_iphonedetect
+    platform: state
+    from: home
+    for:
+      minutes: 8
+  - entity_id: device_tracker.nat_unifi
+    platform: state
+    from: home
+    for:
+      minutes: 12
+  - entity_id: device_tracker.nat_iphonedetect
+    platform: state
+    from: home
+    for:
+      minutes: 12
+  - entity_id: device_tracker.nat_unifi
+    platform: state
+    from: home
+    for:
+      minutes: 20
+  - entity_id: device_tracker.nat_iphonedetect
+    platform: state
+    from: home
+    for:
+      minutes: 20
+  condition:
+  - condition: state
+    entity_id: input_select.nat_presence
+    state: home
+  - condition: time
+    after: 05:00:00
+    before: '22:00:00'
+  - condition: state
+    entity_id: device_tracker.nat_iphonedetect
+    state: away
+  - condition: state
+    entity_id: device_tracker.nat_unifi
+    state: away
+  action:
+  - service: input_select.select_option
+    target:
+      entity_id: input_select.nat_presence
+    data:
+      option: Away
+  - condition: state
+    entity_id: input_select.glen_presence
+    state: home
+  - service: input_select.select_option
+    target:
+      entity_id: input_select.beautiful_people
+    data:
+      option: someone_away
+  - service: notify.mobile_app_s21
+    data:
+      message: Nat is long away day.
+  mode: single
+- id: '1703034583463'
+  alias: Presence Nat Long Away Night
+  description: Set when Nat is away for over 30 minutes at night and all trackers
+    away.
+  trigger:
+  - entity_id: device_tracker.nat_unifi
+    platform: state
+    from: home
+    for:
+      minutes: 30
+  - entity_id: device_tracker.nat_iphonedetect
+    platform: state
+    from: home
+    for:
+      minutes: 30
+  - entity_id: device_tracker.nat_unifi
+    platform: state
+    from: home
+    for:
+      minutes: 40
+  - entity_id: device_tracker.nat_iphonedetect
+    platform: state
+    from: home
+    for:
+      minutes: 40
+  condition:
+  - condition: state
+    entity_id: input_select.nat_presence
+    state: home
+  - condition: time
+    before: 05:00:00
+    after: '22:00:00'
+  - condition: state
+    entity_id: device_tracker.nat_unifi
+    state: away
+  - condition: state
+    entity_id: device_tracker.nat_iphonedetect
+    state: away
+  action:
+  - service: notify.mobile_app_s21
+    data:
+      message: Nat is long away night.
+  - service: input_select.select_option
+    target:
+      entity_id: input_select.nat_presence
+    data:
+      option: away
+  - condition: state
+    entity_id: input_select.glen_presence
+    state: home
+  - service: input_select.select_option
+    target:
+      entity_id: input_select.beautiful_people
+    data:
+      option: someone_away
+  mode: single
+- id: '1703034619143'
+  alias: Tesla Charging Stopped
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.tesla_wall_connector_contactor_closed
+    to: 'off'
+  condition: []
+  action:
+  - service: button.press
+    target:
+      entity_id: button.lucy_force_data_update
+    data: {}
+  - service: notify.mobile_app_s21
+    data:
+      message: clear_notification
+      data:
+        tag: charging
+  - delay:
+      seconds: 10
+  - service: notify.mobile_app_s21
+    data:
+      message: Lucy Stopped Charging at {{ states('sensor.lucy_battery')}}%
+      data:
+        tag: charging
+  mode: single
