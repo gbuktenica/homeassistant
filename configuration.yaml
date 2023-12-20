@@ -104,4 +104,3 @@ climate:
     power_sensor: binary_sensor.lounge_ac_power
 
 recorder:
-  purge_keep_days: 20
