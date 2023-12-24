@@ -26,7 +26,7 @@ climate:
     name: "${name} AC"
     hardware_uart: UART2
     update_interval: 500ms
-    baud_rate: 9600
+    baud_rate: 2400
     supports:
       mode: [HEAT_COOL, COOL, HEAT, FAN_ONLY]
       fan_mode: [AUTO, LOW, MEDIUM, HIGH]
