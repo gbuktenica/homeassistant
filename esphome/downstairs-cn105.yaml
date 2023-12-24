@@ -1,0 +1,28 @@
+# 1 Blue   = 12V = N/C
+# 2 Green  = 0V  = GND
+# 3 Yellow = 5V  = VIN
+# 4 Black  = TX  = 16
+# 5 Red    = RX  = 17
+
+substitutions:
+  device_name: downstairs-cn105
+  name: downstairs
+  ip: "10.4.4.52"
+  ssid: IoTL1
+
+#####################################
+esphome:
+  name: ${device_name}
+esp32:
+  board: nodemcu-32s
+
+external_components:
+  - source: github://geoffdavis/esphome-mitsubishiheatpump
+packages:
+  common_base: !include common/base.yaml
+#####################################
+climate:
+- platform: mitsubishi_heatpump
+  name: ${name} AC
+  hardware_uart: UART2
+  update_interval: 500ms
