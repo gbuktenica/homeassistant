@@ -22,7 +22,7 @@ packages:
   common_base: !include common/base.yaml
 #####################################
 climate:
-- platform: mitsubishi_heatpump
-  name: ${name} AC
-  hardware_uart: UART2
-  update_interval: 500ms
+  - platform: mitsubishi_heatpump
+    name: "${name} AC"
+    hardware_uart: UART2
+    update_interval: 500ms
