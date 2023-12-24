@@ -30,7 +30,6 @@ climate:
     supports:
       mode: [HEAT_COOL, COOL, HEAT, FAN_ONLY]
       fan_mode: [AUTO, LOW, MEDIUM, HIGH]
-      swing_mode: [OFF, VERTICAL]
     visual:
       min_temperature: 19
       max_temperature: 30
