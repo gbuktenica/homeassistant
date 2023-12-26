@@ -127,8 +127,7 @@ outside_speakers_on:
   - service: media_player.select_sound_mode
     data:
       entity_id: media_player.lounge_amp
-      sound_mode: 'ALL ZONE STEREO'
-
+      sound_mode: ALL ZONE STEREO
 outside_speakers_off:
   alias: Outside Speakers Off
   mode: queued
@@ -136,32 +135,30 @@ outside_speakers_off:
   - service: media_player.select_sound_mode
     data:
       entity_id: media_player.lounge_amp
-      sound_mode: 'MCH STEREO'
-
+      sound_mode: MCH STEREO
 washing_notify:
   alias: Washing Notify
   mode: single
   sequence:
   - service: notify.mobile_app_natalies_iphone
     data:
-      message: 'The washing machine is finished.'
+      message: The washing machine is finished.
   - service: notify.mobile_app_s21
     data:
-      message: 'The washing machine is finished.'
+      message: The washing machine is finished.
       data:
         tag: washing
         sticky: 'true'
         actions:
-          - action: "acknowledge_washing"
-            title: "Acknowledge"
+        - action: acknowledge_washing
+          title: Acknowledge
   - service: tts.google_translate_say
     data:
-      message: 'The washing machine is finished.'
+      message: The washing machine is finished.
       entity_id:
-      - "media_player.bedroom_speaker"
-      - "media_player.den_display"
-      - "media_player.kitchen_display"
-
+      - media_player.bedroom_speaker
+      - media_player.den_display
+      - media_player.kitchen_display
 weekend_music:
   alias: Weekend Music
   sequence:
@@ -198,8 +195,7 @@ weekend_music:
     data_template:
       media_content_id: '{{ ["https://open.spotify.com/playlist/1hlmJOyuxrfPZi8XvuURbT","https://open.spotify.com/playlist/4idYRr5u7W5r6aFZZPCksG",
         "https://open.spotify.com/playlist/2T4BJ915qfUWB4eKWuMufm","https://open.spotify.com/playlist/37i9dQZF1E385O1nGDjpqm"]
-        | random}}
-        '
+        | random}} '
   - delay:
       seconds: 1
   - service: media_player.volume_set
@@ -209,7 +205,6 @@ weekend_music:
       volume_level: 0.31
   - service: media_player.media_play
     entity_id: media_player.spotify_york_spotify
-
 hottest_100:
   alias: Hottest 100
   sequence:
@@ -259,7 +254,6 @@ hottest_100:
       seconds: 1
   - service: media_player.media_play
     entity_id: media_player.spotify_york_spotify
-
 hot_lucy:
   alias: Hot Lucy
   sequence:
@@ -268,20 +262,53 @@ hot_lucy:
       hvac_mode: heat_cool
     target:
       entity_id: climate.lucy_hvac_climate_system
-
   - service: select.select_option
     data:
       option: Auto
     target:
       entity_id: select.lucy_heated_seat_left
-
   - service: select.select_option
     data:
       option: Auto
     target:
       entity_id: select.lucy_heated_seat_right
-
   - service: switch.turn_on
     data: {}
     target:
       entity_id: switch.lucy_heated_steering
+retic:
+  alias: Retic
+  sequence:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.none_zone
+    data: {}
+  - delay:
+      hours: 0
+      minutes: 10
+      seconds: 0
+      milliseconds: 0
+  - service: switch.turn_on
+    target:
+      entity_id: switch.none_zone_2
+    data: {}
+  - delay:
+      hours: 0
+      minutes: 10
+      seconds: 0
+      milliseconds: 0
+  - service: switch.turn_on
+    target:
+      entity_id: switch.none_zone_3
+    data: {}
+  - delay:
+      hours: 0
+      minutes: 10
+      seconds: 0
+      milliseconds: 0
+  - service: switch.turn_on
+    target:
+      entity_id: switch.none_zone_4
+    data: {}
+  mode: single
+  icon: mdi:spray

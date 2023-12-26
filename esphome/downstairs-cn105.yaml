@@ -13,6 +13,12 @@ substitutions:
 #####################################
 esphome:
   name: ${device_name}
+  platformio_options:
+    build_unflags:
+      - "-std=gnu++11"
+    build_flags:
+      - "-std=gnu++17"
+
 esp32:
   board: nodemcu-32s
 
@@ -23,14 +29,11 @@ packages:
 #####################################
 climate:
   - platform: mitsubishi_heatpump
-    name: "${name} AC"
+    name: "${name} ac"
     hardware_uart: UART2
     update_interval: 500ms
     baud_rate: 2400
-    supports:
-      mode: [HEAT_COOL, COOL, HEAT, FAN_ONLY]
-      fan_mode: [AUTO, LOW, MEDIUM, HIGH]
     visual:
       min_temperature: 19
-      max_temperature: 30
-      temperature_step: 1.0
+      max_temperature: 28
+      temperature_step: 0.5
