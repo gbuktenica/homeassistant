@@ -4,7 +4,7 @@ substitutions:
   ip: "10.4.4.31"
   ssid: IoTL1
   calibrate: "15000 -> 1400"
-  update_interval: 20sec
+  update_interval: 15s
 #######################
 esphome:
   name: ${device_name}
@@ -31,40 +31,18 @@ sensor:
       unit_of_measurement: W
       id: power_channel_1
       icon: mdi:flash-circle
-      accuracy_decimals: 0
       filters:
         - calibrate_linear:
             - 0.0 -> 0.0
             - ${calibrate}
-        # Make everything below 10W appear as just 0W.
         - lambda: if (x < (10 + 1)) return 0; else return (x - 1);
-        - or:
-          - throttle: 60s
-          - delta: 20000
-    current:
-      name: ${channel_1} Current
-      accuracy_decimals: 0
-      filters:
-        - or:
-          - throttle: 60s
-          - delta: 100
-    voltage:
-      name: ${channel_1} Voltage
-      accuracy_decimals: 0
-      filters:
-        - or:
-          - throttle: 60s
-          - delta: 100
-
+        
   - platform: total_daily_energy
     name: ${channel_1} Energy
     power_id: power_channel_1
     filters:
       # Multiplication factor from W to kW is 0.001
       - multiply: 0.001
-      - or:
-        - throttle: 60s
-        - delta: 2000
     unit_of_measurement: kWh
 
 switch:
@@ -73,6 +51,12 @@ switch:
     icon: "mdi:coffee-maker"
     pin: GPIO15
     id: relay
+    # on_turn_on:
+    #   - lambda: |-
+    #       id(sensor_id).set_update_interval(5s);
+    # on_turn_off:
+    #   - lambda: |-
+    #       id(sensor_id).set_update_interval(300000);
 
 binary_sensor:
   # Binary sensor for the button press
