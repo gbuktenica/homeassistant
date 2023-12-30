@@ -44,6 +44,7 @@ sensor:
     unit_of_measurement: "°C"
     accuracy_decimals: 1
     icon: "mdi:thermometer"
+    update_interval: ${update_interval}
     calibration:
       b_constant: 3350
       reference_resistance: 10kOhm
