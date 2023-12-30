@@ -1999,3 +1999,16 @@
       data:
         tag: charging
   mode: single
+- id: '1703854060013'
+  alias: Turn off Evie Mode
+  description: ''
+  trigger:
+  - platform: time
+    at: '22:00:00'
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.evie_mode
+    data: {}
+  mode: single
