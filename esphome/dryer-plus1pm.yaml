@@ -1,8 +1,8 @@
 substitutions:
-  device_name: washer
+  device_name: dryer
   max_power: "2000.0" # watt
   max_temp: "90.0" # °C
-  ip: "10.4.4.54"
+  ip: "10.4.4.52"
   ssid: IoTL1
   # Higher value gives lower watt readout
   current_res: "0.001"
