@@ -1736,15 +1736,10 @@
     entity_id:
     - sensor.washer_power
     below: 10
-    for:
-      seconds: 15
   condition:
   - condition: time
     after: 05:00:00
     before: '22:00:00'
-  - condition: numeric_state
-    entity_id: sensor.smart_switch_power
-    below: '1'
   - condition: state
     entity_id: input_boolean.washing_running
     state: 'on'
