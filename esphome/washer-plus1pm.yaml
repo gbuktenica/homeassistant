@@ -1,7 +1,7 @@
 substitutions:
-  device_name: plus1pm54
+  device_name: washer
   max_power: "2000.0" # watt
-  max_temp: "80.0" # °C
+  max_temp: "90.0" # °C
   ip: "10.4.4.54"
   ssid: IoTL1
   # Higher value gives lower watt readout
@@ -14,5 +14,3 @@ packages:
   common_base: !include common/base.yaml
   common_base: !include common/plus1pm-switch.yaml
 #####################################
-
-
