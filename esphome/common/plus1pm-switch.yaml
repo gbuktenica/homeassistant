@@ -44,7 +44,6 @@ sensor:
     unit_of_measurement: "°C"
     accuracy_decimals: 1
     icon: "mdi:thermometer"
-    update_interval: ${update_interval}
     calibration:
       b_constant: 3350
       reference_resistance: 10kOhm
@@ -99,7 +98,7 @@ sensor:
           then:
             - switch.turn_off: "relay"
     change_mode_every: 2
-    update_interval: 10s
+    update_interval: ${update_interval}
   - platform: total_daily_energy
     name: "${device_name} Daily energy consumed"
     power_id: power
