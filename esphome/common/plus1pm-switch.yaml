@@ -93,10 +93,7 @@ sensor:
       unit_of_measurement: W
       id: power
       icon: mdi:flash-outline
-      on_value_range:
-        - above: "3600"
-          then:
-            - switch.turn_off: "relay"
+
     change_mode_every: 2
     update_interval: ${update_interval}
   - platform: total_daily_energy
