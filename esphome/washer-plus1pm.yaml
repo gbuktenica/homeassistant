@@ -5,11 +5,11 @@ substitutions:
   ip: "10.4.4.54"
   ssid: IoTL1
   # Higher value gives lower watt readout
-  current_res: "0.001"
+  current_res: "0.0007"
   # Lower value gives lower voltage readout
   voltage_div: "1925"
   restore_mode: "RESTORE_DEFAULT_ON"
-  update_interval: "60s"
+  update_interval: "30s"
 #####################################
 packages:
   common_base: !include common/base.yaml
