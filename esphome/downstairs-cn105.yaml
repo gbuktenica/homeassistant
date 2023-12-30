@@ -1,8 +1,9 @@
+# CN105     Type  8266 PIN
 # 1 Blue   = 12V = N/C
 # 2 Green  = 0V  = GND
 # 3 Yellow = 5V  = VIN
-# 4 Black  = TX  = 16
-# 5 Red    = RX  = 17
+# 4 Black  = TX  = RX
+# 5 Red    = RX  = TX
 
 substitutions:
   device_name: downstairs-cn105
@@ -13,24 +14,23 @@ substitutions:
 #####################################
 esphome:
   name: ${device_name}
-  platformio_options:
-    build_unflags:
-      - "-std=gnu++11"
-    build_flags:
-      - "-std=gnu++17"
-
-esp32:
-  board: nodemcu-32s
+  platform: ESP8266
+  board: esp01_1m
 
 external_components:
   - source: github://geoffdavis/esphome-mitsubishiheatpump
 packages:
   common_base: !include common/base.yaml
+
+logger:
+  # ESP8266 only - disable serial port logging, as the HeatPump component
+  # needs the sole hardware UART on the ESP8266
+  baud_rate: 0
 #####################################
 climate:
   - platform: mitsubishi_heatpump
     name: "${name} ac"
-    hardware_uart: UART2
+    hardware_uart: UART0
     update_interval: 500ms
     baud_rate: 2400
     visual:
