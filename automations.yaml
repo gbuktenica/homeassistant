@@ -1811,6 +1811,58 @@
     data:
       entity_id: input_boolean.washing_finished
   mode: single
+- id: 'dryer_started'
+  alias: Dryer Started
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id:
+    - sensor.dryer_power
+    above: 500
+    for:
+      minutes: 2
+  condition:
+  - condition: state
+    entity_id: input_boolean.dryer_running
+    state: 'off'
+  action:
+  - service: input_boolean.turn_on
+    data:
+      entity_id: input_boolean.dryer_running
+  mode: single
+- id: 'dryer_finished'
+  alias: Dryer Finished
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id:
+    - sensor.dryer_power
+    below: 400
+    for:
+      minutes: 2
+  condition:
+  - condition: state
+    entity_id: input_boolean.dryer_running
+    state: 'on'
+  action:
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.dryer_running
+  - service: notify.mobile_app_natalies_iphone
+    data:
+      message: The dryer machine is finished.
+  - service: notify.mobile_app_s21
+    data:
+      message: The dryer is finished.
+
+  - service: tts.google_translate_say
+    data:
+      message: The dryer is finished.
+      entity_id:
+      - media_player.bedroom_speaker
+      - media_player.den_display
+      - media_player.kitchen_display
+  mode: single
 - id: '1703034538857'
   alias: Presence Nat Home
   description: Set when Nat is home.
