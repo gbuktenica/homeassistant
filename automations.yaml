@@ -1735,7 +1735,7 @@
   - platform: numeric_state
     entity_id:
     - sensor.washer_power
-    below: 10
+    below: 5
   condition:
   - condition: time
     after: 05:00:00
@@ -1806,7 +1806,7 @@
     data:
       entity_id: input_boolean.washing_finished
   mode: single
-- id: 'dryer_started'
+- id: dryer_started
   alias: Dryer Started
   description: ''
   trigger:
@@ -1825,7 +1825,7 @@
     data:
       entity_id: input_boolean.dryer_running
   mode: single
-- id: 'dryer_finished'
+- id: dryer_finished
   alias: Dryer Finished
   description: ''
   trigger:
@@ -1849,7 +1849,6 @@
   - service: notify.mobile_app_s21
     data:
       message: The dryer is finished.
-
   - service: tts.google_translate_say
     data:
       message: The dryer is finished.

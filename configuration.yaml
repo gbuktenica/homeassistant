@@ -15,19 +15,6 @@ energy:
 frontend:
 hardware:
 history:
-  exclude:
-    domains:
-      - automation
-      - device_tracker
-  include:
-    entities:
-     - device_tracker.glen_ping
-     - device_tracker.glen_unifi
-     - device_tracker.glen_s_s20_ultra
-     - device_tracker.nat_iphonedetect
-     - device_tracker.nat_unifi
-     - device_tracker.nat_ping
-     - device_tracker.nat_phone
 homeassistant_alerts:
 image_upload:
 input_boolean:
