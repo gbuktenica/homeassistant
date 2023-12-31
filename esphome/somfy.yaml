@@ -5,9 +5,53 @@ substitutions:
 #######################
 esphome:
   name: ${device_name}
+  libraries:
+    - EEPROM
+    - SPI
+    - SmartRC-CC1101-Driver-Lib@2.5.6
+    - Somfy_Remote_Lib@0.4.1
+  includes:
+    - somfy_secrets.h
+    - somfy_cover.h
 esp32:
   board type: sp32doit-devkit-v1
 
 packages:
   common_base: !include common/base.yaml
 #####################################
+
+cover:
+  - platform: custom
+    lambda: |-
+      auto somfy_remote = new SomfyESPRemote();
+      somfy_remote->add_cover("somfy", "awning", SOMFY_REMOTE_AWNING);
+      App.register_component(somfy_remote);
+      return somfy_remote->covers;
+
+    covers:
+      - id: "somfy"
+        name: "Somfy Cover"
+      - id: "somfy2"
+        name: "Somfy Cover2"
+
+switch:
+  - platform: template
+    name: "PROG"
+    turn_on_action:
+      - lambda: |-
+          ((SomfyESPCover*)id(somfy))->program();
+  - platform: template
+    name: "STOP"
+    turn_on_action:
+      - lambda: |-
+          ((SomfyESPCover*)id(somfy))->make_call().set_command_stop().perform();
+  - platform: template
+    name: "PROG2"
+    turn_on_action:
+      - lambda: |-
+          ((SomfyESPCover*)id(somfy2))->program();
+  - platform: template
+    name: "STOP2"
+    turn_on_action:
+      - lambda: |-
+          ((SomfyESPCover*)id(somfy2))->make_call().set_command_stop().perform();
