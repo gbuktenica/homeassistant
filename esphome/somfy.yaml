@@ -14,7 +14,7 @@ esphome:
     - somfy_secrets.h
     - somfy_cover.h
 esp32:
-  board type: sp32doit-devkit-v1
+  board: esp32doit-devkit-v1
 
 packages:
   common_base: !include common/base.yaml
@@ -31,8 +31,6 @@ cover:
     covers:
       - id: "somfy"
         name: "Somfy Cover"
-      - id: "somfy2"
-        name: "Somfy Cover2"
 
 switch:
   - platform: template
@@ -45,13 +43,3 @@ switch:
     turn_on_action:
       - lambda: |-
           ((SomfyESPCover*)id(somfy))->make_call().set_command_stop().perform();
-  - platform: template
-    name: "PROG2"
-    turn_on_action:
-      - lambda: |-
-          ((SomfyESPCover*)id(somfy2))->program();
-  - platform: template
-    name: "STOP2"
-    turn_on_action:
-      - lambda: |-
-          ((SomfyESPCover*)id(somfy2))->make_call().set_command_stop().perform();
