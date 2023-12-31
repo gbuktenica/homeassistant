@@ -2,90 +2,12 @@ substitutions:
   device_name: awning
   ip: "10.4.4.59"
   ssid: IoTL1
+#######################
 esphome:
-  name: somfy
-  platform: ESP32
-  board: nodemcu-32s
-  libraries:
-    - EEPROM
-    - SPI
-    - SmartRC-CC1101-Driver-Lib@2.5.6
-    - Somfy_Remote_Lib@0.4.1
-  includes:
-    - somfy_secrets.h
-    - somfy_cover.h
+  name: ${device_name}
+esp32:
+  board type: sp32doit-devkit-v1
 
-wifi:
-  ssid: ${ssid}
-  password: !secret iot
-  fast_connect: on
-  use_address: ${ip}
-  manual_ip:
-    static_ip: ${ip}
-    gateway: 10.4.4.1
-    subnet: 255.255.255.0
-
-  # Enable fallback hotspot (captive portal) in case wifi connection fails
-  ap:
-    ssid: ${device_name}
-    password: !secret iot
-    manual_ip:
-      static_ip: 192.168.100.2
-      gateway: 192.168.100.1
-      subnet: 255.255.255.0
-
-captive_portal:
-
-# Enable logging
-logger:
-
-# Enable Home Assistant API
-api:
-  encryption:
-    key: !secret api
-
-ota:
-  password: !secret iot
-
-sensor:
-  - platform: uptime
-    name: Uptime Sensor
-
-  - platform: wifi_signal
-    name: "WiFi Signal Sensor"
-
-cover:
-  - platform: custom
-    lambda: |-
-      auto somfy_remote = new SomfyESPRemote();
-      somfy_remote->add_cover("somfy", "awning", SOMFY_REMOTE_AWNING);
-      App.register_component(somfy_remote);
-      return somfy_remote->covers;
-
-    covers:
-      - id: "somfy"
-        name: "Somfy Cover"
-      - id: "somfy2"
-        name: "Somfy Cover2"
-
-switch:
-  - platform: template
-    name: "PROG"
-    turn_on_action:
-      - lambda: |-
-          ((SomfyESPCover*)id(somfy))->program();
-  - platform: template
-    name: "STOP"
-    turn_on_action:
-      - lambda: |-
-          ((SomfyESPCover*)id(somfy))->make_call().set_command_stop().perform();
-  - platform: template
-    name: "PROG2"
-    turn_on_action:
-      - lambda: |-
-          ((SomfyESPCover*)id(somfy2))->program();
-  - platform: template
-    name: "STOP2"
-    turn_on_action:
-      - lambda: |-
-          ((SomfyESPCover*)id(somfy2))->make_call().set_command_stop().perform();
+packages:
+  common_base: !include common/base.yaml
+#####################################
