@@ -11,6 +11,9 @@ front_heater_off:
       - switch.front_heater_low
       - switch.front_heater_med
       - switch.front_heater_high
+  alias: Front Heater Off
+  mode: single
+  icon: mdi:radiator-off
 front_heater_low:
   sequence:
   - service: remote.send_command
@@ -27,6 +30,9 @@ front_heater_low:
       entity_id:
       - switch.front_heater_med
       - switch.front_heater_high
+  alias: Front Heater Low
+  mode: single
+  icon: mdi:radiator
 front_heater_med:
   sequence:
   - service: remote.send_command
@@ -43,6 +49,9 @@ front_heater_med:
       entity_id:
       - switch.front_heater_low
       - switch.front_heater_high
+  alias: Front Heater Medium
+  mode: single
+  icon: mdi:radiator
 front_heater_high:
   sequence:
   - service: remote.send_command
@@ -59,6 +68,9 @@ front_heater_high:
       entity_id:
       - switch.front_heater_low
       - switch.front_heater_med
+  alias: Front Heater High
+  mode: single
+  icon: mdi:radiator
 rear_heater_off:
   sequence:
   - service: remote.send_command
@@ -72,6 +84,9 @@ rear_heater_off:
       - switch.rear_heater_low
       - switch.rear_heater_med
       - switch.rear_heater_high
+  alias: Rear Heater Off
+  mode: single
+  icon: mdi:radiator-off
 rear_heater_low:
   sequence:
   - service: remote.send_command
@@ -88,6 +103,9 @@ rear_heater_low:
       entity_id:
       - switch.rear_heater_med
       - switch.rear_heater_high
+  alias: Rear Heater Low
+  mode: single
+  icon: mdi:radiator
 rear_heater_med:
   sequence:
   - service: remote.send_command
@@ -104,6 +122,9 @@ rear_heater_med:
       entity_id:
       - switch.rear_heater_low
       - switch.rear_heater_high
+  alias: Rear Heater Medium
+  mode: single
+  icon: mdi:radiator
 rear_heater_high:
   sequence:
   - service: remote.send_command
@@ -120,6 +141,9 @@ rear_heater_high:
       entity_id:
       - switch.rear_heater_low
       - switch.rear_heater_med
+  alias: Rear Heater High
+  mode: single
+  icon: mdi:radiator
 outside_speakers_on:
   alias: Outside Speakers On
   mode: single
@@ -128,6 +152,7 @@ outside_speakers_on:
     data:
       entity_id: media_player.lounge_amp
       sound_mode: ALL ZONE STEREO
+  icon: mdi:speaker
 outside_speakers_off:
   alias: Outside Speakers Off
   mode: queued
@@ -136,6 +161,8 @@ outside_speakers_off:
     data:
       entity_id: media_player.lounge_amp
       sound_mode: MCH STEREO
+  icon: mdi:speaker-off
+  max: 10
 washing_notify:
   alias: Washing Notify
   mode: single
@@ -155,10 +182,8 @@ washing_notify:
   - service: tts.google_translate_say
     data:
       message: The washing machine is finished.
-      entity_id:
-      - media_player.bedroom_speaker
-      - media_player.den_display
-      - media_player.kitchen_display
+      entity_id: media_player.bedroom_speaker
+  icon: mdi:washing-machine-alert
 weekend_music:
   alias: Weekend Music
   sequence:
@@ -167,93 +192,42 @@ weekend_music:
       entity_id: remote.harmony_hub
     data:
       activity: hassio
-  - service: light.turn_on
+  - delay:
+      seconds: 1
+  - service: spotcast.start
     data:
-      entity_id: light.kitchen
-  - service: media_player.select_source
-    target:
-      entity_id: media_player.spotify_york_spotify
-    data:
-      source: Home Assistant
+      device_name: Home Assistant
+      uri: spotify:playlist:1hlmJOyuxrfPZi8XvuURbT
+      random_song: true
   - service: media_player.volume_set
     target:
       entity_id: media_player.spotify_york_spotify
     data:
       volume_level: 1
-  - delay:
-      seconds: 1
-  - service: media_player.shuffle_set
-    data:
-      entity_id: media_player.spotify_york_spotify
-      shuffle: true
-  - delay:
-      seconds: 1
-  - service: media_player.play_media
-    data:
-      entity_id: media_player.spotify_york_spotify
-      media_content_type: playlist
-    data_template:
-      media_content_id: '{{ ["https://open.spotify.com/playlist/1hlmJOyuxrfPZi8XvuURbT","https://open.spotify.com/playlist/4idYRr5u7W5r6aFZZPCksG",
-        "https://open.spotify.com/playlist/2T4BJ915qfUWB4eKWuMufm","https://open.spotify.com/playlist/37i9dQZF1E385O1nGDjpqm"]
-        | random}} '
-  - delay:
-      seconds: 1
-  - service: media_player.volume_set
-    target:
-      entity_id: media_player.lounge_amp
-    data:
-      volume_level: 0.31
-  - service: media_player.media_play
-    entity_id: media_player.spotify_york_spotify
+  icon: mdi:bookmark-music-outline
+  mode: single
 hottest_100:
   alias: Hottest 100
   sequence:
-  - service: hassio.addon_restart
-    data:
-      addon: a0d7b954_spotify
   - service: remote.turn_on
     target:
       entity_id: remote.harmony_hub
     data:
       activity: hassio
-  - service: light.turn_on
+  - delay:
+      seconds: 1
+  - service: spotcast.start
     data:
-      entity_id: light.kitchen
-  - service: media_player.select_source
-    target:
-      entity_id: media_player.spotify_york_spotify
-    data:
-      source: Home Assistant
+      device_name: Home Assistant
+      uri: spotify:playlist:1qLoOFlMBRMBTeSnQ5guuc
+      random_song: true
   - service: media_player.volume_set
     target:
       entity_id: media_player.spotify_york_spotify
     data:
       volume_level: 1
-  - delay:
-      seconds: 1
-  - service: media_player.shuffle_set
-    data:
-      entity_id: media_player.spotify_york_spotify
-      shuffle: true
-  - delay:
-      seconds: 1
-  - service: media_player.play_media
-    data:
-      entity_id: media_player.spotify_york_spotify
-      media_content_type: playlist
-    data_template:
-      media_content_id: '{{ ["spotify:playlist:1qLoOFlMBRMBTeSnQ5guuc"] | random}}
-
-        '
-  - service: media_player.volume_set
-    target:
-      entity_id: media_player.lounge_amp
-    data:
-      volume_level: 0.5
-  - delay:
-      seconds: 1
-  - service: media_player.media_play
-    entity_id: media_player.spotify_york_spotify
+  icon: mdi:bookmark-music-outline
+  mode: single
 hot_lucy:
   alias: Hot Lucy
   sequence:
@@ -276,6 +250,8 @@ hot_lucy:
     data: {}
     target:
       entity_id: switch.lucy_heated_steering
+  icon: mdi:car
+  mode: single
 retic:
   alias: Retic
   sequence:
