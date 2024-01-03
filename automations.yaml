@@ -399,7 +399,10 @@
   - service: tts.google_translate_say
     data:
       message: The gate is open.
-      entity_id: media_player.bedroom_speaker
+      entity_id:
+      - media_player.bedroom_speaker
+      - media_player.den_display
+      - media_player.kitchen_display
   - service: camera.snapshot
     data:
       filename: /config/www/garage.png
@@ -538,7 +541,9 @@
   - service: tts.google_translate_say
     data:
       message: The coffee machine is ready.
-      entity_id: media_player.bedroom_speaker
+      entity_id:
+      - media_player.bedroom_speaker
+      - media_player.den_display
   - service: input_boolean.turn_on
     data:
       entity_id:
@@ -1867,7 +1872,10 @@ mode: restart
   - service: tts.google_translate_say
     data:
       message: The dryer is finished.
-      entity_id: media_player.bedroom_speaker
+      entity_id:
+      - media_player.bedroom_speaker
+      - media_player.den_display
+      - media_player.kitchen_display
   mode: single
 - id: '1703034538857'
   alias: Presence Nat Home
