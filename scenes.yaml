@@ -1,0 +1,25 @@
+- id: '1704276437954'
+  name: Movie
+  entities:
+    light.fl:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      friendly_name: FL
+      supported_features: 40
+      state: 'off'
+    light.fr:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      friendly_name: FR
+      supported_features: 40
+      state: 'off'
+  icon: mdi:movie
+  metadata:
+    light.fl:
+      entity_only: true
+    light.fr:
+      entity_only: true
