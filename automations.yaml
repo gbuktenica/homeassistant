@@ -1087,9 +1087,9 @@
       - light.dining_light
   mode: single
 - id: '1703033103448'
-alias: Light Night Frontyard Door Light On
-description: Turns on the front yard light when the front door is opened.
-trigger:
+  alias: Light Night Frontyard Door Light On
+  description: Turns on the front yard light when the front door is opened.
+  trigger:
   - entity_id: binary_sensor.entry_door
     platform: state
     to: "on"
@@ -1097,7 +1097,7 @@ trigger:
     entity_id:
       - cover.gate
     from: closed
-condition:
+  condition:
   - condition: state
     entity_id: sun.sun
     state: below_horizon
@@ -1107,7 +1107,7 @@ condition:
   - condition: state
     entity_id: light.frontyard_light
     state: "off"
-action:
+  action:
   - service: light.turn_on
     data:
       entity_id:
