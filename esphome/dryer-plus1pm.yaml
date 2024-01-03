@@ -8,7 +8,7 @@ substitutions:
   # Lower value gives lower voltage readout
   voltage_div: "1925"
   restore_mode: "RESTORE_DEFAULT_ON"
-  update_interval: "60s"
+  update_interval: "30s"
 #####################################
 packages:
   common_base: !include common/base.yaml

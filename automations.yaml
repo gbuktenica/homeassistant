@@ -1834,7 +1834,9 @@
     - sensor.dryer_power
     below: 400
     for:
-      minutes: 2
+      hours: 0
+      minutes: 4
+      seconds: 0
   condition:
   - condition: state
     entity_id: input_boolean.dryer_running
@@ -1852,10 +1854,7 @@
   - service: tts.google_translate_say
     data:
       message: The dryer is finished.
-      entity_id:
-      - media_player.bedroom_speaker
-      - media_player.den_display
-      - media_player.kitchen_display
+      entity_id: media_player.bedroom_speaker
   mode: single
 - id: '1703034538857'
   alias: Presence Nat Home
@@ -2052,5 +2051,22 @@
   - service: input_boolean.turn_off
     target:
       entity_id: input_boolean.evie_mode
+    data: {}
+  mode: single
+- id: '1704161098822'
+  alias: Retic
+  description: Run Retic Script
+  trigger:
+  - platform: time
+    at: 06:10:00
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - fri
+  action:
+  - service: script.turn_on
+    target:
+      entity_id: script.retic
     data: {}
   mode: single
