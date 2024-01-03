@@ -17,9 +17,95 @@
       friendly_name: FR
       supported_features: 40
       state: 'off'
+    light.rl:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      friendly_name: RL
+      supported_features: 40
+      state: 'off'
+    light.rr:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      friendly_name: RR
+      supported_features: 40
+      state: 'off'
+    light.dining_west:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      friendly_name: dining-west
+      supported_features: 40
+      state: 'off'
+    light.dining_east:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      friendly_name: dining-east
+      supported_features: 40
+      state: 'off'
+    light.entry:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      friendly_name: Entry
+      supported_features: 40
+      state: 'off'
+    light.kitchen:
+      supported_color_modes:
+      - onoff
+      color_mode:
+      friendly_name: Kitchen
+      supported_features: 8
+      state: 'off'
+    light.backyard_light:
+      supported_color_modes:
+      - onoff
+      color_mode:
+      friendly_name: Backyard Light
+      supported_features: 8
+      state: 'off'
+    light.frontyard_light:
+      supported_color_modes:
+      - onoff
+      color_mode:
+      friendly_name: Frontyard Light
+      supported_features: 8
+      state: 'off'
+    light.kitchen_led:
+      supported_color_modes:
+      - onoff
+      color_mode:
+      friendly_name: Kitchen LED
+      supported_features: 8
+      state: 'off'
   icon: mdi:movie
   metadata:
     light.fl:
       entity_only: true
     light.fr:
+      entity_only: true
+    light.rl:
+      entity_only: true
+    light.rr:
+      entity_only: true
+    light.dining_west:
+      entity_only: true
+    light.dining_east:
+      entity_only: true
+    light.entry:
+      entity_only: true
+    light.kitchen:
+      entity_only: true
+    light.backyard_light:
+      entity_only: true
+    light.frontyard_light:
+      entity_only: true
+    light.kitchen_led:
       entity_only: true
