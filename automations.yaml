@@ -378,7 +378,7 @@
       - light.rl
       - light.rr
       - light.dining_west
-      - light.
+      - light.dining_east
 - id: gate_notify
   alias: Gate Notify
   trigger:
