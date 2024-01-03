@@ -1082,28 +1082,41 @@
       - light.dining_light
   mode: single
 - id: '1703033103448'
-  alias: Light Night Frontyard Door Light On
-  description: Turns on the front yard light when the front door is opened.
-  trigger:
+alias: Light Night Frontyard Door Light On
+description: Turns on the front yard light when the front door is opened.
+trigger:
   - entity_id: binary_sensor.entry_door
     platform: state
-    to: 'on'
-  condition:
+    to: "on"
+  - platform: state
+    entity_id:
+      - cover.gate
+    from: closed
+condition:
   - condition: state
     entity_id: sun.sun
     state: below_horizon
   - condition: state
     entity_id: input_boolean.party_mode
-    state: 'off'
+    state: "off"
   - condition: state
     entity_id: light.frontyard_light
-    state: 'off'
-  action:
+    state: "off"
+action:
   - service: light.turn_on
     data:
       entity_id:
-      - light.frontyard_light
-  mode: single
+        - light.frontyard_light
+  - delay:
+      minutes: 15
+  - condition: state
+    entity_id: binary_sensor.entry_door
+    state: "off"
+  - service: light.turn_off
+    target:
+      entity_id: light.frontyard_light
+    data: {}
+mode: restart
 - id: '1703033114029'
   alias: Light Night Frontyard Light On
   description: Turns on the front yard light at sunset.
@@ -2060,6 +2073,8 @@
   - platform: time
     at: 06:10:00
   condition:
+  - condition: template
+    value_template: "{{ now().month in [1,2,3,4,5,9,10,11,12] }}"
   - condition: time
     weekday:
     - mon
