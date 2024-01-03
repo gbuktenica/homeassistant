@@ -962,12 +962,10 @@
   - service: light.turn_off
     data:
       entity_id:
-      - light.glens_light
-      - light.fl_light
-      - light.fr_light
-      - light.rl_light
-      - light.rr_light
-      - light.shelf_light
+      - light.fl
+      - light.fr
+      - light.rl
+      - light.rr
   - condition: sun
     before: sunset
     before_offset: -00:30:00
@@ -977,7 +975,7 @@
   - service: light.turn_off
     data:
       entity_id:
-      - light.entry_light
+      - light.entry
       - light.stairway_light
       - light.wardrobe_light
   mode: single
@@ -1609,6 +1607,7 @@
       data:
         tag: charging
   mode: single
+  max_exceeded: silent
 - id: '1703034358078'
   alias: Tesla Solar Charging More
   description: ''
@@ -1667,6 +1666,7 @@
       data:
         tag: charging
   mode: single
+  max_exceeded: silent
 - id: '1703034369179'
   alias: Tesla Solar Charging Start
   description: ''
