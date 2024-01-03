@@ -6,9 +6,7 @@
   action:
   - service: hassio.addon_restart
     data:
-      addon:
-      - core_letsencrypt
-      - a0d7b954_spotify
+      addon: core_letsencrypt
 - id: reboot_host
   alias: Reboot host
   description: Turn the amplifier on and restart the NUC. This is to make sure the
@@ -1090,10 +1088,10 @@
   trigger:
   - entity_id: binary_sensor.entry_door
     platform: state
-    to: "on"
+    to: 'on'
   - platform: state
     entity_id:
-      - cover.gate
+    - cover.gate
     from: closed
   condition:
   - condition: state
@@ -1101,20 +1099,20 @@
     state: below_horizon
   - condition: state
     entity_id: input_boolean.party_mode
-    state: "off"
+    state: 'off'
   - condition: state
     entity_id: light.frontyard_light
-    state: "off"
+    state: 'off'
   action:
   - service: light.turn_on
     data:
       entity_id:
-        - light.frontyard_light
+      - light.frontyard_light
   - delay:
       minutes: 15
   - condition: state
     entity_id: binary_sensor.entry_door
-    state: "off"
+    state: 'off'
   - service: light.turn_off
     target:
       entity_id: light.frontyard_light
@@ -2082,7 +2080,7 @@
     at: 06:10:00
   condition:
   - condition: template
-    value_template: "{{ now().month in [1,2,3,4,5,9,10,11,12] }}"
+    value_template: '{{ now().month in [1,2,3,4,5,9,10,11,12] }}'
   - condition: time
     weekday:
     - mon
