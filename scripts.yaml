@@ -288,3 +288,13 @@ retic:
     data: {}
   mode: single
   icon: mdi:spray
+cool_lucy_2:
+  alias: Cool Lucy
+  sequence:
+  - service: climate.set_hvac_mode
+    data:
+      hvac_mode: heat_cool
+    target:
+      entity_id: climate.lucy_hvac_climate_system
+  icon: mdi:car
+  mode: single
