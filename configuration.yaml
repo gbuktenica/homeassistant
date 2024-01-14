@@ -5,7 +5,7 @@ automation: !include automations.yaml
 assist_pipeline:
 #backup:
 bluetooth:
-# cloud:
+cloud:
 config:
 # conversation:
 # counter:

@@ -298,3 +298,18 @@ cool_lucy_2:
       entity_id: climate.lucy_hvac_climate_system
   icon: mdi:car
   mode: single
+gate_garage:
+  alias: Gate & Garage
+  sequence:
+  - service: cover.open_cover
+    metadata: {}
+    data: {}
+    target:
+      entity_id: cover.garage_door
+  - service: cover.open_cover
+    metadata: {}
+    data: {}
+    target:
+      entity_id: cover.gate
+  mode: single
+  icon: mdi:gate-arrow-left
