@@ -1,0 +1,4 @@
+esphome:
+  name: ${device_name}
+esp32:
+  board: esp32doit-devkit-v1
