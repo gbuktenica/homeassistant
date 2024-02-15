@@ -1851,7 +1851,7 @@
     below: 400
     for:
       hours: 0
-      minutes: 4
+      minutes: 10
       seconds: 0
   condition:
   - condition: state
@@ -1870,10 +1870,7 @@
   - service: tts.google_translate_say
     data:
       message: The dryer is finished.
-      entity_id:
-      - media_player.bedroom_speaker
-      - media_player.den_display
-      - media_player.kitchen_display
+      entity_id: media_player.bedroom_speaker
   mode: single
 - id: '1703034538857'
   alias: Presence Nat Home
@@ -2090,4 +2087,20 @@
     target:
       entity_id: script.retic
     data: {}
+  mode: single
+- id: '1706609273483'
+  alias: Tesla Garage Door
+  description: Open the Garage Door when the Tesla Homelink Garage Button is detected
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.tesla_gate
+    to: 'off'
+  condition: []
+  action:
+  - service: button.press
+    metadata: {}
+    data: {}
+    target:
+      entity_id: button.ratgdo_toggle_door
   mode: single

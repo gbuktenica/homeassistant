@@ -191,12 +191,12 @@ weekend_music:
     target:
       entity_id: remote.harmony_hub
     data:
-      activity: Music
+      activity: Hassio
   - delay:
       seconds: 1
   - service: spotcast.start
     data:
-      device_name: Den TV
+      device_name: Home Assistant
       uri: spotify:playlist:1hlmJOyuxrfPZi8XvuURbT
       random_song: true
   - service: media_player.volume_set
