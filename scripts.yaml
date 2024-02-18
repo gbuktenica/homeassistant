@@ -192,7 +192,7 @@ weekend_music:
     target:
       entity_id: remote.harmony_hub
     data:
-      activity: hassio
+      activity: Hassio
   - delay:
       seconds: 1
   - service: spotcast.start
