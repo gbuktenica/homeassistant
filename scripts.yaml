@@ -202,7 +202,6 @@ weekend_music:
       force_playback: false
       random_song: false
       repeat: "on"
-      shuffle: false
       offset: 0
       ignore_fully_played: false
       shuffle: true
@@ -236,15 +235,12 @@ hottest_100:
       force_playback: false
       random_song: false
       repeat: "on"
-      shuffle: false
       offset: 0
       ignore_fully_played: false
       shuffle: true
       device_name: Home Assistant
       uri: >-
         {{ ['spotify:playlist:4dFOvmZkquNlmMohTpHVk0', 'spotify:playlist:0dOc1wWqi5R4d6IgMlLeca', 'spotify:playlist:0ATly1Vhu2JLUggKJ4Kp1P','spotify:playlist:'4PUAMFQpzsvIjn1YJNt6Do','spotify:playlist:'6T0cEfBWMhKud4swAF4nPP','spotify:playlist:'2RHg1WYjBWT2EQ9QtaJTKd'] | random}}
-
-
   - service: media_player.volume_set
     continue_on_error: true
     target:
