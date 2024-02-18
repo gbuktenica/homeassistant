@@ -188,18 +188,29 @@ weekend_music:
   alias: Weekend Music
   sequence:
   - service: remote.turn_on
+    continue_on_error: true
     target:
       entity_id: remote.harmony_hub
     data:
-      activity: Music
+      activity: hassio
   - delay:
       seconds: 1
   - service: spotcast.start
+    continue_on_error: true
     data:
-      device_name: Den TV
-      uri: spotify:playlist:1hlmJOyuxrfPZi8XvuURbT
-      random_song: true
+      limit: 20
+      force_playback: false
+      random_song: false
+      repeat: "on"
+      shuffle: false
+      offset: 0
+      ignore_fully_played: false
+      shuffle: true
+      device_name: Home Assistant
+      uri: >-
+        {{ ['spotify:playlist:1hlmJOyuxrfPZi8XvuURbT', 'spotify:playlist:37i9dQZF1DWT0IiTU5mrJ9', 'spotify:playlist:37i9dQZF1DXb69UWhjrXsW'] | random}}
   - service: media_player.volume_set
+    continue_on_error: true
     target:
       entity_id: media_player.spotify_york_spotify
     data:
@@ -210,6 +221,7 @@ hottest_100:
   alias: Hottest 100
   sequence:
   - service: remote.turn_on
+    continue_on_error: true
     target:
       entity_id: remote.harmony_hub
     data:
@@ -218,10 +230,20 @@ hottest_100:
       seconds: 1
   - service: spotcast.start
     data:
+    continue_on_error: true
+    data:
+      limit: 20
+      force_playback: false
+      random_song: false
+      repeat: "on"
+      shuffle: false
+      offset: 0
+      ignore_fully_played: false
+      shuffle: true
       device_name: Home Assistant
       uri: spotify:playlist:1qLoOFlMBRMBTeSnQ5guuc
-      random_song: true
   - service: media_player.volume_set
+    continue_on_error: true
     target:
       entity_id: media_player.spotify_york_spotify
     data:
