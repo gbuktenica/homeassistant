@@ -228,7 +228,6 @@ hottest_100:
   - delay:
       seconds: 1
   - service: spotcast.start
-    data:
     continue_on_error: true
     data:
       limit: 20
