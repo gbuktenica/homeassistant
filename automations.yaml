@@ -609,9 +609,9 @@
   condition: []
   action:
   - service: switch.turn_on
-    data:
-      entity_id:
-      - switch.coffee_relay
+    data: {}
+    target:
+      entity_id: switch.coffee_machine
   mode: single
 - id: '1703032781557'
   alias: Coffee On Weekday Morning

@@ -11,12 +11,13 @@ substitutions:
   channel_1: "Car Distance"
   ip: "10.4.4.35"
   ssid: IoTG
-  update_interval: 60s
+  update_interval: 10s
 #######################
 packages:
   common_base: !include common/base.yaml
   device_base: !include common/esp32-devkit.yaml
 #####################################
+i2c:
 sensor:
   - platform: vl53l0x
     name: ${channel_1}
