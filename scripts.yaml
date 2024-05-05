@@ -308,6 +308,16 @@ retic:
     target:
       entity_id: switch.none_zone_4
     data: {}
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - service: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.none_zone_4
   mode: single
   icon: mdi:spray
 cool_lucy_2:
