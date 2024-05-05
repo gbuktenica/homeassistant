@@ -2,11 +2,15 @@
   alias: Restart Addons
   trigger:
   - platform: time
-    at: 01:00:00
+    at: 04:00:00
   action:
   - service: hassio.addon_restart
     data:
       addon: core_letsencrypt
+  - service: hassio.addon_restart
+    metadata: {}
+    data:
+      addon: a0d7b954_spotify
 - id: reboot_host
   alias: Reboot host
   description: Turn the amplifier on and restart the NUC. This is to make sure the
@@ -1515,6 +1519,9 @@
       entity_id: sensor.energy_meter_total_watts
       above: '100'
   action:
+  - condition: numeric_state
+    entity_id: sensor.lucy_battery
+    above: '50'
   - condition: state
     entity_id: binary_sensor.tesla_wall_connector_contactor_closed
     state: 'on'
@@ -1525,11 +1532,6 @@
     data:
       entity_id:
       - switch.lucy_charger
-  - service: notify.mobile_app_s21
-    data:
-      message: clear_notification
-      data:
-        tag: charging
   mode: single
 - id: '1703033987206'
   alias: Tesla Solar Charging less
@@ -1599,11 +1601,6 @@
         tag: charging
   - delay:
       seconds: 10
-  - service: notify.mobile_app_s21
-    data:
-      message: Lucy Charging at {{ states('number.lucy_charging_amps')}} Amps
-      data:
-        tag: charging
   mode: single
   max_exceeded: silent
 - id: '1703034358078'
@@ -1658,11 +1655,6 @@
         tag: charging
   - delay:
       seconds: 10
-  - service: notify.mobile_app_s21
-    data:
-      message: Lucy Charging at {{ states('number.lucy_charging_amps')}} Amps
-      data:
-        tag: charging
   mode: single
   max_exceeded: silent
 - id: '1703034369179'
@@ -1714,11 +1706,6 @@
         tag: charging
   - delay:
       seconds: 10
-  - service: notify.mobile_app_s21
-    data:
-      message: Lucy Started Charging at {{ states('sensor.lucy_battery')}}%
-      data:
-        tag: charging
   mode: single
 - id: '1703034379747'
   alias: Washing Alarm Acknowledged
@@ -2103,4 +2090,24 @@
     data: {}
     target:
       entity_id: button.ratgdo_toggle_door
+  mode: single
+- id: '1712211097131'
+  alias: Coffee Morning
+  description: ''
+  trigger:
+  - platform: time
+    at: 05:37:00
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.holiday_mode
+    state: 'off'
+  action:
+  - service: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.coffee_machine
   mode: single
