@@ -1097,6 +1097,11 @@
     entity_id:
     - cover.gate
     from: closed
+  - platform: state
+    entity_id:
+    - light.frontyard_light
+    to: 'on'
+    from: 'off'
   condition:
   - condition: state
     entity_id: sun.sun
@@ -1105,43 +1110,15 @@
     entity_id: input_boolean.party_mode
     state: 'off'
   - condition: state
-    entity_id: light.frontyard_light
+    entity_id: input_boolean.holiday_mode
     state: 'off'
   action:
-  - service: light.turn_on
-    data:
-      entity_id:
-      - light.frontyard_light
-  - delay:
-      minutes: 15
-  - condition: state
-    entity_id: binary_sensor.entry_door
-    state: 'off'
-  - service: light.turn_off
-    target:
-      entity_id: light.frontyard_light
+  - service: script.turn_on
+    metadata: {}
     data: {}
+    target:
+      entity_id: script.frontyard
   mode: restart
-- id: '1703033114029'
-  alias: Light Night Frontyard Light On
-  description: Turns on the front yard light at sunset.
-  trigger:
-  - platform: sun
-    event: sunset
-    offset: 00:10:00
-  condition:
-  - condition: state
-    entity_id: sun.sun
-    state: below_horizon
-  - condition: state
-    entity_id: input_boolean.party_mode
-    state: 'off'
-  action:
-  - service: light.turn_on
-    data:
-      entity_id:
-      - light.frontyard_light
-  mode: single
 - id: '1703033125844'
   alias: Light Strata Off
   description: Turn off the strata lights 1 hour after sunset.
@@ -1181,20 +1158,6 @@
       entity_id:
       - light.wardrobe_light
       - light.dining_light
-  mode: single
-- id: '1703033147242'
-  alias: Light Sunset Outside Lights On
-  description: Turns On the outside lights 15 minutes after sunset.
-  trigger:
-  - event: sunset
-    offset: 00:15:00
-    platform: sun
-  condition: []
-  action:
-  - service: light.turn_on
-    data:
-      entity_id:
-      - light.frontyard_light
   mode: single
 - id: '1703033209185'
   alias: Presence Doors Open
@@ -2022,8 +1985,10 @@
   description: ''
   trigger:
   - platform: state
-    entity_id: binary_sensor.tesla_wall_connector_contactor_closed
+    entity_id:
+    - binary_sensor.tesla_wall_connector_contactor_closed
     to: 'off'
+    from: 'on'
   condition: []
   action:
   - service: button.press

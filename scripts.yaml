@@ -345,3 +345,27 @@ gate_garage:
       entity_id: cover.gate
   mode: single
   icon: mdi:gate-arrow-left
+frontyard:
+  alias: Frontyard
+  sequence:
+  - service: light.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.frontyard_light
+  - delay:
+      hours: 0
+      minutes: 15
+      seconds: 0
+      milliseconds: 0
+  - condition: state
+    entity_id: binary_sensor.entry_door
+    state: 'off'
+  - service: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.frontyard_light
+  description: ''
+  icon: mdi:light-flood-down
+  mode: restart
