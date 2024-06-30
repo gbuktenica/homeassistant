@@ -1702,6 +1702,10 @@
     entity_id:
     - sensor.washer_power
     below: 5
+    for:
+      hours: 0
+      minutes: 3
+      seconds: 0
   condition:
   - condition: time
     after: 05:00:00
