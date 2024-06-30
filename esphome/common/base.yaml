@@ -2,7 +2,7 @@ wifi:
   ssid: ${ssid}
   password: !secret iot
   fast_connect: on
-  use_address: ${ip}
+  use_address: ${use_ip}
   manual_ip:
     static_ip: ${ip}
     gateway: 10.4.4.1
@@ -29,6 +29,7 @@ api:
     key: !secret api
 
 ota:
+  platform: esphome
   password: !secret iot
 
 time:

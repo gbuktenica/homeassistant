@@ -1,0 +1,17 @@
+substitutions:
+  device_name: kitchen-1pm
+  channel_1: Kitchen Power
+  ssid: IoTL1
+  ip: "10.4.4.64"
+  use_ip: ${ip}
+
+#####################################
+packages:
+  common_base: !include common/base.yaml
+  device_base: !include common/mini-base.yaml
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO4
+    name: ${channel_1} Button
