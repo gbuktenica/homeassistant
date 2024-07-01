@@ -2,7 +2,8 @@ substitutions:
   device_name: garagerear-esp
   channel_1: "Garage Rear Door"
   channel_2: "Garage Rear Button"
-  ip: "10.4.4.45"
+  ip: "10.4.4.66"
+  use_ip: ${ip}
   ssid: IoTG
 #####################################
 esphome:

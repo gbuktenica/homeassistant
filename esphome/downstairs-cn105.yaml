@@ -9,6 +9,7 @@ substitutions:
   device_name: downstairs-cn105
   name: downstairs
   ip: "10.4.4.52"
+  use_ip: ${ip}
   ssid: IoTL1
 
 #####################################

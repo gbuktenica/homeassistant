@@ -2,6 +2,7 @@ substitutions:
   device_name: entry-dimmer
   light_name: Entry
   ip: "10.4.4.61"
+  use_ip: ${ip}
   ssid: IoTL1
 #####################################
 packages:

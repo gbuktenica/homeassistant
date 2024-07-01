@@ -2,6 +2,7 @@ substitutions:
   device_name: rear-1pm
   channel_1: "Rear Bifold Door"
   ip: "10.4.4.43"
+  use_ip: ${ip}
   ssid: IoTL1
 #####################################
 esphome:

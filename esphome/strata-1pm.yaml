@@ -2,6 +2,7 @@ substitutions:
   device_name: strata-1pm
   channel_1: "Strata Lights"
   ip: "10.4.4.70"
+  use_ip: ${ip}
   ssid: IoTG
   calibrate: "196 -> 12"
   button_action: "on_press" #on_state

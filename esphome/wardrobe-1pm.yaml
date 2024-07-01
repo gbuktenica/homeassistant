@@ -2,6 +2,7 @@ substitutions:
   device_name: wardrobe-1pm
   channel_1: "Wardrobe Light"
   ip: "10.4.4.38"
+  use_ip: ${ip}
   ssid: IoTL2
   calibrate: "187 -> 12"
   button_action: "on_state" #on_state

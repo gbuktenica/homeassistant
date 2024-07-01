@@ -2,6 +2,7 @@ substitutions:
   device_name: dining-east
   light_name: Dining East
   ip: "10.4.4.63"
+  use_ip: ${ip}
   ssid: IoTL1
 #####################################
 packages:

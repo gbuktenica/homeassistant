@@ -2,6 +2,7 @@ substitutions:
   device_name: lounge-rr
   light_name: RR
   ip: "10.4.4.55"
+  use_ip: ${ip}
   ssid: IoTL1
 #####################################
 packages:

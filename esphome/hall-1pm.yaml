@@ -2,6 +2,7 @@ substitutions:
   device_name: hall-1pm
   channel_1: "Hall Light"
   ip: "10.4.4.32"
+  use_ip: ${ip}
   ssid: IoTL2
   calibrate: "15000 -> 1400"
   button_action: "on_state" #on_press

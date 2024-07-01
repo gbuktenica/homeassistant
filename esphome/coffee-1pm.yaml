@@ -2,6 +2,7 @@ substitutions:
   device_name: coffee-1pm
   channel_1: "Coffee"
   ip: "10.4.4.31"
+  use_ip: ${ip}
   ssid: IoTL1
   calibrate: "15000 -> 1400"
   update_interval: 15s

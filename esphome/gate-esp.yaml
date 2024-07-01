@@ -5,6 +5,7 @@ substitutions:
   channel_3: "tesla_gate"
   channel_4: "gate_led"
   ip: "10.4.4.44"
+  use_ip: ${ip}
   ssid: IoTG
   # https://esphome.io/devices/nodemcu_esp32.html
   # https://github.com/wernerhp/esphome/blob/main/centurion-d5-evo/centurion-d5-evo.yaml

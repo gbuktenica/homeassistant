@@ -2080,3 +2080,18 @@
     target:
       entity_id: switch.coffee_machine
   mode: single
+- id: '1719729521233'
+  alias: Light Kitchen LED Button
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.kitchen_power_button
+  condition: []
+  action:
+  - service: light.toggle
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.kitchen_led
+  mode: single

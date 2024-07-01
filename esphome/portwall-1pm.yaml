@@ -2,6 +2,7 @@ substitutions:
   device_name: potwall-1pm
   channel_1: "Pot Wall Light"
   ip: "10.4.4.39"
+  use_ip: ${ip}
   ssid: IoTL2
   calibrate: "163 -> 18"
   button_action: "on_state" #on_press

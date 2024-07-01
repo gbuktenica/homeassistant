@@ -2,6 +2,7 @@ substitutions:
   device_name: lounge-fr
   light_name: FR
   ip: "10.4.4.58"
+  use_ip: ${ip}
   ssid: IoTL1
 #####################################
 packages:

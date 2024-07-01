@@ -3,6 +3,7 @@ substitutions:
   id: side_light
   name: "Side Light"
   ip: "10.4.4.25"
+  use_ip: ${ip}
   ssid: IoTL1
 #####################################
 packages:

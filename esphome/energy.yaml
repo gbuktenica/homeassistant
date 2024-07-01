@@ -2,6 +2,7 @@ substitutions:
   device_name: energy-meter
   disp_name: "Energy Meter"
   ip: "10.4.4.60"
+  use_ip: ${ip}
   ssid: IoTG
 
   update_time: 10s

@@ -2,6 +2,7 @@ substitutions:
   device_name: stairs-1pm
   channel_1: "Stairway Light"
   ip: "10.4.4.37"
+  use_ip: ${ip}
   ssid: IoTL2
   calibrate: "196 -> 12"
   button_action: "on_press" #on_state

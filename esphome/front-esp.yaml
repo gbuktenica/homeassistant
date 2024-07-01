@@ -1,6 +1,7 @@
 substitutions:
   device_name: front-esp
   ip: "10.4.4.27"
+  use_ip: ${ip}
   ssid: IoTL1
 
 #####################################

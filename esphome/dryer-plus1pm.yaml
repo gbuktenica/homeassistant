@@ -2,6 +2,7 @@ substitutions:
   device_name: dryer
   max_temp: "90.0" # °C
   ip: "10.4.4.53"
+  use_ip: ${ip}
   ssid: IoTL1
   # Higher value gives lower watt readout
   current_res: "0.00012"

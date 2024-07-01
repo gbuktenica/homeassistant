@@ -5,6 +5,7 @@ substitutions:
   max_power: "2000.0" # watt
   max_temp: "80.0" # °C
   ip: "10.4.4.50"
+  use_ip: ${ip}
   ssid: IoTL1
 #####################################
 packages:

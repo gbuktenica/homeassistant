@@ -5,6 +5,7 @@ substitutions:
   max_power: "2000.0" # watt
   max_temp: "80.0" # °C
   ip: "10.4.4.51"
+  use_ip: ${ip}
   ssid: IoTL1
 #####################################
 # For PCB v0.1.9 with dual core ESP32
@@ -21,12 +22,13 @@ logger:
 api:
 
 ota:
+  platform: esphome
 
 wifi:
   ssid: ${ssid}
   password: !secret iot
   fast_connect: on
-  use_address: ${ip}
+  use_address: ${use_ip}
   manual_ip:
     static_ip: ${ip}
     gateway: 10.4.4.1

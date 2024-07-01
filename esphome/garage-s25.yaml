@@ -5,50 +5,15 @@ substitutions:
   max_power: "2000.0" # watt
   max_temp: "100.0" # °C
   ip: "10.4.4.46"
+  use_ip: ${ip}
   ssid: IoTG
   board: esp01_1m
+#######################
+packages:
+  common_base: !include common/base.yaml
+  device_base: !include common/mini-base.yaml
 #####################################
-esphome:
-  name: ${device_name}
-  platform: ESP8266
-  board: ${board}
 
-wifi:
-  ssid: ${ssid}
-  password: !secret iot
-  fast_connect: on
-  use_address: ${ip}
-  manual_ip:
-    static_ip: ${ip}
-    gateway: 10.4.4.1
-    subnet: 255.255.255.0
-
-  # Enable fallback hotspot  in case wifi connection fails
-  ap:
-    ssid: ${device_name}
-    password: !secret iot
-    manual_ip:
-      static_ip: 192.168.100.2
-      gateway: 192.168.100.1
-      subnet: 255.255.255.0
-
-captive_portal:
-
-# Enable logging
-logger:
-
-# Enable Home Assistant API
-api:
-  encryption:
-    key: !secret api
-
-ota:
-  password: !secret iot
-
-time:
-  - platform: homeassistant
-    id: homeassistant_time
-#####################################
 i2c:
   sda: GPIO12
   scl: GPIO14
@@ -150,13 +115,3 @@ binary_sensor:
     on_state:
       then:
         - light.toggle: lightid1
-  - platform: gpio
-    pin:
-      number: GPIO5
-    name: "${channel_2} input"
-    filters:
-      - invert:
-    device_class: door
-    on_press:
-      then:
-        - light.turn_on: lightid1
