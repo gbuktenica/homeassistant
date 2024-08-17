@@ -192,28 +192,13 @@ weekend_music:
     target:
       entity_id: remote.harmony_hub
     data:
-      activity: Hassio
-  - delay:
-      seconds: 1
-  - service: spotcast.start
-    continue_on_error: true
+      activity: Music
+  - service: mass.play_media
+    metadata: {}
     data:
-      limit: 20
-      force_playback: false
-      random_song: false
-      repeat: 'on'
-      offset: 0
-      ignore_fully_played: false
-      shuffle: true
-      device_name: Home Assistant
-      uri: '{{ [''spotify:playlist:1hlmJOyuxrfPZi8XvuURbT'', ''spotify:playlist:37i9dQZF1DWT0IiTU5mrJ9'',
-        ''spotify:playlist:37i9dQZF1DXb69UWhjrXsW''] | random}}'
-  - service: media_player.volume_set
-    continue_on_error: true
+      media_id: library://album/57
     target:
-      entity_id: media_player.spotify_york_spotify
-    data:
-      volume_level: 1
+      entity_id: media_player.den_tv_2
   icon: mdi:bookmark-music-outline
   mode: single
 hottest_100:

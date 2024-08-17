@@ -94,24 +94,14 @@
     entity_id: input_boolean.party_mode
     state: 'off'
   - condition: time
-    after: 09:30:00
+    after: 09:00:00
     before: '20:00:00'
   - condition: state
     entity_id: binary_sensor.workday_sensor
     state: 'off'
-  - condition: state
-    entity_id: media_player.lounge_amp_zone2
-    state: 'off'
-  - condition: or
-    conditions:
-    - condition: state
-      entity_id: switch.lounge_hub_music
-      state: 'on'
-    - condition: state
-      entity_id: switch.lounge_hub_hassio
-      state: 'on'
   action:
-  - service: script.outside_speakers_on
+  - action: script.outside_speakers_on
+    data: {}
   mode: queued
   max: 10
 - id: weekend_outside_speakers_off
@@ -269,19 +259,6 @@
     data: {}
     target:
       entity_id: media_player.spotify_york_spotify
-- id: '1685076776161'
-  alias: Tag Letterbox is scanned
-  description: ''
-  trigger:
-  - platform: tag
-    tag_id: 46485bc4-907e-473b-9697-8b330c58c001
-  condition: []
-  action:
-  - service: button.press
-    data: {}
-    target:
-      entity_id: button.vehicle_button
-  mode: single
 - id: '1685262366338'
   alias: Press Garage Gate Button
   description: ''
@@ -2094,4 +2071,43 @@
     data: {}
     target:
       entity_id: light.kitchen_led
+  mode: single
+- id: '1723347432686'
+  alias: Zone2 On
+  description: ''
+  trigger:
+  - platform: template
+    value_template: '{% if is_state_attr(''media_player.lounge_amp'', ''source'',
+      ''Media Player'') %} true {% else %} false {% endif %}
+
+      '
+  condition:
+  - condition: state
+    entity_id: media_player.lounge_amp_2
+    state: 'off'
+  action:
+  - target:
+      entity_id: media_player.lounge_amp_2
+    action: media_player.turn_on
+    data: {}
+  mode: single
+- id: '1723348172989'
+  alias: Zone2 Off
+  description: ''
+  trigger:
+  - platform: template
+    value_template: '{% if not is_state_attr(''media_player.lounge_amp'', ''source'',
+      ''Media Player'') %} true {% else %} false {% endif %}
+
+      '
+  condition:
+  - condition: state
+    entity_id: media_player.lounge_amp_2
+    state: 'on'
+  action:
+  - action: media_player.turn_off
+    target:
+      entity_id:
+      - media_player.lounge_amp_2
+    data: {}
   mode: single
