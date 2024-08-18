@@ -1,7 +1,10 @@
 substitutions:
-  device_name: laundry-light-1pm
-  channel_1: laundry_light
-  ip: "10.4.4.22"
+  device_name: laundry-light-s25
+  channel_1: Laundry Light
+  channel_2: None
+  max_power: "2000.0" # watt
+  max_temp: "80.0" # °C
+  ip: "10.4.4.35"
   use_ip: ${ip}
   ssid: IoTL1
   calibrate: "15000 -> 1400"
@@ -9,4 +12,4 @@ substitutions:
 #####################################
 packages:
   common_base: !include common/base.yaml
-  device_base: !include common/1pm-light.yaml
+  device_base: !include common/s25-light.yaml
