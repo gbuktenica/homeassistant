@@ -201,12 +201,11 @@
       minutes: 0
       seconds: 5
       milliseconds: 0
-  - service: camera.snapshot
-    data:
+  - data:
       filename: /config/www/doorbell.png
-    entity_id: camera.g4_doorbell_high
-  - service: notify.mobile_app_s21
-    data:
+    entity_id: camera.g4_doorbell_high_resolution_channel
+    action: camera.snapshot
+  - data:
       message: Someone has pressed the doorbell.
       data:
         image: https://hassio.buktenica.com:8123/local/doorbell.png
@@ -215,8 +214,8 @@
         actions:
         - action: trigger_gate
           title: Gate
-  - service: notify.mobile_app_natalies_iphone
-    data:
+    action: notify.mobile_app_s21
+  - data:
       message: Someone has pressed the doorbell.
       data:
         image: https://hassio.buktenica.com:8123/local/doorbell.png
@@ -225,6 +224,7 @@
         actions:
         - action: trigger_gate
           title: Gate
+    action: notify.mobile_app_natalies_iphone
 - id: doorbell_gate_action
   alias: Doorbell Gate Action
   description: Open the gate when the door bell notification button is pressed.
