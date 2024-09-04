@@ -204,35 +204,26 @@ weekend_music:
 hottest_100:
   alias: Hottest 100
   sequence:
-  - service: remote.turn_on
-    continue_on_error: true
+  - continue_on_error: true
     target:
       entity_id: remote.harmony_hub
     data:
-      activity: hassio
-  - delay:
-      seconds: 1
-  - service: spotcast.start
-    continue_on_error: true
+      activity: Music
+    action: remote.turn_on
+  - data:
+      limit: 23
+      name: Triple J
+      media_type:
+      - album
+      album: Triple J
+    response_variable: results
+    action: mass.search
+  - metadata: {}
     data:
-      limit: 20
-      force_playback: false
-      random_song: false
-      repeat: 'on'
-      offset: 0
-      ignore_fully_played: false
-      shuffle: true
-      device_name: Home Assistant
-      uri: '{{ [''spotify:playlist:4dFOvmZkquNlmMohTpHVk0'', ''spotify:playlist:0dOc1wWqi5R4d6IgMlLeca'',
-        ''spotify:playlist:0ATly1Vhu2JLUggKJ4Kp1P'', ''spotify:playlist:4PUAMFQpzsvIjn1YJNt6Do'',
-        ''spotify:playlist:6T0cEfBWMhKud4swAF4nPP'', ''spotify:playlist:2RHg1WYjBWT2EQ9QtaJTKd'']
-        | random}}'
-  - service: media_player.volume_set
-    continue_on_error: true
+      media_id: '{{ results.albums[range(0, 22) | random].uri }}'
     target:
-      entity_id: media_player.spotify_york_spotify
-    data:
-      volume_level: 1
+      device_id: media_player.den_tv_2
+    action: mass.play_media
   icon: mdi:bookmark-music-outline
   mode: single
 hot_lucy:
