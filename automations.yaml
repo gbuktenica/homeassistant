@@ -517,25 +517,23 @@
   - condition: numeric_state
     entity_id: sensor.coffee_power
     below: 500
-  - service: tts.google_translate_say
-    data:
+  - data:
       message: The coffee machine is ready.
-      entity_id:
-      - media_player.bedroom_speaker
-      - media_player.den_display
-  - service: input_boolean.turn_on
-    data:
+      entity_id: media_player.bedroom_speaker
+    action: tts.google_translate_say
+  - data:
       entity_id:
       - input_boolean.coffee_notify
-  - service: notify.mobile_app_s21
-    data:
+    action: input_boolean.turn_on
+  - data:
       message: The coffee machine is ready.
       data:
         tag: coffee
         sticky: 'true'
-  - service: light.turn_on
-    data:
+    action: notify.mobile_app_s21
+  - data:
       entity_id: light.kitchen
+    action: light.turn_on
   mode: single
 - id: '1703032695615'
   alias: Coffee Notify Reset on start
