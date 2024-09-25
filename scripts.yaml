@@ -148,21 +148,18 @@ outside_speakers_on:
   alias: Outside Speakers On
   mode: single
   sequence:
-  - service: media_player.select_sound_mode
-    data:
-      entity_id: media_player.lounge_amp
-      sound_mode: ALL ZONE STEREO
+  - data:
+      entity_id: media_player.zone_11
+    action: media_player.turn_on
   icon: mdi:speaker
 outside_speakers_off:
   alias: Outside Speakers Off
-  mode: queued
+  mode: single
   sequence:
-  - service: media_player.select_sound_mode
-    data:
-      entity_id: media_player.lounge_amp
-      sound_mode: MCH STEREO
-  icon: mdi:speaker-off
-  max: 10
+  - data:
+      entity_id: media_player.zone_11
+    action: media_player.turn_off
+  icon: mdi:speaker
 washing_notify:
   alias: Washing Notify
   mode: single
@@ -185,47 +182,54 @@ washing_notify:
       entity_id: media_player.bedroom_speaker
   icon: mdi:washing-machine-alert
 weekend_music:
-  alias: Weekend Music
+  alias: Music
   sequence:
-  - service: remote.turn_on
-    continue_on_error: true
+  - action: remote.turn_on
     target:
       entity_id: remote.harmony_hub
     data:
       activity: Music
-  - service: mass.play_media
-    metadata: {}
-    data:
-      media_id: library://album/57
-    target:
-      entity_id: media_player.den_tv_2
-  icon: mdi:bookmark-music-outline
-  mode: single
-hottest_100:
-  alias: Hottest 100
-  sequence:
-  - continue_on_error: true
-    target:
-      entity_id: remote.harmony_hub
-    data:
-      activity: Music
-    action: remote.turn_on
   - data:
-      limit: 23
-      name: Triple J
+      limit: 20
+      name: Triple
       media_type:
-      - album
-      album: Triple J
+      - '[object Object]':
     response_variable: results
     action: mass.search
-  - metadata: {}
-    data:
-      media_id: '{{ results.albums[range(0, 22) | random].uri }}'
+  - data:
+      media_id: '{{ results.albums[range(0, 19) | random].name }}'
+      enqueue: play
     target:
-      device_id: media_player.den_tv_2
+      entity_id: media_player.lounge_amp_3
+    action: mass.play_media
+  - target:
+      entity_id: media_player.lounge_amp_3
+    data:
+      shuffle: true
+    action: media_player.shuffle_set
+  - data:
+      media_id: '{{ results.albums[range(0, 19) | random].name }}'
+      enqueue: add
+    target:
+      entity_id: media_player.lounge_amp_3
     action: mass.play_media
   icon: mdi:bookmark-music-outline
   mode: single
+  description: Music Assistant Helper
+hottest_100:
+  alias: JJJ
+  sequence:
+  - target:
+      entity_id: script.music
+    data:
+      variables:
+        media_name: Triple J
+        media_type: album
+        range: 19
+    action: script.turn_on
+  icon: mdi:bookmark-music-outline
+  mode: single
+  description: ''
 hot_lucy:
   alias: Hot Lucy
   sequence:
@@ -345,3 +349,73 @@ frontyard:
   description: ''
   icon: mdi:light-flood-down
   mode: restart
+80s:
+  alias: 80s
+  sequence:
+  - target:
+      entity_id: script.music
+    data:
+      variables:
+        media_name: 80s
+        media_type: album
+        range: 19
+    action: script.turn_on
+  icon: mdi:bookmark-music-outline
+  mode: single
+  description: ''
+xmas:
+  alias: Xmas
+  sequence:
+  - target:
+      entity_id: script.music
+    data:
+      variables:
+        media_name: Christmas
+        media_type: album
+        range: 5
+    action: script.turn_on
+  icon: mdi:bookmark-music-outline
+  mode: single
+  description: ''
+gym_beats:
+  alias: Gym Beats
+  sequence:
+  - target:
+      entity_id: script.music
+    data:
+      variables:
+        media_name: Gym Beats
+        media_type: playlist
+        range: 1
+    action: script.turn_on
+  icon: mdi:bookmark-music-outline
+  mode: single
+  description: ''
+puppy:
+  alias: Puppy
+  sequence:
+  - target:
+      entity_id: script.music
+    data:
+      variables:
+        media_name: Puppy
+        media_type: playlist
+        range: 1
+    action: script.turn_on
+  icon: mdi:bookmark-music-outline
+  mode: single
+  description: ''
+pop:
+  alias: Pop
+  sequence:
+  - target:
+      entity_id: script.music
+    data:
+      variables:
+        media_name: Summer
+        media_type: playlist
+        range: 1
+    action: script.turn_on
+  icon: mdi:bookmark-music-outline
+  mode: single
+  description: ''

@@ -84,11 +84,17 @@
   alias: Weekend Outside Speakers On
   description: Turns on the outside speakers when the rear bi fold is opened.
   trigger:
-  - entity_id: binary_sensor.rear_bifold_door
+  - entity_id:
+    - binary_sensor.rear_bifold_door
     platform: state
     to: 'on'
     for:
       seconds: 10
+    from: 'off'
+  - platform: state
+    entity_id:
+    - remote.harmony_hub
+    to: music
   condition:
   - condition: state
     entity_id: input_boolean.party_mode
@@ -99,27 +105,35 @@
   - condition: state
     entity_id: binary_sensor.workday_sensor
     state: 'off'
+  - condition: state
+    entity_id: binary_sensor.rear_bifold_door
+    state: 'on'
+  - condition: state
+    entity_id: media_player.lounge_amp_2
+    state: 'on'
   action:
   - action: script.outside_speakers_on
     data: {}
-  mode: queued
-  max: 10
+  mode: single
 - id: weekend_outside_speakers_off
   alias: Weekend Outside Speakers Off
   description: Turns off the outside speakers if the rear bifold is closed
   trigger:
-  - entity_id: binary_sensor.rear_bifold_door
+  - entity_id:
+    - binary_sensor.rear_bifold_door
     platform: state
     to: 'off'
+    from: 'on'
   condition:
   - condition: state
     entity_id: input_boolean.party_mode
     state: 'off'
   - condition: state
-    entity_id: media_player.lounge_amp_zone2
+    entity_id: media_player.lounge_amp_2
     state: 'on'
   action:
-  - service: script.outside_speakers_off
+  - action: script.outside_speakers_off
+    data: {}
   mode: queued
   max: 10
 - id: bin_week_yellow
@@ -243,22 +257,6 @@
       message: clear_notification
       data:
         tag: doorbell
-- id: harmony_off
-  alias: Harmony Remote Off
-  trigger:
-  - platform: state
-    entity_id:
-    - select.harmony_hub_activities
-    to: power_off
-  condition:
-  - condition: state
-    entity_id: media_player.spotify_york_spotify
-    state: playing
-  action:
-  - service: media_player.media_pause
-    data: {}
-    target:
-      entity_id: media_player.spotify_york_spotify
 - id: '1685262366338'
   alias: Press Garage Gate Button
   description: ''
@@ -2079,23 +2077,31 @@
       ''Media Player'') %} true {% else %} false {% endif %}
 
       '
+  - platform: template
+    value_template: '{% if is_state_attr(''media_player.lounge_amp'', ''source'',
+      ''HEOS Music'') %} true {% else %} false {% endif %}
+
+      '
   condition:
-  - condition: state
-    entity_id: media_player.lounge_amp_2
-    state: 'off'
   action:
   - target:
       entity_id: media_player.lounge_amp_2
-    action: media_player.turn_on
     data: {}
+    action: media_player.turn_on
+  - target:
+      entity_id: media_player.lounge_amp_2
+    data:
+      source: '{{ states.media_player.lounge_amp.attributes.source }}'
+    action: media_player.select_source
   mode: single
 - id: '1723348172989'
   alias: Zone2 Off
   description: ''
   trigger:
   - platform: template
-    value_template: '{% if not is_state_attr(''media_player.lounge_amp'', ''source'',
-      ''Media Player'') %} true {% else %} false {% endif %}
+    value_template: '{% if not (is_state_attr(''media_player.lounge_amp'', ''source'',
+      ''Media Player'') or is_state_attr(''media_player.lounge_amp'', ''source'',
+      ''HEOS Music'')) %} true {% else %} false {% endif %}
 
       '
   condition:
@@ -2107,5 +2113,23 @@
     target:
       entity_id:
       - media_player.lounge_amp_2
+      - media_player.lounge_amp_3
     data: {}
+  mode: single
+- id: '1726920393066'
+  alias: Aux Speakers Off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - media_player.lounge_amp
+    to: 'off'
+    from: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id:
+      - media_player.zone_11
+      - media_player.zone_12
+    action: media_player.turn_off
   mode: single
