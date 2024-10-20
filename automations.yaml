@@ -2075,32 +2075,6 @@
     target:
       entity_id: light.kitchen_led
   mode: single
-- id: '1723347432686'
-  alias: Zone2 On
-  description: ''
-  trigger:
-  - platform: template
-    value_template: '{% if is_state_attr(''media_player.lounge_amp'', ''source'',
-      ''Media Player'') %} true {% else %} false {% endif %}
-
-      '
-  - platform: template
-    value_template: '{% if is_state_attr(''media_player.lounge_amp'', ''source'',
-      ''HEOS Music'') %} true {% else %} false {% endif %}
-
-      '
-  condition:
-  action:
-  - target:
-      entity_id: media_player.lounge_amp_2
-    data: {}
-    action: media_player.turn_on
-  - target:
-      entity_id: media_player.lounge_amp_2
-    data:
-      source: '{{ states.media_player.lounge_amp.attributes.source }}'
-    action: media_player.select_source
-  mode: single
 - id: '1723348172989'
   alias: Zone2 Off
   description: ''
@@ -2139,4 +2113,28 @@
       - media_player.zone_11
       - media_player.zone_12
     action: media_player.turn_off
+  mode: single
+- id: '1729417212362'
+  alias: Zone 3 On
+  description: Turn on Denon Zone 2 when music playing
+  triggers:
+  - trigger: template
+    value_template: '{% if is_state_attr(''media_player.lounge_amp'', ''source'',
+      ''Media Player'') %} true {% else %} false {% endif %}'
+  - trigger: template
+    value_template: '{% if is_state_attr(''media_player.lounge_amp'', ''source'',
+      ''HEOS Music'') %} true {% else %} false {% endif %}'
+  conditions: []
+  actions:
+  - action: media_player.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: media_player.lounge_amp_2
+  - action: media_player.volume_set
+    metadata: {}
+    data:
+      volume_level: 0.7
+    target:
+      entity_id: media_player.lounge_amp_2
   mode: single
