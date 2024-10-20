@@ -1,3 +1,19 @@
+outside_speakers_on:
+  alias: Outside Speakers On
+  mode: single
+  sequence:
+  - data:
+      entity_id: media_player.zone_11
+    action: media_player.turn_on
+  icon: mdi:speaker
+outside_speakers_off:
+  alias: Outside Speakers Off
+  mode: single
+  sequence:
+  - data:
+      entity_id: media_player.zone_11
+    action: media_player.turn_off
+  icon: mdi:speaker
 front_heater_off:
   sequence:
   - service: remote.send_command
@@ -144,22 +160,6 @@ rear_heater_high:
   alias: Rear Heater High
   mode: single
   icon: mdi:radiator
-outside_speakers_on:
-  alias: Outside Speakers On
-  mode: single
-  sequence:
-  - data:
-      entity_id: media_player.zone_11
-    action: media_player.turn_on
-  icon: mdi:speaker
-outside_speakers_off:
-  alias: Outside Speakers Off
-  mode: single
-  sequence:
-  - data:
-      entity_id: media_player.zone_11
-    action: media_player.turn_off
-  icon: mdi:speaker
 washing_notify:
   alias: Washing Notify
   mode: single
@@ -181,55 +181,6 @@ washing_notify:
       message: The washing machine is finished.
       entity_id: media_player.bedroom_speaker
   icon: mdi:washing-machine-alert
-weekend_music:
-  alias: Music
-  sequence:
-  - action: remote.turn_on
-    target:
-      entity_id: remote.harmony_hub
-    data:
-      activity: Music
-  - data:
-      limit: 20
-      name: Triple
-      media_type:
-      - '[object Object]':
-    response_variable: results
-    action: mass.search
-  - data:
-      media_id: '{{ results.albums[range(0, 19) | random].name }}'
-      enqueue: play
-    target:
-      entity_id: media_player.lounge_amp_3
-    action: mass.play_media
-  - target:
-      entity_id: media_player.lounge_amp_3
-    data:
-      shuffle: true
-    action: media_player.shuffle_set
-  - data:
-      media_id: '{{ results.albums[range(0, 19) | random].name }}'
-      enqueue: add
-    target:
-      entity_id: media_player.lounge_amp_3
-    action: mass.play_media
-  icon: mdi:bookmark-music-outline
-  mode: single
-  description: Music Assistant Helper
-hottest_100:
-  alias: JJJ
-  sequence:
-  - target:
-      entity_id: script.music
-    data:
-      variables:
-        media_name: Triple J
-        media_type: album
-        range: 19
-    action: script.turn_on
-  icon: mdi:bookmark-music-outline
-  mode: single
-  description: ''
 hot_lucy:
   alias: Hot Lucy
   sequence:
@@ -252,6 +203,16 @@ hot_lucy:
     data: {}
     target:
       entity_id: switch.lucy_heated_steering
+  icon: mdi:car
+  mode: single
+cool_lucy:
+  alias: Cool Lucy
+  sequence:
+  - service: climate.set_hvac_mode
+    data:
+      hvac_mode: heat_cool
+    target:
+      entity_id: climate.lucy_hvac_climate_system
   icon: mdi:car
   mode: single
 retic:
@@ -300,16 +261,6 @@ retic:
       entity_id: switch.none_zone_4
   mode: single
   icon: mdi:spray
-cool_lucy_2:
-  alias: Cool Lucy
-  sequence:
-  - service: climate.set_hvac_mode
-    data:
-      hvac_mode: heat_cool
-    target:
-      entity_id: climate.lucy_hvac_climate_system
-  icon: mdi:car
-  mode: single
 gate_garage:
   alias: Gate & Garage
   sequence:
@@ -349,73 +300,23 @@ frontyard:
   description: ''
   icon: mdi:light-flood-down
   mode: restart
-80s:
-  alias: 80s
+music_test:
+  alias: Music Test
   sequence:
-  - target:
-      entity_id: script.music
+  - action: mass.search
+    metadata: {}
     data:
-      variables:
-        media_name: 80s
-        media_type: album
-        range: 19
-    action: script.turn_on
-  icon: mdi:bookmark-music-outline
-  mode: single
-  description: ''
-xmas:
-  alias: Xmas
-  sequence:
-  - target:
-      entity_id: script.music
+      library_only: true
+      name: Triple J
+      media_type:
+      - playlist
+    response_variable: results
+  - variables:
+      mediaid: '{{ results.playlists | random }}'
+  - action: mass.play_media
     data:
-      variables:
-        media_name: Christmas
-        media_type: album
-        range: 5
-    action: script.turn_on
-  icon: mdi:bookmark-music-outline
-  mode: single
-  description: ''
-gym_beats:
-  alias: Gym Beats
-  sequence:
-  - target:
-      entity_id: script.music
-    data:
-      variables:
-        media_name: Gym Beats
-        media_type: playlist
-        range: 1
-    action: script.turn_on
-  icon: mdi:bookmark-music-outline
-  mode: single
-  description: ''
-puppy:
-  alias: Puppy
-  sequence:
-  - target:
-      entity_id: script.music
-    data:
-      variables:
-        media_name: Puppy
-        media_type: playlist
-        range: 1
-    action: script.turn_on
-  icon: mdi:bookmark-music-outline
-  mode: single
-  description: ''
-pop:
-  alias: Pop
-  sequence:
-  - target:
-      entity_id: script.music
-    data:
-      variables:
-        media_name: Summer
-        media_type: playlist
-        range: 1
-    action: script.turn_on
-  icon: mdi:bookmark-music-outline
-  mode: single
+      media_id: '{{ mediaid.uri }}'
+      enqueue: play
+    target:
+      entity_id: media_player.lounge_amp_3
   description: ''

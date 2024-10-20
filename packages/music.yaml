@@ -1,0 +1,137 @@
+script:
+  music_playlist:
+    alias: Music Playlist
+    sequence:
+      - action: remote.turn_on
+        target:
+          entity_id: remote.harmony_hub
+        data:
+          activity: Music
+
+      - action: mass.search
+        data:
+          name: "{{ media_name }}"
+          limit: 20
+          library_only: true
+          media_type:
+            - playlist
+        response_variable: results
+
+      - variables:
+          mediaid: "{{ results.playlists | random }}"
+
+      - action: mass.play_media
+        data:
+          media_id: "{{ mediaid.uri }}"
+          enqueue: play
+        target:
+          entity_id: media_player.lounge_amp_3
+
+      - action: media_player.shuffle_set
+        target:
+          entity_id: media_player.lounge_amp_3
+        data:
+          shuffle: true
+
+      - alias: "Repeat Playlist Enqueue"
+        repeat:
+          count: "{{ count }}"
+          sequence:
+            - delay: 1
+            - variables:
+                mediaid: "{{ results.playlists | random }}"
+
+            - action: mass.play_media
+              data:
+                media_id: "{{ mediaid.uri }}"
+                enqueue: play
+              target:
+                entity_id: media_player.lounge_amp_3
+
+    icon: mdi:bookmark-music-outline
+    mode: single
+    description: Music Assistant Helper
+
+  jjj:
+    alias: JJJ
+    sequence:
+      - target:
+          entity_id: script.music_playlist
+        data:
+          variables:
+            media_name: Triple J
+            count: 4
+        action: script.turn_on
+    icon: mdi:bookmark-music-outline
+    mode: single
+    description: ""
+
+  80s:
+    alias: 80s
+    sequence:
+      - target:
+          entity_id: script.music_playlist
+        data:
+          variables:
+            media_name: 80s
+            count: 0
+        action: script.turn_on
+    icon: mdi:bookmark-music-outline
+    mode: single
+    description: ""
+
+  xmas:
+    alias: Xmas
+    sequence:
+      - target:
+          entity_id: script.music_playlist
+        data:
+          variables:
+            media_name: Christmas
+            count: 1
+        action: script.turn_on
+    icon: mdi:bookmark-music-outline
+    mode: single
+    description: ""
+
+  gym_beats:
+    alias: Gym Beats
+    sequence:
+      - target:
+          entity_id: script.music_playlist
+        data:
+          variables:
+            media_name: Gym Beats
+            count: 0
+        action: script.turn_on
+    icon: mdi:bookmark-music-outline
+    mode: single
+    description: ""
+
+  puppy:
+    alias: Puppy
+    sequence:
+      - target:
+          entity_id: script.music_playlist
+        data:
+          variables:
+            media_name: Puppy
+            count: 0
+        action: script.turn_on
+    icon: mdi:bookmark-music-outline
+    mode: single
+    description: ""
+
+  pop:
+    alias: Pop
+    sequence:
+      - target:
+          entity_id: script.music_playlist
+        data:
+          variables:
+            media_name: Summer
+            count: 1
+        action: script.turn_on
+    icon: mdi:bookmark-music-outline
+    mode: single
+    description: ""

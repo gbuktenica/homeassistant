@@ -494,12 +494,12 @@
 - id: '1703032677772'
   alias: Coffee Notify
   description: ''
-  trigger:
-  - platform: numeric_state
+  triggers:
+  - trigger: numeric_state
     entity_id:
     - sensor.coffee_power
     below: 500
-  condition:
+  conditions:
   - condition: state
     entity_id: input_boolean.coffee_notify
     state: 'off'
@@ -510,44 +510,44 @@
   - condition: state
     entity_id: switch.coffee_machine
     state: 'on'
-  action:
+  actions:
   - delay: 00:00:16
   - condition: numeric_state
     entity_id: sensor.coffee_power
     below: 500
-  - data:
+  - action: tts.google_translate_say
+    data:
       message: The coffee machine is ready.
       entity_id: media_player.bedroom_speaker
-    action: tts.google_translate_say
-  - data:
+  - action: input_boolean.turn_on
+    data:
       entity_id:
       - input_boolean.coffee_notify
-    action: input_boolean.turn_on
-  - data:
+  - action: notify.mobile_app_s21
+    data:
       message: The coffee machine is ready.
       data:
         tag: coffee
         sticky: 'true'
-    action: notify.mobile_app_s21
-  - data:
+  - action: light.turn_on
+    data:
       entity_id: light.kitchen
-    action: light.turn_on
   mode: single
 - id: '1703032695615'
   alias: Coffee Notify Reset on start
   description: ''
-  trigger:
-  - platform: state
+  triggers:
+  - trigger: state
     entity_id: switch.coffee_machine
     to: 'on'
-  condition: []
-  action:
-  - service: input_boolean.turn_on
+  conditions: []
+  actions:
+  - action: input_boolean.turn_on
     data:
       entity_id:
       - input_boolean.coffee_notify
   - delay: 00:02:00
-  - service: input_boolean.turn_off
+  - action: input_boolean.turn_off
     data:
       entity_id:
       - input_boolean.coffee_notify
@@ -555,15 +555,15 @@
 - id: '1703032740519'
   alias: Coffee Off
   description: Turns off the coffee machine when on too long.
-  trigger:
-  - entity_id: switch.coffee_machine
-    platform: state
+  triggers:
+  - trigger: state
+    entity_id: switch.coffee_machine
     to: 'on'
     for:
       minutes: 30
-  condition: []
-  action:
-  - service: tts.google_translate_say
+  conditions: []
+  actions:
+  - action: tts.google_translate_say
     data:
       message: The coffee machine is off
       entity_id: media_player.kitchen_display
@@ -572,7 +572,14 @@
       minutes: 0
       seconds: 30
       milliseconds: 0
-  - service: switch.turn_off
+  - condition: state
+    entity_id: switch.coffee_machine
+    state: 'on'
+    for:
+      hours: 0
+      minutes: 30
+      seconds: 0
+  - action: switch.turn_off
     data:
       entity_id:
       - switch.coffee_machine
@@ -580,12 +587,12 @@
 - id: '1703032755607'
   alias: Coffee One Off On
   description: Turns off the coffee machine on a date set by GUI.
-  trigger:
-  - platform: time
+  triggers:
+  - trigger: time
     at: input_datetime.coffee_time
-  condition: []
-  action:
-  - service: switch.turn_on
+  conditions: []
+  actions:
+  - action: switch.turn_on
     data: {}
     target:
       entity_id: switch.coffee_machine
@@ -593,10 +600,10 @@
 - id: '1703032781557'
   alias: Coffee On Weekday Morning
   description: Turns on the coffee machine on weekdays when Glen is at yoga.
-  trigger:
-  - platform: time
+  triggers:
+  - trigger: time
     at: 06:50:00
-  condition:
+  conditions:
   - condition: state
     entity_id: binary_sensor.workday_sensor
     state: 'on'
@@ -606,8 +613,8 @@
   - condition: state
     entity_id: input_boolean.holiday_mode
     state: 'off'
-  action:
-  - service: switch.turn_on
+  actions:
+  - action: switch.turn_on
     data:
       entity_id:
       - switch.coffee_machine
@@ -615,13 +622,13 @@
 - id: '1703032799319'
   alias: Coffee Phone Notify Reset when off
   description: ''
-  trigger:
-  - platform: state
+  triggers:
+  - trigger: state
     entity_id: switch.coffee_machine
     to: 'off'
-  condition: []
-  action:
-  - service: notify.mobile_app_s21
+  conditions: []
+  actions:
+  - action: notify.mobile_app_s21
     data:
       message: clear_notification
       data:
@@ -1988,12 +1995,12 @@
 - id: '1703854060013'
   alias: Turn off Evie Mode
   description: ''
-  trigger:
-  - platform: time
+  triggers:
+  - trigger: time
     at: '22:00:00'
-  condition: []
-  action:
-  - service: input_boolean.turn_off
+  conditions: []
+  actions:
+  - action: input_boolean.turn_off
     target:
       entity_id: input_boolean.evie_mode
     data: {}
@@ -2001,18 +2008,18 @@
 - id: '1704161098822'
   alias: Retic
   description: Run Retic Script
-  trigger:
-  - platform: time
+  triggers:
+  - trigger: time
     at: 06:10:00
-  condition:
+  conditions:
   - condition: template
     value_template: '{{ now().month in [1,2,3,4,5,9,10,11,12] }}'
   - condition: time
     weekday:
     - mon
     - fri
-  action:
-  - service: script.turn_on
+  actions:
+  - action: script.turn_on
     target:
       entity_id: script.retic
     data: {}
@@ -2036,18 +2043,18 @@
 - id: '1712211097131'
   alias: Coffee Morning
   description: ''
-  trigger:
-  - platform: time
+  triggers:
+  - trigger: time
     at: 05:37:00
-  condition:
+  conditions:
   - condition: state
     entity_id: binary_sensor.workday_sensor
     state: 'on'
   - condition: state
     entity_id: input_boolean.holiday_mode
     state: 'off'
-  action:
-  - service: switch.turn_on
+  actions:
+  - action: switch.turn_on
     metadata: {}
     data: {}
     target:
