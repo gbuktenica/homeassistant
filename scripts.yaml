@@ -320,3 +320,21 @@ music_test:
     target:
       entity_id: media_player.lounge_amp_3
   description: ''
+ma_next:
+  alias: MA Next
+  sequence:
+  - action: media_player.media_next_track
+    metadata: {}
+    data: {}
+    target:
+      entity_id: media_player.lounge_amp_4
+  description: ''
+ma_previous:
+  alias: MA Previous
+  sequence:
+  - action: media_player.media_previous_track
+    metadata: {}
+    data: {}
+    target:
+      entity_id: media_player.lounge_amp_4
+  description: ''

@@ -2138,3 +2138,137 @@
     target:
       entity_id: media_player.lounge_amp_2
   mode: single
+- id: '1734852244285'
+  alias: Harmony Music Assistant
+  description: ''
+  triggers:
+  - trigger: event
+    event_type: roku_command
+    event_data:
+      source_name: Home Assistant
+      type: keypress
+      key: Play
+    id: Play
+    alias: Roku Play
+  - alias: Roku Fwd
+    trigger: event
+    event_type: roku_command
+    event_data:
+      source_name: Home Assistant
+      type: keypress
+      key: Fwd
+    id: Fwd
+  - alias: Roku Rev
+    trigger: event
+    event_type: roku_command
+    event_data:
+      source_name: Home Assistant
+      type: keypress
+      key: Rev
+    id: Rev
+  - alias: Roku Up
+    trigger: event
+    event_type: roku_command
+    event_data:
+      source_name: Home Assistant
+      type: keypress
+      key: Up
+    id: Up
+  - alias: Roku Left
+    trigger: event
+    event_type: roku_command
+    event_data:
+      source_name: Home Assistant
+      type: keypress
+      key: Left
+    id: Left
+  - alias: Roku Down
+    trigger: event
+    event_type: roku_command
+    event_data:
+      source_name: Home Assistant
+      type: keypress
+      key: Down
+    id: Down
+  - alias: Roku Right
+    trigger: event
+    event_type: roku_command
+    event_data:
+      source_name: Home Assistant
+      type: keypress
+      key: Right
+    id: Right
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - Play
+      sequence:
+      - action: media_player.play_media
+        metadata: {}
+        data: {}
+        target:
+          entity_id: media_player.lounge_amp_4
+    - conditions:
+      - condition: trigger
+        id:
+        - Fwd
+      sequence:
+      - action: media_player.media_next_track
+        metadata: {}
+        data: {}
+        target:
+          entity_id: media_player.lounge_amp_4
+    - conditions:
+      - condition: trigger
+        id:
+        - Rev
+      sequence:
+      - action: media_player.media_previous_track
+        metadata: {}
+        data: {}
+        target:
+          entity_id: media_player.lounge_amp_4
+    - conditions:
+      - condition: trigger
+        id:
+        - Up
+      sequence:
+      - action: script.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: script.80s
+    - conditions:
+      - condition: trigger
+        id:
+        - Left
+      sequence:
+      - action: script.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: script.jjj
+    - conditions:
+      - condition: trigger
+        id:
+        - Down
+      sequence:
+      - action: script.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: script.gym_beats
+    - conditions:
+      - condition: trigger
+        id:
+        - Right
+      sequence:
+      - action: script.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: script.puppy
+  mode: single
