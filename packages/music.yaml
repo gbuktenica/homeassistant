@@ -49,7 +49,7 @@ script:
             - action: mass.play_media
               data:
                 media_id: "{{ mediaid.uri }}"
-                enqueue: play
+                enqueue: add
               target:
                 entity_id: media_player.lounge_amp_3
 
