@@ -260,17 +260,18 @@
 - id: '1685262366338'
   alias: Press Garage Gate Button
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - binary_sensor.garage_rear_button
     to: 'off'
-  condition: []
-  action:
-  - service: button.press
-    data: {}
+    trigger: state
+    from: 'on'
+  conditions: []
+  actions:
+  - data: {}
     target:
       entity_id: button.vehicle_button
+    action: button.press
   mode: single
 - id: light_downstairs_switch_on
   alias: Light Downstairs Switch On
