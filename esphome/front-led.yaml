@@ -1,0 +1,10 @@
+substitutions:
+  device_name: front-led
+  light_name: Entry
+  ip: "10.4.4.68"
+  use_ip: ${ip}
+  ssid: IoTL1
+#####################################
+packages:
+  common_base: !include common/base.yaml
+  device_base: !include common/dimmer2.yaml
