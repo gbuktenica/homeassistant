@@ -177,18 +177,17 @@
       message: It is red bin week.
 - id: door_bell_chime
   alias: Door Bell Chime
-  trigger:
-  - platform: state
-    entity_id:
-    - binary_sensor.g4_doorbell_doorbell
+  triggers:
+  - entity_id:
+    - binary_sensor.g4_doorbell_pro_doorbell
     to: 'on'
-  condition:
+    trigger: state
+  conditions:
   - condition: time
     after: 05:30:00
     before: '22:00:00'
-  action:
-  - service: media_player.play_media
-    data:
+  actions:
+  - data:
       media_content_id: /local/doorbell.mp3
       media_content_type: music
       announce: false
@@ -198,18 +197,19 @@
       - media_player.den_display
       - media_player.workshop_speaker
       - media_player.kitchen_display
+    action: media_player.play_media
 - id: door_bell_notification
   alias: Door Bell Notification
-  trigger:
-  - platform: state
-    entity_id:
-    - binary_sensor.g4_doorbell_doorbell
+  triggers:
+  - entity_id:
+    - binary_sensor.g4_doorbell_pro_doorbell
     to: 'on'
-  condition:
+    trigger: state
+  conditions:
   - condition: time
     after: 05:30:00
     before: '22:00:00'
-  action:
+  actions:
   - delay:
       hours: 0
       minutes: 0
@@ -1024,21 +1024,24 @@
 - id: '1703033064675'
   alias: Light Garden Switch On
   description: Turn on the garden and party lights
-  trigger:
-  - entity_id: binary_sensor.garden_switch_input
-    platform: state
-  condition:
+  triggers:
+  - entity_id:
+    - binary_sensor.garden_switch_input
+    trigger: state
+    from: 'off'
+    to: 'on'
+  conditions:
   - condition: state
     entity_id: light.garden_switch
     state: 'off'
-  action:
-  - service: light.turn_on
-    data:
+  actions:
+  - data:
       entity_id:
       - light.garden_lights
       - light.party_lights
       - light.garden_switch
       - light.pot_wall_light
+    action: light.turn_on
   mode: single
 - id: '1703033081803'
   alias: Light Nat away
@@ -1103,16 +1106,21 @@
 - id: '1703033125844'
   alias: Light Strata Off
   description: Turn off the strata lights 1 hour after sunset.
-  trigger:
-  - platform: sun
-    event: sunset
+  triggers:
+  - event: sunset
     offset: 01:00:00
-  condition: []
-  action:
-  - service: light.turn_off
-    data:
+    trigger: sun
+  conditions: []
+  actions:
+  - data:
       entity_id:
       - light.strata_lights
+    action: light.turn_off
+  - action: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.welding_mode
   mode: single
 - id: '1703033137006'
   alias: Light Sunset Inside Lights On
@@ -2019,6 +2027,8 @@
     weekday:
     - mon
     - fri
+    - wed
+    - sun
   actions:
   - action: script.turn_on
     target:
@@ -2079,23 +2089,26 @@
 - id: '1723348172989'
   alias: Zone2 Off
   description: ''
-  trigger:
-  - platform: template
-    value_template: '{% if not (is_state_attr(''media_player.lounge_amp'', ''source'',
+  triggers:
+  - value_template: '{% if not (is_state_attr(''media_player.lounge_amp'', ''source'',
       ''Media Player'') or is_state_attr(''media_player.lounge_amp'', ''source'',
       ''HEOS Music'')) %} true {% else %} false {% endif %}
 
       '
-  condition:
+    trigger: template
+  conditions:
   - condition: state
     entity_id: media_player.lounge_amp_2
     state: 'on'
-  action:
+  actions:
   - action: media_player.turn_off
     target:
       entity_id:
       - media_player.lounge_amp_2
       - media_player.lounge_amp_3
+      - media_player.zone_11
+      - media_player.zone_13
+      - media_player.zone_12
     data: {}
   mode: single
 - id: '1726920393066'
@@ -2116,7 +2129,7 @@
     action: media_player.turn_off
   mode: single
 - id: '1729417212362'
-  alias: Zone 3 On
+  alias: Zone 2 On
   description: Turn on Denon Zone 2 when music playing
   triggers:
   - trigger: template
@@ -2132,6 +2145,10 @@
     data: {}
     target:
       entity_id: media_player.lounge_amp_2
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
   - action: media_player.volume_set
     metadata: {}
     data:
@@ -2273,3 +2290,64 @@
         target:
           entity_id: script.puppy
   mode: single
+- id: '1737440023483'
+  alias: Party Gate
+  description: Just open gate when button pressed and party mode
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.g4_doorbell_pro_doorbell
+    to: 'on'
+  conditions:
+  - condition: state
+    entity_id: input_boolean.party_mode
+    state: 'on'
+  actions:
+  - action: button.press
+    metadata: {}
+    data: {}
+    target:
+      entity_id: button.vehicle_button
+  mode: single
+- id: '1738145200805'
+  alias: Tesla Tag
+  description: ''
+  triggers:
+  - trigger: tag
+    tag_id: 6b475623-7151-477b-a820-9b192ed0e483
+  - trigger: event
+    event_type: ios_tag_event
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: cover.gate
+        state: closed
+      sequence:
+      - action: button.press
+        metadata: {}
+        data: {}
+        target:
+          entity_id: button.vehicle_button
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 5
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.welding_mode
+        state: 'off'
+      sequence:
+      - action: cover.open_cover
+        metadata: {}
+        data: {}
+        target:
+          entity_id: cover.garage_door
+  - action: notify.mobile_app_pixel
+    metadata: {}
+    data:
+      message: Gate Tag Used
+  mode: single
+  max_exceeded: silent
