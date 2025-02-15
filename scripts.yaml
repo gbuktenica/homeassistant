@@ -338,3 +338,33 @@ ma_previous:
     target:
       entity_id: media_player.lounge_amp_4
   description: ''
+awning_stop:
+  sequence:
+  - action: remote.send_command
+    target:
+      entity_id: remote.rm4_broadlink
+    data:
+      device: awning
+      command: stop
+  alias: Awning Stop
+  description: ''
+awning_in:
+  sequence:
+  - action: remote.send_command
+    target:
+      entity_id: remote.rm4_broadlink
+    data:
+      device: awning
+      command: in
+  alias: Awning In
+  description: ''
+awning_out:
+  sequence:
+  - action: remote.send_command
+    target:
+      entity_id: remote.rm4_broadlink
+    data:
+      device: awning
+      command: out
+  alias: Awning Out
+  description: ''
