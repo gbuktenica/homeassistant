@@ -1,6 +1,6 @@
 substitutions:
   device_name: front-led
-  light_name: Entry
+  light_name: Balcony LED
   ip: "10.4.4.68"
   use_ip: ${ip}
   ssid: IoTL1

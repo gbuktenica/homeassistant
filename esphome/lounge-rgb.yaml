@@ -1,10 +1,10 @@
 substitutions:
-  device_name: bar-led
-  light_name: Bar LED
-  ip: "10.4.4.67"
+  device_name: lounge-rgb
+  light_name: Lounge RGB
+  ip: "10.4.4.69"
   use_ip: ${ip}
   ssid: IoTL1
 #####################################
 packages:
   common_base: !include common/base.yaml
-  device_base: !include common/dimmer2.yaml
+  device_base: !include common/rgbw2.yaml

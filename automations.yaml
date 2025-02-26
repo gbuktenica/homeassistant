@@ -2351,3 +2351,17 @@
       message: Gate Tag Used
   mode: single
   max_exceeded: silent
+- id: '1740102991624'
+  alias: Tesla Force Update
+  description: ''
+  triggers:
+  - trigger: time
+    at: 08:55:00
+  conditions: []
+  actions:
+  - action: button.press
+    metadata: {}
+    data: {}
+    target:
+      entity_id: button.lucy_force_data_update
+  mode: single
