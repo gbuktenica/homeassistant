@@ -32,6 +32,12 @@ script:
         data:
           shuffle: true
 
+      - action: media_player.volume_set
+        target:
+          entity_id: media_player.lounge_amp_4
+        data:
+          volume_level: 0.5
+
     icon: mdi:bookmark-music-outline
     mode: single
     description: Music Assistant Helper
