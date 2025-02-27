@@ -8,50 +8,29 @@ script:
         data:
           activity: Music
 
-      - action:  media_player.turn_on
-        target:
-          entity_id: media_player.den_tv_2
-        data: {}
-
-      - action: mass.search
+      - action: music_assistant.get_library
         data:
-          name: "{{ media_name }}"
-          limit: 20
-          library_only: true
-          media_type:
-            - playlist
+          limit: "{{ count }}"
+          offset: 0
+          config_entry_id: 01JEA8BGVAQ1SWT1C754QSANMW
+          media_type: playlist
+          order_by: random
+          search: "{{ media_name }}"
         response_variable: results
 
-      - variables:
-          mediaid: "{{ results.playlists | random }}"
-
-      - action: mass.play_media
+      - action: music_assistant.play_media
         data:
-          media_id: "{{ mediaid.uri }}"
+          media_id: "{{ results.items.uri }}"
+          media_type: playlist
           enqueue: replace
         target:
-          entity_id: media_player.lounge_amp_3
+          entity_id: media_player.lounge_amp_4
 
       - action: media_player.shuffle_set
         target:
-          entity_id: media_player.lounge_amp_3
+          entity_id: media_player.lounge_amp_4
         data:
           shuffle: true
-
-      - alias: "Repeat Playlist Enqueue"
-        repeat:
-          count: "{{ count }}"
-          sequence:
-            - delay: 1
-            - variables:
-                mediaid: "{{ results.playlists | random }}"
-
-            - action: mass.play_media
-              data:
-                media_id: "{{ mediaid.uri }}"
-                enqueue: add
-              target:
-                entity_id: media_player.lounge_amp_3
 
     icon: mdi:bookmark-music-outline
     mode: single
