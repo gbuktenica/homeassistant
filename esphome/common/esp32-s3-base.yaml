@@ -5,16 +5,3 @@ esp32:
   board: esp32-s3-devkitc-1
   framework:
     type: esp-idf
-
-ethernet:
-  type: W5500
-  clk_pin: GPIO10
-  mosi_pin: GPIO12
-  miso_pin: GPIO11
-  cs_pin: GPIO09
-  interrupt_pin: GPIO13
-  reset_pin: GPIO14
-  manual_ip:
-    static_ip: 10.4.4.63
-    gateway: 10.4.4.1
-    subnet: 255.255.255.0
