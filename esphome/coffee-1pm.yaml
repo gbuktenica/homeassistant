@@ -7,13 +7,9 @@ substitutions:
   calibrate: "15000 -> 1400"
   update_interval: 15s
 #######################
-esphome:
-  name: ${device_name}
-  platform: ESP8266
-  board: esp01_1m
-
 packages:
   common_base: !include common/base.yaml
+  device_base: !include common/esp01_1m.yaml
 #####################################
 sensor:
   - platform: hlw8012
@@ -37,7 +33,7 @@ sensor:
             - 0.0 -> 0.0
             - ${calibrate}
         - lambda: if (x < (10 + 1)) return 0; else return (x - 1);
-        
+
   - platform: total_daily_energy
     name: ${channel_1} Energy
     power_id: power_channel_1

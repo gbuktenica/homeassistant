@@ -12,7 +12,7 @@ substitutions:
 #######################
 esphome:
   name: ${device_name}
-  platform: ESP32
+esp32:
   board: nodemcu-32s
   # https://esphome.io/devices/nodemcu_esp32.html
 

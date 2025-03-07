@@ -8,7 +8,7 @@ substitutions:
 #####################################
 packages:
   common_base: !include common/base.yaml
-  device_base: !include common/mini-base.yaml
+  device_base: !include common/esp01_1m.yaml
 #####################################
 output:
   - platform: gpio

@@ -18,7 +18,7 @@ api:
 wifi:
   ssid: ${ssid}
   password: !secret iot
-  fast_connect: on
+  fast_connect: off
   use_address: ${ip}
   manual_ip:
     static_ip: ${ip}
