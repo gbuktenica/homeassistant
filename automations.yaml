@@ -187,6 +187,15 @@
     after: 05:30:00
     before: '22:00:00'
   actions:
+  - action: media_player.volume_set
+    metadata: {}
+    data:
+      volume_level: 1
+    target:
+      entity_id:
+      - media_player.kitchen_display_3
+      - media_player.workshop_speaker
+      - media_player.bedroom_speaker
   - data:
       media_content_id: /local/doorbell.mp3
       media_content_type: music
@@ -194,7 +203,6 @@
     target:
       entity_id:
       - media_player.bedroom_speaker
-      - media_player.den_display
       - media_player.workshop_speaker
       - media_player.kitchen_display
     action: media_player.play_media
@@ -217,8 +225,10 @@
       milliseconds: 0
   - data:
       filename: /config/www/doorbell.png
-    entity_id: camera.g4_doorbell_high_resolution_channel
     action: camera.snapshot
+    target:
+      entity_id:
+      - camera.g4_doorbell_pro_high_resolution_channel
   - data:
       message: Someone has pressed the doorbell.
       data:
@@ -516,6 +526,12 @@
   - condition: numeric_state
     entity_id: sensor.coffee_power
     below: 500
+  - action: media_player.volume_set
+    metadata: {}
+    data:
+      volume_level: 0.5
+    target:
+      entity_id: media_player.bedroom_speaker
   - action: tts.google_translate_say
     data:
       message: The coffee machine is ready.
@@ -2148,11 +2164,12 @@
   - delay:
       hours: 0
       minutes: 0
-      seconds: 10
+      seconds: 15
+      milliseconds: 0
   - action: media_player.volume_set
     metadata: {}
     data:
-      volume_level: 0.7
+      volume_level: 0.8
     target:
       entity_id: media_player.lounge_amp_2
   mode: single

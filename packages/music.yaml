@@ -64,7 +64,7 @@ script:
         data:
           variables:
             media_name: 80s
-            count: 0
+            count: 1
         action: script.turn_on
     icon: mdi:bookmark-music-outline
     mode: single
@@ -92,7 +92,7 @@ script:
         data:
           variables:
             media_name: Gym Beats
-            count: 0
+            count: 1
         action: script.turn_on
     icon: mdi:bookmark-music-outline
     mode: single
@@ -106,7 +106,7 @@ script:
         data:
           variables:
             media_name: Puppy
-            count: 0
+            count: 1
         action: script.turn_on
     icon: mdi:bookmark-music-outline
     mode: single
