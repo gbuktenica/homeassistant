@@ -1,7 +1,7 @@
 substitutions:
   device_name: laundry-light-s25
   channel_1: Laundry Light
-  channel_2: None
+  channel_2: No Light
   max_power: "2000.0" # watt
   max_temp: "80.0" # °C
   ip: "10.4.4.35"
