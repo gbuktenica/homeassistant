@@ -59,7 +59,7 @@ deps/
 *.log.fault
 *.log.1
 OZW_Log.txt
-# Randoms
+# Random's
 .HA_VERSION
 .spotify-token-cache
 .uuid
@@ -82,4 +82,5 @@ appdaemon/
 doorbell.png
 garage.png
 esphome/trash/
+esphome/archive/
 www/community/
