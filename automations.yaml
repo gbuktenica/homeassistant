@@ -1504,33 +1504,37 @@
 - id: '1703033987206'
   alias: Tesla Solar Charging less
   description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id: sensor.energy_meter_total_watts
+  triggers:
+  - entity_id: sensor.energy_meter_total_watts
     above: '200'
     for:
       minutes: 2
-  - platform: numeric_state
-    entity_id: sensor.energy_meter_total_watts
+    trigger: numeric_state
+  - entity_id: sensor.energy_meter_total_watts
     above: '200'
     for:
       minutes: 4
-  - platform: numeric_state
-    entity_id: sensor.energy_meter_total_watts
+    trigger: numeric_state
+  - entity_id: sensor.energy_meter_total_watts
     above: '200'
     for:
       minutes: 6
-  - platform: numeric_state
-    entity_id: sensor.energy_meter_total_watts
+    trigger: numeric_state
+  - entity_id: sensor.energy_meter_total_watts
     above: '200'
     for:
       minutes: 8
-  - platform: state
-    entity_id: binary_sensor.tesla_wall_connector_contactor_closed
+    trigger: numeric_state
+  - entity_id: binary_sensor.tesla_wall_connector_contactor_closed
     to: 'on'
     for:
       minutes: 2
-  condition:
+    trigger: state
+  - trigger: state
+    entity_id:
+    - sensor.lucy_battery
+    to: '50'
+  conditions:
   - condition: state
     entity_id: binary_sensor.tesla_wall_connector_contactor_closed
     state: 'on'
@@ -1540,9 +1544,11 @@
   - condition: numeric_state
     entity_id: sensor.energy_meter_total_watts
     above: '220'
-  action:
-  - service: number.set_value
-    data_template:
+  - condition: numeric_state
+    entity_id: sensor.lucy_battery
+    above: 49
+  actions:
+  - data_template:
       entity_id: number.lucy_charging_amps
       value: "{% set charging = (states('number.lucy_charging_amps')|int) %} {% set
         grid = (states('sensor.energy_meter_total_watts')|int) %} {% if grid > 7000
@@ -1556,17 +1562,18 @@
         result = charging - 2 | int %}\n{% else %}\n  {% set result = charging - 1
         | int %}\n{% endif %} {% if result < 0 %}\n  {% set result = 0 %}\n{% endif
         %} {{ result }}\n"
+    action: number.set_value
   - delay:
       minutes: 1
-  - service: button.press
-    target:
+  - target:
       entity_id: button.lucy_force_data_update
     data: {}
-  - service: notify.mobile_app_s21
-    data:
+    action: button.press
+  - data:
       message: clear_notification
       data:
         tag: charging
+    action: notify.mobile_app_s21
   - delay:
       seconds: 10
   mode: single
@@ -1628,17 +1635,17 @@
 - id: '1703034369179'
   alias: Tesla Solar Charging Start
   description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id: sensor.energy_meter_total_watts
+  triggers:
+  - entity_id: sensor.energy_meter_total_watts
     below: '-900'
     for: 00:05:00
-  - platform: time
-    at: 09:05:00
-  - platform: state
-    entity_id: binary_sensor.tesla_wall_connector_vehicle_connected
+    trigger: numeric_state
+  - at: 09:05:00
+    trigger: time
+  - entity_id: binary_sensor.tesla_wall_connector_vehicle_connected
     to: 'on'
-  condition:
+    trigger: state
+  conditions:
   - condition: state
     entity_id: binary_sensor.tesla_wall_connector_vehicle_connected
     state: 'on'
@@ -1653,27 +1660,43 @@
     - condition: state
       entity_id: input_select.charging_mode
       state: Manual
-  action:
-  - condition: state
-    entity_id: binary_sensor.tesla_wall_connector_contactor_closed
-    state: 'off'
-  - service: switch.turn_on
-    data:
-      entity_id:
-      - switch.lucy_charger
-  - delay:
-      minutes: 1
-  - service: button.press
-    target:
+  actions:
+  - if:
+    - condition: state
+      entity_id: binary_sensor.tesla_wall_connector_contactor_closed
+      state: 'off'
+    then:
+    - action: switch.turn_on
+      metadata: {}
+      data: {}
+      target:
+        entity_id: switch.lucy_charger
+    - delay:
+        hours: 0
+        minutes: 1
+        seconds: 0
+        milliseconds: 0
+  - target:
       entity_id: button.lucy_force_data_update
     data: {}
-  - service: notify.mobile_app_s21
-    data:
+    action: button.press
+  - data:
       message: clear_notification
       data:
         tag: charging
-  - delay:
-      seconds: 10
+    action: notify.mobile_app_s21
+    enabled: false
+  - if:
+    - condition: numeric_state
+      entity_id: sensor.lucy_battery
+      below: 50
+    then:
+    - action: number.set_value
+      metadata: {}
+      data:
+        value: '16'
+      target:
+        entity_id: number.lucy_charging_amps
   mode: single
 - id: '1703034379747'
   alias: Washing Alarm Acknowledged
@@ -2381,4 +2404,39 @@
     data: {}
     target:
       entity_id: button.lucy_force_data_update
+  mode: single
+- id: '1742620555857'
+  alias: Tesla Solar Fast Charging Update
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.tesla_wall_connector_contactor_closed
+    to: 'on'
+    from: 'off'
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  conditions:
+  - condition: numeric_state
+    entity_id: sensor.lucy_battery
+    below: 50
+  actions:
+  - repeat:
+      sequence:
+      - action: button.press
+        metadata: {}
+        data: {}
+        target:
+          entity_id: button.lucy_force_data_update
+      - delay:
+          hours: 0
+          minutes: 5
+          seconds: 0
+          milliseconds: 0
+      until:
+      - condition: numeric_state
+        entity_id: sensor.lucy_battery
+        above: 49
   mode: single
