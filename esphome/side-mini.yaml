@@ -8,15 +8,4 @@ substitutions:
 #####################################
 packages:
   common_base: !include common/base.yaml
-  device_base: !include common/esp01_1m.yaml
-#####################################
-output:
-  - platform: gpio
-    id: relay
-    pin: GPIO12
-
-light:
-  - platform: binary
-    id: ${id}
-    name: ${name}
-    output: relay
+  device_base: !include common/mini-light.yaml
