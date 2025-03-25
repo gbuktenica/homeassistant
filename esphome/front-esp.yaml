@@ -14,6 +14,10 @@ esp8266:
 packages:
   common_base: !include common/base.yaml
 #####################################
+ota:
+  platform: esphome
+  password: !secret ota
+
 binary_sensor:
   - platform: gpio
     pin:

@@ -1,25 +1,11 @@
-- id: addon_restart
-  alias: Restart Addons
-  trigger:
-  - platform: time
-    at: 04:00:00
-  action:
-  - service: hassio.addon_restart
-    data:
-      addon: core_letsencrypt
-  - service: hassio.addon_restart
-    metadata: {}
-    data:
-      addon: a0d7b954_spotify
 - id: reboot_host
   alias: Reboot host
-  description: Turn the amplifier on and restart the NUC. This is to make sure the
-    HDMI is working.
-  initial_state: true
-  trigger:
-  - platform: time
-    at: 09:30:00
-  condition:
+  description: Turn the amplifier on and restart the Intel NUC. This is to make sure
+    the HDMI is working.
+  triggers:
+  - at: 09:30:00
+    trigger: time
+  conditions:
   - condition: time
     weekday:
     - fri
@@ -32,12 +18,14 @@
   - condition: state
     entity_id: binary_sensor.workday_sensor
     state: 'on'
-  action:
-  - service: script.turn_on
-    entity_id: script.harmony_music
+  actions:
+  - entity_id: script.harmony_music
+    action: script.turn_on
   - delay:
       minutes: 1
-  - service: hassio.host_reboot
+  - action: hassio.host_reboot
+    data: {}
+  initial_state: true
 - id: after_reboot_host
   alias: After Reboot host
   description: Turn the amplifier off after the reboot in reboot_host
@@ -61,25 +49,6 @@
   action:
   - service: script.turn_on
     entity_id: script.harmony_off
-- id: morning_aircon
-  alias: Morning AirCon
-  description: ''
-  trigger:
-  - at: 01:00:00
-    platform: time
-  condition:
-  - condition: state
-    entity_id: climate.daikin
-    state: cool
-  action:
-  - service: climate.set_temperature
-    data:
-      entity_id: climate.daikin_ac
-      temperature: 21
-  - service: climate.set_fan_mode
-    data:
-      entity_id: climate.daikin_ac
-      fan_mode: Low/Auto
 - id: weekend_outside_speakers_on
   alias: Weekend Outside Speakers On
   description: Turns on the outside speakers when the rear bi fold is opened.
@@ -529,7 +498,7 @@
   - action: media_player.volume_set
     metadata: {}
     data:
-      volume_level: 0.5
+      volume_level: 0.6
     target:
       entity_id: media_player.bedroom_speaker
   - action: tts.google_translate_say
@@ -580,10 +549,17 @@
       minutes: 30
   conditions: []
   actions:
+  - action: media_player.volume_set
+    metadata: {}
+    data:
+      volume_level: 0.6
+    target:
+      entity_id: media_player.kitchen_display
   - action: tts.google_translate_say
     data:
       message: The coffee machine is off
       entity_id: media_player.kitchen_display
+      cache: true
   - delay:
       hours: 0
       minutes: 0
@@ -2439,4 +2415,24 @@
       - condition: numeric_state
         entity_id: sensor.lucy_battery
         above: 49
+  mode: single
+- id: '1742821742844'
+  alias: HA Update Skip first of the month
+  description: Automatically skip first Core update of the month
+  triggers:
+  - entity_id:
+    - update.home_assistant_core_update
+    to: 'on'
+    trigger: state
+  conditions:
+  - condition: template
+    value_template: '{{ state_attr(''update.home_assistant_core_update'',''latest_version'').split(".")
+      | last == "0" }}'
+    alias: Check if update version number ends with ".0"
+  actions:
+  - metadata: {}
+    data: {}
+    target:
+      entity_id: update.home_assistant_core_update
+    action: update.skip
   mode: single

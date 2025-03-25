@@ -27,3 +27,8 @@ ota:
 time:
   - platform: homeassistant
     id: homeassistant_time
+
+sensor:
+  - platform: wifi_signal
+    name: ${device_name}-wifi 
+    update_interval: 60s
