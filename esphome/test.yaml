@@ -30,6 +30,7 @@ api:
 
 ota:
   - platform: esphome
+    id: ota_id
     password: !secret iot
 
 ethernet:

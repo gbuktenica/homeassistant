@@ -22,6 +22,7 @@ api:
 
 ota:
   platform: esphome
+  id: ota_id
   password: !secret iot
 
 time:
@@ -30,5 +31,5 @@ time:
 
 sensor:
   - platform: wifi_signal
-    name: ${device_name}-wifi 
+    name: ${device_name}-wifi
     update_interval: 60s
