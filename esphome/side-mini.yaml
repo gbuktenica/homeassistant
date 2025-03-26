@@ -5,6 +5,7 @@ substitutions:
   ip: "10.4.4.25"
   use_ip: ${ip}
   ssid: IoTL1
+  button_action: "on_state" #"on_press"
 #####################################
 packages:
   common_base: !include common/base.yaml

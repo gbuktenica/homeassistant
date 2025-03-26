@@ -5,28 +5,9 @@ substitutions:
   ip: "10.4.4.24"
   use_ip: ${ip}
   ssid: IoTL1
-
+  button_action: "on_state" #"on_press"
 #####################################
 packages:
   common_base: !include common/base.yaml
-  device_base: !include common/esp01_1m.yaml
+  device_base: !include common/mini-light.yaml
 #####################################
-output:
-  - platform: gpio
-    id: relay
-    pin: GPIO12
-
-light:
-  - platform: binary
-    id: ${id}
-    name: ${name}
-    output: relay
-
-binary_sensor:
-  - platform: gpio
-    pin:
-      number: GPIO04
-    name: "${name} input"
-    on_state:
-      then:
-        - light.toggle: ${id}

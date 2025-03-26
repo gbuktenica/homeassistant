@@ -20,6 +20,6 @@ binary_sensor:
     pin:
       number: GPIO04
     name: "${name} input"
-    on_state:
+    ${button_action}:
       then:
         - light.toggle: ${id}
