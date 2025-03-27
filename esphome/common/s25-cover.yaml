@@ -1,8 +1,11 @@
 esphome:
   name: ${device_name}
-esl8266:
+esp8266:
   board: modwifi
-
+  # on_boot:
+  #   - lambda: |-
+  #       id(ota_id).set_auth_password("REPLACE_ME");
+  
 i2c:
   sda: GPIO12
   scl: GPIO14
