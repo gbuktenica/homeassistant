@@ -1,4 +1,7 @@
 esphome:
   name: ${device_name}
+  # on_boot:
+  #   - lambda: |-
+  #       id(ota_id).set_auth_password("REPLACE_ME");
 esp32:
   board: esp32doit-devkit-v1

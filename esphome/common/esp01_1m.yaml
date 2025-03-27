@@ -1,6 +1,9 @@
 esphome:
   name: ${device_name}
-
+  # on_boot:
+  #   - lambda: |-
+  #       id(ota_id).set_auth_password("REPLACE_ME");
+  
 # mini 1
 # Shelley 1PM
 esp8266:
