@@ -1,9 +1,0 @@
-substitutions:
-  device_name: garage-esp32s3
-  ip: "10.4.4.80"
-  use_ip: ${ip}
-#####################################
-packages:
-  common_base: !include common/base-rj45.yaml
-  device_base: !include common/esp32-s3-base.yaml
-

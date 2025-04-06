@@ -374,24 +374,40 @@
 - id: garage_door_close_leaving
   alias: Garage Door Close Leaving
   description: Close the Garage door when Lucy is leaving
-  trigger:
+  triggers:
   - entity_id: binary_sensor.ratgdo_obstruction
-    platform: state
     to: 'off'
     for:
       seconds: 2
-  condition:
+    trigger: state
+  conditions:
   - condition: state
     entity_id: cover.gate
     state: open
   - condition: state
     entity_id: cover.garage_door
     state: open
-  action:
-  - service: cover.close_cover
-    target:
+  actions:
+  - target:
       entity_id: cover.garage_door
     data: {}
+    action: cover.close_cover
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 30
+      milliseconds: 0
+  - condition: state
+    entity_id: binary_sensor.garage_rear_door
+    state: 'off'
+  - condition: state
+    entity_id: cover.garage_door
+    state: closed
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.garage_light
 - id: '1702824777001'
   alias: Light Night Backyard Light On
   description: Turns on the Backyard light when the rear bifold is opened.
@@ -595,14 +611,11 @@
   description: Turns on the coffee machine on weekdays when Glen is at yoga.
   triggers:
   - trigger: time
-    at: 06:50:00
+    at: 05:40:00
   conditions:
   - condition: state
     entity_id: binary_sensor.workday_sensor
     state: 'on'
-  - condition: zone
-    entity_id: person.glen
-    zone: zone.bby
   - condition: state
     entity_id: input_boolean.holiday_mode
     state: 'off'
@@ -810,29 +823,34 @@
   alias: Garage Closing Car Present
   description: Turn off the Garage light when the Garage door is closing and the car
     is in the garage.
-  trigger:
+  triggers:
   - entity_id: cover.garage_door
-    platform: state
     to: closing
     for:
       seconds: 10
-  condition:
+    trigger: state
+  - trigger: state
+    entity_id:
+    - binary_sensor.garage_rear_door
+    from: 'on'
+    to: 'off'
+  conditions:
   - condition: state
     entity_id: binary_sensor.garage_rear_door
     state: 'off'
   - condition: state
     entity_id: binary_sensor.car_present
     state: 'on'
-  action:
+  actions:
   - delay:
       minutes: 5
   - condition: state
     entity_id: binary_sensor.garage_rear_door
     state: 'off'
-  - service: light.turn_off
-    data:
+  - data:
       entity_id:
       - light.garage_light
+    action: light.turn_off
   mode: single
 - id: '1703032913005'
   alias: Garage Opening
@@ -1444,38 +1462,47 @@
 - id: '1703033778440'
   alias: Tesla Charging Stop
   description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id: sensor.energy_meter_total_watts
-    above: '100'
-    for: 00:15:00
-  - platform: time
+  triggers:
+  - trigger: time
     at: '14:59:00'
-  - platform: state
+  - trigger: state
     entity_id: binary_sensor.tesla_wall_connector_contactor_closed
     to: 'on'
-  condition:
-  - or:
-    - condition: time
-      before: 09:00:00
-      after: '14:58:00'
-    - condition: numeric_state
-      entity_id: sensor.energy_meter_total_watts
-      above: '100'
-  action:
-  - condition: numeric_state
-    entity_id: sensor.lucy_battery
-    above: '50'
+  - trigger: state
+    entity_id:
+    - sensor.lucy_battery
+    to: '50'
+  conditions:
   - condition: state
     entity_id: binary_sensor.tesla_wall_connector_contactor_closed
     state: 'on'
   - condition: state
     entity_id: input_boolean.charging_override
     state: 'off'
-  - service: switch.turn_off
-    data:
-      entity_id:
-      - switch.lucy_charger
+  actions:
+  - if:
+    - condition: numeric_state
+      entity_id: sensor.lucy_battery
+      above: 49
+    - condition: time
+      before: 09:00:00
+      after: '14:58:00'
+    then:
+    - action: switch.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: switch.lucy_charger
+  - if:
+    - condition: time
+      after: '14:58:00'
+      before: 09:00:00
+    then:
+    - action: switch.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: switch.lucy_charger
   mode: single
 - id: '1703033987206'
   alias: Tesla Solar Charging less
@@ -1552,6 +1579,16 @@
     action: notify.mobile_app_s21
   - delay:
       seconds: 10
+  - choose:
+    - conditions:
+      - condition: time
+        after: '15:00:00'
+      sequence:
+      - action: switch.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: switch.lucy_charger
   mode: single
   max_exceeded: silent
 - id: '1703034358078'

@@ -38,7 +38,7 @@
       - brightness
       color_mode:
       brightness:
-      friendly_name: dining-west
+      friendly_name: Dining West
       supported_features: 40
       state: 'off'
     light.dining_east:
@@ -46,7 +46,7 @@
       - brightness
       color_mode:
       brightness:
-      friendly_name: dining-east
+      friendly_name: Dining East
       supported_features: 40
       state: 'off'
     light.entry:
@@ -85,6 +85,20 @@
       friendly_name: Kitchen LED
       supported_features: 8
       state: 'off'
+    light.stairway_light:
+      supported_color_modes:
+      - onoff
+      color_mode:
+      friendly_name: Stairway Light
+      supported_features: 8
+      state: 'off'
+    light.hall_light:
+      supported_color_modes:
+      - onoff
+      color_mode: onoff
+      friendly_name: Hall Light
+      supported_features: 8
+      state: 'on'
   icon: mdi:movie
   metadata:
     light.fl:
