@@ -599,7 +599,10 @@
   triggers:
   - trigger: time
     at: input_datetime.coffee_time
-  conditions: []
+  conditions:
+  - condition: state
+    entity_id: input_boolean.holiday_mode
+    state: 'off'
   actions:
   - action: switch.turn_on
     data: {}
@@ -1053,33 +1056,6 @@
       - light.pot_wall_light
     action: light.turn_on
   mode: single
-- id: '1703033081803'
-  alias: Light Nat away
-  description: Turns off Nats lights because she cant
-  trigger:
-  - entity_id: input_select.nat_presence
-    platform: state
-    from: Home
-  condition:
-  - condition: state
-    entity_id: input_boolean.party_mode
-    state: 'off'
-  action:
-  - service: light.turn_off
-    data:
-      entity_id:
-      - light.hall_light
-      - light.office_front_light
-      - light.office_rear_light
-      - light.kitchen
-  - condition: state
-    entity_id: sun.sun
-    state: above_horizon
-  - service: light.turn_off
-    data:
-      entity_id:
-      - light.dining_light
-  mode: single
 - id: '1703033103448'
   alias: Light Night Frontyard Door Light On
   description: Turns on the front yard light when the front door is opened.
@@ -1472,6 +1448,10 @@
     entity_id:
     - sensor.lucy_battery
     to: '50'
+  - trigger: state
+    entity_id:
+    - sensor.lucy_battery
+    to: '51'
   conditions:
   - condition: state
     entity_id: binary_sensor.tesla_wall_connector_contactor_closed
@@ -1487,16 +1467,6 @@
     - condition: time
       before: 09:00:00
       after: '14:58:00'
-    then:
-    - action: switch.turn_off
-      metadata: {}
-      data: {}
-      target:
-        entity_id: switch.lucy_charger
-  - if:
-    - condition: time
-      after: '14:58:00'
-      before: 09:00:00
     then:
     - action: switch.turn_off
       metadata: {}
@@ -1817,56 +1787,6 @@
     data:
       entity_id: input_boolean.washing_finished
   mode: single
-- id: dryer_started
-  alias: Dryer Started
-  description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id:
-    - sensor.dryer_power
-    above: 500
-    for:
-      minutes: 2
-  condition:
-  - condition: state
-    entity_id: input_boolean.dryer_running
-    state: 'off'
-  action:
-  - service: input_boolean.turn_on
-    data:
-      entity_id: input_boolean.dryer_running
-  mode: single
-- id: dryer_finished
-  alias: Dryer Finished
-  description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id:
-    - sensor.dryer_power
-    below: 400
-    for:
-      hours: 0
-      minutes: 10
-      seconds: 0
-  condition:
-  - condition: state
-    entity_id: input_boolean.dryer_running
-    state: 'on'
-  action:
-  - service: input_boolean.turn_off
-    data:
-      entity_id: input_boolean.dryer_running
-  - service: notify.mobile_app_natalies_iphone
-    data:
-      message: The dryer machine is finished.
-  - service: notify.mobile_app_s21
-    data:
-      message: The dryer is finished.
-  - service: tts.google_translate_say
-    data:
-      message: The dryer is finished.
-      entity_id: media_player.bedroom_speaker
-  mode: single
 - id: '1703034538857'
   alias: Presence Nat Home
   description: Set when Nat is home.
@@ -2108,7 +2028,7 @@
   description: ''
   triggers:
   - trigger: time
-    at: 05:37:00
+    at: 05:32:00
   conditions:
   - condition: state
     entity_id: binary_sensor.workday_sensor

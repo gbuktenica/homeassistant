@@ -123,3 +123,139 @@
       entity_only: true
     light.kitchen_led:
       entity_only: true
+- id: '1744003960993'
+  name: Inside
+  entities:
+    light.strata_lights:
+      supported_color_modes:
+      - onoff
+      color_mode:
+      friendly_name: Strata Lights
+      supported_features: 8
+      state: 'off'
+    light.garden_lights:
+      supported_color_modes:
+      - onoff
+      color_mode:
+      friendly_name: garden_lights
+      supported_features: 8
+      state: 'off'
+    light.party_lights:
+      supported_color_modes:
+      - onoff
+      color_mode:
+      friendly_name: party_lights
+      supported_features: 8
+      state: 'off'
+    light.balcony_led:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      friendly_name: Balcony LED
+      supported_features: 40
+      state: 'off'
+    light.bar_led:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      friendly_name: Bar LED
+      supported_features: 40
+      state: 'off'
+    light.frontyard_light:
+      supported_color_modes:
+      - onoff
+      color_mode:
+      friendly_name: Frontyard Light
+      supported_features: 8
+      state: 'off'
+    media_player.zone_13:
+      device_class: receiver
+      friendly_name: Balcony Speakers
+      supported_features: 3468
+      state: 'off'
+    light.pot_wall_light:
+      supported_color_modes:
+      - onoff
+      color_mode:
+      friendly_name: Pot Wall Light
+      supported_features: 8
+      state: 'off'
+  metadata:
+    light.strata_lights:
+      entity_only: true
+    light.garden_lights:
+      entity_only: true
+    light.party_lights:
+      entity_only: true
+    light.balcony_led:
+      entity_only: true
+    light.bar_led:
+      entity_only: true
+    light.frontyard_light:
+      entity_only: true
+    media_player.zone_13:
+      entity_only: true
+    light.pot_wall_light:
+      entity_only: true
+  icon: mdi:bed-empty
+- id: '1744786912072'
+  name: Outside
+  entities:
+    light.pot_wall_light:
+      supported_color_modes:
+      - onoff
+      color_mode: onoff
+      friendly_name: Pot Wall Light
+      supported_features: 8
+      state: 'on'
+    light.strata_lights:
+      supported_color_modes:
+      - onoff
+      color_mode: onoff
+      friendly_name: Strata Lights
+      supported_features: 8
+      state: 'on'
+    light.garden_lights:
+      supported_color_modes:
+      - onoff
+      color_mode: onoff
+      friendly_name: garden_lights
+      supported_features: 8
+      state: 'on'
+    light.party_lights:
+      supported_color_modes:
+      - onoff
+      color_mode: onoff
+      friendly_name: party_lights
+      supported_features: 8
+      state: 'on'
+    light.balcony_led:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 120
+      friendly_name: Balcony LED
+      supported_features: 40
+      state: 'on'
+    media_player.zone_13:
+      device_class: receiver
+      friendly_name: Balcony Speakers
+      supported_features: 3468
+      volume_level: 0.5263157894736842
+      is_volume_muted: false
+      state: 'on'
+  metadata:
+    light.pot_wall_light:
+      entity_only: true
+    light.strata_lights:
+      entity_only: true
+    light.garden_lights:
+      entity_only: true
+    light.party_lights:
+      entity_only: true
+    light.balcony_led:
+      entity_only: true
+    media_player.zone_13:
+      entity_only: true

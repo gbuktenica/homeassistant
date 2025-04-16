@@ -10,17 +10,16 @@ script:
 
       - action: music_assistant.get_library
         data:
-          limit: "{{ count }}"
-          offset: 0
           config_entry_id: 01JEA8BGVAQ1SWT1C754QSANMW
           media_type: playlist
           order_by: random
           search: "{{ media_name }}"
         response_variable: results
-
+      - variables:
+          playlists: "{{ results['items'] | map(attribute='uri') | list }}"
       - action: music_assistant.play_media
         data:
-          media_id: "{{ results.items.uri }}"
+          media_id: "{{ playlists }}"
           media_type: playlist
           enqueue: replace
         target:
