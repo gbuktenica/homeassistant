@@ -8,6 +8,19 @@ script:
         data:
           activity: Music
 
+        # Denon Amp Volume
+      - action: media_player.volume_set
+        target:
+          entity_id: media_player.lounge_amp
+          volume_level: 0.29
+
+        # Music Assistant UI volume
+      - action: media_player.volume_set
+        target:
+          entity_id: media_player.lounge_amp_4
+        data:
+          volume_level: 0.5
+
       - action: music_assistant.get_library
         data:
           config_entry_id: 01JEA8BGVAQ1SWT1C754QSANMW
@@ -31,6 +44,7 @@ script:
         data:
           shuffle: true
 
+        # Music Assistant UI volume
       - action: media_player.volume_set
         target:
           entity_id: media_player.lounge_amp_4
