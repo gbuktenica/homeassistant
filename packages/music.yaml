@@ -12,6 +12,7 @@ script:
       - action: media_player.volume_set
         target:
           entity_id: media_player.lounge_amp
+        data:
           volume_level: 0.29
 
         # Music Assistant UI volume
