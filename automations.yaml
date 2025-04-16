@@ -2128,6 +2128,17 @@
       volume_level: 0.8
     target:
       entity_id: media_player.lounge_amp_2
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+  - action: media_player.volume_set
+    metadata: {}
+    data:
+      volume_level: 0.8
+    target:
+      entity_id: media_player.lounge_amp_2
   mode: single
 - id: '1734852244285'
   alias: Harmony Music Assistant

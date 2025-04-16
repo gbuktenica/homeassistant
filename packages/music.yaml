@@ -8,20 +8,6 @@ script:
         data:
           activity: Music
 
-        # Denon Amp Volume
-      - action: media_player.volume_set
-        target:
-          entity_id: media_player.lounge_amp
-        data:
-          volume_level: 0.29
-
-        # Music Assistant UI volume
-      - action: media_player.volume_set
-        target:
-          entity_id: media_player.lounge_amp_4
-        data:
-          volume_level: 0.5
-
       - action: music_assistant.get_library
         data:
           config_entry_id: 01JEA8BGVAQ1SWT1C754QSANMW
@@ -45,12 +31,21 @@ script:
         data:
           shuffle: true
 
+      - delay:
+          seconds: 20
         # Music Assistant UI volume
       - action: media_player.volume_set
         target:
           entity_id: media_player.lounge_amp_4
         data:
           volume_level: 0.5
+
+        # Denon Amp Volume
+      - action: media_player.volume_set
+        target:
+          entity_id: media_player.lounge_amp
+        data:
+          volume_level: 0.29
 
     icon: mdi:bookmark-music-outline
     mode: single
