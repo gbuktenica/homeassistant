@@ -534,6 +534,24 @@
   - action: light.turn_on
     data:
       entity_id: light.kitchen
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: sun.sun
+        state: below_horizon
+      sequence:
+      - action: light.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id:
+          - light.stairway_light
+      - action: light.turn_on
+        metadata: {}
+        data:
+          brightness_step_pct: 50
+        target:
+          entity_id: light.entry
   mode: single
 - id: '1703032695615'
   alias: Coffee Notify Reset on start
@@ -904,25 +922,32 @@
   alias: Holiday Lights On
   description: In holiday mode turn some of the lights on after sunset with a random
     delay.
-  trigger:
+  triggers:
   - event: sunset
-    platform: sun
-  condition:
+    trigger: sun
+  conditions:
   - condition: state
     entity_id: input_boolean.holiday_mode
     state: 'on'
-  action:
+  actions:
+  - action: light.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - light.entry
+      - light.stairway_light
   - delay: '{{ range(15, 60)|random|multiply(60) }}'
-  - service: light.turn_on
-    data:
+  - data:
       entity_id:
       - light.rl_light
       - light.rr_light
+    action: light.turn_on
   - delay: '{{ range(15, 60)|random|multiply(60) }}'
-  - service: light.turn_on
-    data:
+  - data:
       entity_id:
       - light.wardrobe_light
+    action: light.turn_on
   mode: single
 - id: '1703032983564'
   alias: Light Day Frontyard  Light Off
@@ -2301,7 +2326,10 @@
     tag_id: 6b475623-7151-477b-a820-9b192ed0e483
   - trigger: event
     event_type: ios_tag_event
-  conditions: []
+  conditions:
+  - condition: state
+    entity_id: input_boolean.holiday_mode
+    state: 'off'
   actions:
   - choose:
     - conditions:
