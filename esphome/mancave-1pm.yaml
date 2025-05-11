@@ -1,7 +1,7 @@
 substitutions:
   device_name: mancave-1pm
   channel_1: "Mancave Light"
-  ip: "10.4.4.47"
+  ip: "10.4.4.45"
   use_ip: ${ip}
   ssid: IoTL2
   calibrate: "163 -> 18"
