@@ -1,0 +1,12 @@
+substitutions:
+  device_name: garage-1pm
+  channel_1: Garage Light
+  ip: "10.4.4.47"
+  use_ip: ${ip}
+  ssid: IoTG
+  button_action: "on_state" #on_press
+  calibrate: "163 -> 18"
+#####################################
+packages:
+  common_base: !include common/base.yaml
+  device_base: !include common/1pm-light.yaml
