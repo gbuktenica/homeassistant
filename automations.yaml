@@ -528,6 +528,8 @@
   - action: notify.mobile_app_pixel
     data:
       message: Coffee machine is ready
+      data:
+        tag: coffee
   - action: light.turn_on
     data:
       entity_id: light.kitchen
@@ -633,7 +635,7 @@
     to: 'off'
   conditions: []
   actions:
-  - action: notify.mobile_app_s21
+  - action: notify.mobile_app_pixel
     data:
       message: clear_notification
       data:
