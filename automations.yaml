@@ -207,7 +207,7 @@
         actions:
         - action: trigger_gate
           title: Gate
-    action: notify.mobile_app_s21
+    action: notify.mobile_app_pixel
   - data:
       message: Someone has pressed the doorbell.
       data:
@@ -231,7 +231,7 @@
     data: {}
     target:
       entity_id: button.vehicle_button
-  - service: notify.mobile_app_s21
+  - service: notify.mobile_app_pixel
     data:
       message: clear_notification
       data:
@@ -364,7 +364,7 @@
     data:
       filename: /config/www/garage.png
     entity_id: camera.g4_pro_high
-  - service: notify.mobile_app_s21
+  - service: notify.mobile_app_pixel
     data:
       message: The gate is open
       data:
@@ -1227,7 +1227,7 @@
       entity_id: input_select.beautiful_people
     data:
       option: someone_away
-  - service: notify.mobile_app_s21
+  - service: notify.mobile_app_pixel
     data:
       message: Nat is away.
       data:
@@ -1495,7 +1495,7 @@
     target:
       entity_id: button.lucy_force_data_update
     data: {}
-  - service: notify.mobile_app_s21
+  - service: notify.mobile_app_pixel
     data:
       message: clear_notification
       data:
@@ -1556,7 +1556,7 @@
       message: clear_notification
       data:
         tag: charging
-    action: notify.mobile_app_s21
+    action: notify.mobile_app_pixel
     enabled: false
   - if:
     - condition: numeric_state
@@ -1588,7 +1588,7 @@
   - service: input_boolean.turn_off
     data:
       entity_id: input_boolean.washing_finished
-  - service: notify.mobile_app_s21
+  - service: notify.mobile_app_pixel
     data:
       message: clear_notification
       data:
@@ -1706,7 +1706,7 @@
       entity_id: input_select.doors_opened
     data:
       option: closed
-  - service: notify.mobile_app_s21
+  - service: notify.mobile_app_pixel
     data:
       message: clear_notification
       data:
@@ -1774,7 +1774,7 @@
       entity_id: input_select.beautiful_people
     data:
       option: someone_away
-  - service: notify.mobile_app_s21
+  - service: notify.mobile_app_pixel
     data:
       message: Nat is long away day.
   mode: single
@@ -1817,7 +1817,7 @@
     entity_id: device_tracker.nat_iphonedetect
     state: away
   action:
-  - service: notify.mobile_app_s21
+  - service: notify.mobile_app_pixel
     data:
       message: Nat is long away night.
   - service: input_select.select_option
