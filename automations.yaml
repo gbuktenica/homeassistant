@@ -107,10 +107,10 @@
   max: 10
 - id: bin_week_yellow
   alias: Bin Week Yellow
-  trigger:
-  - platform: time
-    at: '15:00:00'
-  condition:
+  triggers:
+  - at: '15:00:00'
+    trigger: time
+  conditions:
   - condition: time
     weekday:
     - sun
@@ -118,32 +118,32 @@
   - condition: template
     value_template: '{{((as_timestamp(now()) - as_timestamp("2023-06-05 00:00:00"))/86400)
       | int % 14  == 0}}'
-  action:
-  - service: notify.mobile_app_s21
+  actions:
+  - action: notify.mobile_app_pixel
     data:
+      message: Yellow Bin Week
+  - data:
       message: It is yellow bin week.
-  - service: notify.mobile_app_natalies_iphone
-    data:
-      message: It is yellow bin week.
+    action: notify.mobile_app_natalies_iphone
 - id: bin_week_red
   alias: Bin Week Red
-  trigger:
-  - platform: time
-    at: '15:00:00'
-  condition:
+  triggers:
+  - at: '15:00:00'
+    trigger: time
+  conditions:
   - condition: time
     weekday:
     - sun
   - condition: template
     value_template: '{{((as_timestamp(now()) - as_timestamp("2023-06-11 00:00:00"))/86400)
       | int % 14  == 0}}'
-  action:
-  - service: notify.mobile_app_s21
+  actions:
+  - action: notify.mobile_app_pixel
     data:
+      message: Red Bin Week
+  - data:
       message: It is red bin week.
-  - service: notify.mobile_app_natalies_iphone
-    data:
-      message: It is red bin week.
+    action: notify.mobile_app_natalies_iphone
 - id: door_bell_chime
   alias: Door Bell Chime
   triggers:
@@ -525,12 +525,9 @@
     data:
       entity_id:
       - input_boolean.coffee_notify
-  - action: notify.mobile_app_s21
+  - action: notify.mobile_app_pixel
     data:
-      message: The coffee machine is ready.
-      data:
-        tag: coffee
-        sticky: 'true'
+      message: Coffee machine is ready
   - action: light.turn_on
     data:
       entity_id: light.kitchen
@@ -627,25 +624,6 @@
     target:
       entity_id: switch.coffee_machine
   mode: single
-- id: '1703032781557'
-  alias: Coffee On Weekday Morning
-  description: Turns on the coffee machine on weekdays when Glen is at yoga.
-  triggers:
-  - trigger: time
-    at: 05:40:00
-  conditions:
-  - condition: state
-    entity_id: binary_sensor.workday_sensor
-    state: 'on'
-  - condition: state
-    entity_id: input_boolean.holiday_mode
-    state: 'off'
-  actions:
-  - action: switch.turn_on
-    data:
-      entity_id:
-      - switch.coffee_machine
-  mode: single
 - id: '1703032799319'
   alias: Coffee Phone Notify Reset when off
   description: ''
@@ -661,141 +639,35 @@
       data:
         tag: coffee
   mode: single
-- id: '1703032810915'
-  alias: Cover Night Front Blind Closed
-  description: Closes the lounge blind after sunset when the Front Bi Fold closes
-    or when everyone comes home.
-  trigger:
-  - entity_id: input_select.beautiful_people
-    platform: state
-    to: everyone_home
-  condition:
-  - condition: state
-    entity_id: sun.sun
-    state: below_horizon
-  - condition: state
-    entity_id: input_boolean.party_mode
-    state: 'off'
-  - condition: time
-    after: '17:00:00'
-  - condition: not
-    conditions:
-    - condition: state
-      entity_id: binary_sensor.front_bifold_door
-      state: 'on'
-    - condition: state
-      entity_id: switch.front_heater_low
-      state: 'on'
-    - condition: state
-      entity_id: switch.front_heater_med
-      state: 'on'
-    - condition: state
-      entity_id: switch.front_heater_high
-      state: 'on'
-  action:
-  - service: cover.set_cover_position
-    data:
-      entity_id: cover.night_blind
-      position: 0
-  - delay:
-      seconds: 20
-  - service: cover.set_cover_position
-    data:
-      entity_id: cover.day_blind
-      position: 100
-  mode: single
-- id: '1703032827976'
-  alias: Cover Sunset Blind Down
-  description: Closes the lounge blind at sunset if the Bi Fold is closed and someone
-    is away.
-  trigger:
-  - event: sunset
-    offset: 00:15:00
-    platform: sun
-  condition:
-  - condition: state
-    entity_id: input_boolean.party_mode
-    state: 'off'
-  - condition: not
-    conditions:
-    - condition: state
-      entity_id: input_select.beautiful_people
-      state: everyone_home
-    - condition: state
-      entity_id: binary_sensor.front_bifold_door
-      state: 'on'
-    - condition: state
-      entity_id: switch.front_heater_low
-      state: 'on'
-    - condition: state
-      entity_id: switch.front_heater_med
-      state: 'on'
-    - condition: state
-      entity_id: switch.front_heater_high
-      state: 'on'
-  action:
-  - service: cover.set_cover_position
-    data:
-      entity_id: cover.night_blind
-      position: 20
-  - delay:
-      seconds: 20
-  - service: cover.set_cover_position
-    data:
-      entity_id: cover.day_blind
-      position: 100
-  mode: single
 - id: '1703032841151'
   alias: Cover Sunset Blind Down Home
   description: Closes the lounge blind at sunset if the Bi Fold is closed and people
     are home.
-  trigger:
+  triggers:
   - event: sunset
     offset: 00:15:00
-    platform: sun
-  condition:
+    trigger: sun
+  conditions:
   - condition: state
     entity_id: input_boolean.party_mode
     state: 'off'
-  - condition: state
-    entity_id: input_select.beautiful_people
-    state: everyone_home
-  - condition: not
-    conditions:
-    - condition: state
-      entity_id: binary_sensor.front_bifold_door
-      state: 'on'
-    - condition: state
-      entity_id: switch.front_heater_low
-      state: 'on'
-    - condition: state
-      entity_id: switch.front_heater_med
-      state: 'on'
-    - condition: state
-      entity_id: switch.front_heater_high
-      state: 'on'
-  action:
-  - service: cover.set_cover_position
-    data:
-      entity_id: cover.night_blind
+  actions:
+  - data:
       position: 0
-  - delay:
-      seconds: 20
-  - service: cover.set_cover_position
-    data:
-      entity_id: cover.day_blind
-      position: 100
+    action: cover.set_cover_position
+    target:
+      entity_id: cover.lounge_night_s25_night_blind
   mode: single
 - id: '1703032854202'
   alias: Cover Weekday Morning Blind Up
   description: Opens the lounge blinds on weekdays only.
-  trigger:
-  - platform: time
-    at: 05:45:00
+  triggers:
+  - at: 05:45:00
+    trigger: time
   - event: sunrise
     offset: -00:15:00
-    platform: sun
-  condition:
+    trigger: sun
+  conditions:
   - condition: state
     entity_id: binary_sensor.workday_sensor
     state: 'on'
@@ -804,17 +676,12 @@
     after_offset: -00:16:00
   - condition: time
     after: 05:45:00
-  action:
-  - service: cover.set_cover_position
-    data:
-      entity_id: cover.night_blind
+  actions:
+  - data:
       position: 100
-  - delay:
-      seconds: 20
-  - service: cover.set_cover_position
-    data:
-      entity_id: cover.day_blind
-      position: 50
+    action: cover.set_cover_position
+    target:
+      entity_id: cover.lounge_night_s25_night_blind
   mode: single
 - id: '1703032885187'
   alias: Garage Closing Car Not Present
@@ -1567,11 +1434,6 @@
       entity_id: button.lucy_force_data_update
     data: {}
     action: button.press
-  - data:
-      message: clear_notification
-      data:
-        tag: charging
-    action: notify.mobile_app_s21
   - delay:
       seconds: 10
   - choose:
@@ -1973,30 +1835,20 @@
 - id: '1703034619143'
   alias: Tesla Charging Stopped
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - binary_sensor.tesla_wall_connector_contactor_closed
     to: 'off'
     from: 'on'
-  condition: []
-  action:
-  - service: button.press
-    target:
+    trigger: state
+  conditions: []
+  actions:
+  - target:
       entity_id: button.lucy_force_data_update
     data: {}
-  - service: notify.mobile_app_s21
-    data:
-      message: clear_notification
-      data:
-        tag: charging
+    action: button.press
   - delay:
       seconds: 10
-  - service: notify.mobile_app_s21
-    data:
-      message: Lucy Stopped Charging at {{ states('sensor.lucy_battery')}}%
-      data:
-        tag: charging
   mode: single
 - id: '1703854060013'
   alias: Turn off Evie Mode
