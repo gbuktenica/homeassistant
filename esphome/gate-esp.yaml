@@ -183,11 +183,47 @@ cover:
         return {};
       }
     open_action:
-      - button.press: ${channel_1}button
+      - if:
+          condition:
+            lambda: 'return id(status).state == "Closed";'
+          then:
+            - button.press: ${channel_1}button
+          else:
+            - if:
+                condition:
+                  lambda: 'return id(status).state == "Closing";'
+                then:
+                  - button.press: ${channel_1}button
+                  - delay: 400ms
+                  - button.press: ${channel_1}button
+                else:
+                  - logger.log: "Gate is not in closed or closing state, cannot open"
     close_action:
-      - button.press: ${channel_1}button
+      - if:
+          condition:
+            lambda: 'return id(status).state == "Open
+          then:
+            - button.press: ${channel_1}button
+          else:
+            - if:
+                condition:
+                  lambda: 'return id(status).state == "Opening";'
+                then:
+                  - button.press: ${channel_1}button
+                  - delay: 400ms
+                  - button.press: ${channel_1}button
+                else:
+                  - logger.log: "Gate is not in open or opening state, cannot close"
     stop_action:
-      - button.press: ${channel_1}button
+      - if:
+          condition:
+            or:
+              - lambda: 'return id(status).state == "Opening";'
+              - lambda: 'return id(status).state == "Closing";'
+          then:
+            - button.press: ${channel_1}button
+          else:
+            - logger.log: "Gate is not moving, cannot stop"
     optimistic: false
 
 text_sensor:

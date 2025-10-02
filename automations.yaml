@@ -248,6 +248,8 @@
     from: 'on'
   conditions: []
   actions:
+  # Leave as button
+  # Do not replace as cover
   - data: {}
     target:
       entity_id: button.vehicle_button
@@ -2154,11 +2156,11 @@
     entity_id: input_boolean.party_mode
     state: 'on'
   actions:
-  - action: button.press
-    metadata: {}
-    data: {}
-    target:
-      entity_id: button.vehicle_button
+    - action: cover.open_cover
+      metadata: {}
+      data: {}
+      target:
+        entity_id: cover.gate
   mode: single
 - id: '1738145200805'
   alias: Tesla Tag
@@ -2173,17 +2175,11 @@
     entity_id: input_boolean.holiday_mode
     state: 'off'
   actions:
-  - choose:
-    - conditions:
-      - condition: state
+    - action: cover.open_cover
+      metadata: {}
+      data: {}
+      target:
         entity_id: cover.gate
-        state: closed
-      sequence:
-      - action: button.press
-        metadata: {}
-        data: {}
-        target:
-          entity_id: button.vehicle_button
   - delay:
       hours: 0
       minutes: 0
