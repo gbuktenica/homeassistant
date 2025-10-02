@@ -221,21 +221,22 @@
 - id: doorbell_gate_action
   alias: Doorbell Gate Action
   description: Open the gate when the door bell notification button is pressed.
-  trigger:
-  - platform: event
-    event_type: mobile_app_notification_action
+  triggers:
+  - event_type: mobile_app_notification_action
     event_data:
       action: trigger_gate
-  action:
-  - service: button.press
+    trigger: event
+  actions:
+  - action: cover.open_cover
+    metadata: {}
     data: {}
     target:
-      entity_id: button.vehicle_button
-  - service: notify.mobile_app_pixel
-    data:
+      entity_id: cover.gate
+  - data:
       message: clear_notification
       data:
         tag: doorbell
+    action: notify.mobile_app_pixel
 - id: '1685262366338'
   alias: Press Garage Gate Button
   description: ''
