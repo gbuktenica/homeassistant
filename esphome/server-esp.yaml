@@ -1,63 +1,33 @@
 substitutions:
   device_name: server-esp
   ip: "10.4.4.29"
+  use_ip: ${ip}
   name: "Server"
   ssid: IoTL2
+  platform: "esp8266"
   board: nodemcuv2
   # https://esphome.io/devices/nodemcu_esp8266.html
 #####################################
-esphome:
-  name: ${device_name}
-  platform: ESP8266
-  board: ${board}
-
-wifi:
-  ssid: ${ssid}
-  password: !secret iot
-  fast_connect: on
-  use_address: ${ip}
-  manual_ip:
-    static_ip: ${ip}
-    gateway: 10.4.4.1
-    subnet: 255.255.255.0
-
-  # Enable fallback hotspot  in case wifi connection fails
-  ap:
-    ssid: ${device_name}
-    password: !secret iot
-    manual_ip:
-      static_ip: 192.168.100.2
-      gateway: 192.168.100.1
-      subnet: 255.255.255.0
-
-captive_portal:
-
-# Enable logging
-logger:
-
-# Enable Home Assistant API
-api:
-  encryption:
-    key: !secret api
-
-ota:
-  platform: esphome
-  id: ota_id
-  password: !secret ota
-
-time:
-  - platform: homeassistant
-    id: homeassistant_time
+packages:
+  common_base: !include common/base.yaml
+  device_base: !include common/generic.yaml
 #####################################
+
 sensor:
   - platform: dht
     model: DHT22
-    pin: D0
+    pin: D1
     temperature:
-      name: ${name} Temperature
+      name: ${name} 
+      id: fan_temperature
+      accuracy_decimals: 3
+      filters:
+         - exponential_moving_average:  
+             alpha: 0.1
+             send_every: 1
     humidity:
       name: ${name} Humidity
-    update_interval: 30s
+    update_interval: 10s
 
 output:
   - platform: esp8266_pwm
@@ -69,3 +39,34 @@ fan:
   - platform: speed
     output: output_fan
     name: ${name} Fan
+
+climate:
+  - platform: pid
+    name:  ${name} PID
+    id: thermostat
+    sensor: fan_temperature
+
+    default_target_temperature: 26°C
+    cool_output: output_fan
+        
+    # The extents of the HA Thermostat
+    visual:
+      min_temperature: 20 °C
+      max_temperature: 50 °C
+  
+    control_parameters:
+      kp: 0.3
+      ki: 0.0015
+      kd: 0
+      max_integral: 0.0
+      output_averaging_samples: 1
+      derivative_averaging_samples: 5
+
+    # How to behave when close to the target temperature?
+    deadband_parameters:
+      threshold_high: 0.4°C
+      threshold_low: -1.0°C
+      kp_multiplier: 0.0
+      ki_multiplier: 0.04
+      kd_multiplier: 0.0
+      deadband_output_averaging_samples: 15
