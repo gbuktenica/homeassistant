@@ -248,8 +248,6 @@
     from: 'on'
   conditions: []
   actions:
-  # Leave as button
-  # Do not replace as cover
   - data: {}
     target:
       entity_id: button.vehicle_button
@@ -443,53 +441,6 @@
       entity_id:
       - light.backyard_light
   mode: restart
-- id: '1703032591707'
-  alias: Amp Fan Off
-  description: Turn the Amp fan off when temp reached
-  trigger:
-  - platform: numeric_state
-    entity_id: sensor.amp_temperature
-    below: 27
-  condition: []
-  action:
-  - service: fan.turn_off
-    data:
-      entity_id: fan.amp_fan
-  mode: single
-- id: '1703032656513'
-  alias: Amp Fan Speed Change
-  description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id: sensor.amp_temperature
-    above: 27
-  - platform: numeric_state
-    entity_id: sensor.amp_temperature
-    below: 30
-  - platform: numeric_state
-    entity_id: sensor.amp_temperature
-    above: 30
-  - platform: numeric_state
-    entity_id: sensor.amp_temperature
-    below: 32
-  - platform: numeric_state
-    entity_id: sensor.amp_temperature
-    above: 32
-  condition:
-  - condition: and
-    conditions:
-    - condition: numeric_state
-      entity_id: sensor.amp_temperature
-      above: 27
-  action:
-  - service: fan.turn_on
-    entity_id: fan.amp_fan
-  - service: fan.set_percentage
-    entity_id: fan.amp_fan
-    data_template:
-      percentage: '{% set temp = states(''sensor.amp_temperature'')|float %} {% if
-        temp < 30 %} 1 {% elif temp < 32 %} 20 {% else %} 100 {% endif %}'
-  mode: single
 - id: '1703032677772'
   alias: Coffee Notify
   description: ''
@@ -1932,8 +1883,8 @@
   description: ''
   triggers:
   - value_template: '{% if not (is_state_attr(''media_player.lounge_amp'', ''source'',
-      ''Media Player'') or is_state_attr(''media_player.lounge_amp'', ''source'',
-      ''HEOS Music'')) %} true {% else %} false {% endif %}
+      ''Game1'') or is_state_attr(''media_player.lounge_amp'', ''source'', ''HEOS
+      Music'')) %} true {% else %} false {% endif %}
 
       '
     trigger: template
@@ -1975,7 +1926,7 @@
   triggers:
   - trigger: template
     value_template: '{% if is_state_attr(''media_player.lounge_amp'', ''source'',
-      ''Media Player'') %} true {% else %} false {% endif %}'
+      ''Game1'') %} true {% else %} false {% endif %}'
   - trigger: template
     value_template: '{% if is_state_attr(''media_player.lounge_amp'', ''source'',
       ''HEOS Music'') %} true {% else %} false {% endif %}'
@@ -2156,11 +2107,11 @@
     entity_id: input_boolean.party_mode
     state: 'on'
   actions:
-    - action: cover.open_cover
-      metadata: {}
-      data: {}
-      target:
-        entity_id: cover.gate
+  - action: cover.open_cover
+    metadata: {}
+    data: {}
+    target:
+      entity_id: cover.gate
   mode: single
 - id: '1738145200805'
   alias: Tesla Tag
@@ -2175,30 +2126,25 @@
     entity_id: input_boolean.holiday_mode
     state: 'off'
   actions:
-    - action: cover.open_cover
-      metadata: {}
-      data: {}
-      target:
-        entity_id: cover.gate
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 5
-  - choose:
-    - conditions:
-      - condition: state
-        entity_id: input_boolean.welding_mode
-        state: 'off'
-      sequence:
-      - action: cover.open_cover
-        metadata: {}
-        data: {}
-        target:
-          entity_id: cover.garage_door
+  - action: cover.open_cover
+    metadata: {}
+    data: {}
+    target:
+      entity_id: cover.gate
   - action: notify.mobile_app_pixel
     metadata: {}
     data:
       message: Gate Tag Used
+  - if:
+    - condition: state
+      entity_id: input_boolean.welding_mode
+      state: 'off'
+    then:
+    - action: cover.open_cover
+      metadata: {}
+      data: {}
+      target:
+        entity_id: cover.garage_door
   mode: single
   max_exceeded: silent
 - id: '1740102991624'
