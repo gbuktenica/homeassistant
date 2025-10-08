@@ -52,13 +52,12 @@ climate:
     # The extents of the HA Thermostat
     visual:
       min_temperature: 20 °C
-      max_temperature: 50 °C
+      max_temperature: 35 °C
 
     control_parameters:
-      kp: 0.3
-      ki: 0.0015
+      kp: 0
+      ki: 0
       kd: 0
-      max_integral: 0.0
       output_averaging_samples: 1
       derivative_averaging_samples: 5
 
@@ -70,3 +69,9 @@ climate:
       ki_multiplier: 0.04
       kd_multiplier: 0.0
       deadband_output_averaging_samples: 15
+
+button:
+  - platform: template
+    name: "${name} PID Climate Autotune"
+    on_press:
+      - climate.pid.autotune: thermostat
