@@ -1,0 +1,71 @@
+esphome:
+  name: ${device_name}
+  # on_boot:
+  #   - lambda: |-
+  #       id(ota_id).set_auth_password("REPLACE_ME");
+esp32:
+  board: esp32doit-devkit-v1
+
+sensor:
+  - platform: dht
+    model: DHT22
+    pin: GPIO22
+    temperature:
+      name: ${name} Temperature
+      id: fan_temperature
+      accuracy_decimals: 3
+      filters:
+         - exponential_moving_average:
+             alpha: 0.1
+             send_every: 1
+    humidity:
+      name: ${name} Humidity
+    update_interval: 10s
+
+output:
+  - platform: ledc
+    id: output_fan
+    pin: GPIO2
+    frequency: 25000 Hz
+    min_power: ${min_power}
+    max_power: ${max_power}
+    zero_means_zero: true
+
+fan:
+  - platform: speed
+    output: output_fan
+    name: ${name} Fan
+
+climate:
+  - platform: pid
+    name:  ${name} PID
+    id: thermostat
+    sensor: fan_temperature
+    default_target_temperature: ${default_target_temperature}
+    cool_output: output_fan
+    # The extents of the HA Thermostat
+    visual:
+      min_temperature: 20 °C
+      max_temperature: 35 °C
+
+    control_parameters:
+      kp: ${kp}
+      ki: ${ki}
+      kd: ${kd}
+      output_averaging_samples: 1
+      derivative_averaging_samples: 5
+
+    # How to behave when close to the target temperature?
+    deadband_parameters:
+      threshold_high: 0.4°C
+      threshold_low: -1.0°C
+      kp_multiplier: 0.0
+      ki_multiplier: 0.04
+      kd_multiplier: 0.0
+      deadband_output_averaging_samples: 15
+
+button:
+  - platform: template
+    name: "${name} PID Climate Autotune"
+    on_press:
+      - climate.pid.autotune: thermostat
