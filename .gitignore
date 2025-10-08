@@ -62,6 +62,7 @@ OZW_Log.txt
 # Random's
 .HA_VERSION
 .spotify-token-cache
+.ha_run.lock
 .uuid
 .cloud/
 .storage/
