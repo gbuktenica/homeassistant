@@ -13,7 +13,7 @@ packages:
 sensor:
   - platform: dht
     model: DHT22
-    pin: GPIO23
+    pin: GPIO22
     temperature:
       name: ${name} Temperature
       id: fan_temperature
