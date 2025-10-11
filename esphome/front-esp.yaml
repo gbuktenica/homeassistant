@@ -3,20 +3,14 @@ substitutions:
   ip: "10.4.4.27"
   use_ip: ${ip}
   ssid: IoTL1
-
-#####################################
-esphome:
-  name: ${device_name}
-esp8266:
+  platform: "esp8266"
   board: nodemcuv2
   # https://esphome.io/devices/nodemcu_esp8266.html
-  
+#####################################
 packages:
   common_base: !include common/base.yaml
+  device_base: !include common/generic.yaml
 #####################################
-ota:
-  platform: esphome
-  password: !secret ota
 
 binary_sensor:
   - platform: gpio

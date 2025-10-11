@@ -18,7 +18,7 @@ sensor:
     model: DHT22
     pin: D1
     temperature:
-      name: ${name} 
+      name: ${name} Temperature
       id: fan_temperature
       accuracy_decimals: 3
       filters:

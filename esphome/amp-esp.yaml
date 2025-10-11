@@ -4,9 +4,9 @@ substitutions:
   use_ip: ${ip}
   name: "Amp"
   ssid: IoTL1
-  kp: 0
-  ki: 0
-  kd: 0
+  kp: 0.43552
+  ki: 0.00089
+  kd: 53.14351
   default_target_temperature: 26°C
   min_power: 5%
   max_power: 100%
