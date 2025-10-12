@@ -23,22 +23,16 @@ script:
           media_type: playlist
           enqueue: replace
         target:
-          entity_id: media_player.lounge_amp_4
+          entity_id: media_player.denon_avc_x6800h
 
       - action: media_player.shuffle_set
         target:
-          entity_id: media_player.lounge_amp_4
+          entity_id: media_player.denon_avc_x6800h
         data:
           shuffle: true
 
       - delay:
-          seconds: 20
-        # Music Assistant UI volume
-      - action: media_player.volume_set
-        target:
-          entity_id: media_player.lounge_amp_4
-        data:
-          volume_level: 0.5
+          seconds: 2
 
         # Denon Amp Volume
       - action: media_player.volume_set
@@ -46,6 +40,13 @@ script:
           entity_id: media_player.lounge_amp
         data:
           volume_level: 0.29
+
+        # Music Assistant UI volume
+      - action: media_player.volume_set
+        target:
+          entity_id: media_player.denon_avc_x6800h
+        data:
+          volume_level: 0.5
 
     icon: mdi:bookmark-music-outline
     mode: single
