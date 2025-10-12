@@ -61,9 +61,9 @@ climate:
     deadband_parameters:
       threshold_high: 0.4°C
       threshold_low: -0.4°C
-      kp_multiplier: 0.2
-      ki_multiplier: 0.2
-      kd_multiplier: 0.0
+      kp_multiplier: ${kp_multiplier}
+      ki_multiplier: ${ki_multiplier}
+      kd_multiplier: ${kd_multiplier}
       deadband_output_averaging_samples: 10
 
 button:
