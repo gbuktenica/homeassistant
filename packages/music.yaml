@@ -33,13 +33,23 @@ script:
 
       - delay:
           seconds: 2
-
+      - action: media_player.select_source
+        data:
+          source: "HEOS Music"
+        target:
+          entity_id: media_player.lounge_amp
         # Denon Amp Volume
       - action: media_player.volume_set
         target:
           entity_id: media_player.lounge_amp
         data:
           volume_level: 0.29
+
+      - action: media_player.select_sound_mode
+        data:
+          sound_mode: "ALL ZONE STEREO"
+        target:
+          entity_id: media_player.lounge_amp
 
         # Music Assistant UI volume
       - action: media_player.volume_set
