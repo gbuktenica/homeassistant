@@ -8,6 +8,23 @@ script:
         data:
           activity: Music
 
+      - delay:
+          seconds: 2
+
+      - action: media_player.select_source
+        data:
+          source: "HEOS Music"
+        target:
+          entity_id: media_player.lounge_amp
+          
+      - delay:
+          seconds: 2
+
+      - action: media_player.media_pause
+        data: {}
+        target:
+          entity_id: media_player.denon_avc_x6800h
+
       - action: music_assistant.get_library
         data:
           config_entry_id: 01JEA8BGVAQ1SWT1C754QSANMW
@@ -31,19 +48,12 @@ script:
         data:
           shuffle: true
 
-      - delay:
-          seconds: 2
-      - action: media_player.select_source
-        data:
-          source: "HEOS Music"
-        target:
-          entity_id: media_player.lounge_amp
         # Denon Amp Volume
       - action: media_player.volume_set
         target:
           entity_id: media_player.lounge_amp
         data:
-          volume_level: 0.29
+          volume_level: 0.32
 
       - action: media_player.select_sound_mode
         data:
