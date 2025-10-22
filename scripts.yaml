@@ -327,7 +327,7 @@ ma_next:
     metadata: {}
     data: {}
     target:
-      entity_id: media_player.lounge_amp_4
+      entity_id: media_player.denon_avc_x6800h
   description: ''
 ma_previous:
   alias: MA Previous
@@ -336,7 +336,7 @@ ma_previous:
     metadata: {}
     data: {}
     target:
-      entity_id: media_player.lounge_amp_4
+      entity_id: media_player.denon_avc_x6800h
   description: ''
 awning_stop:
   sequence:
