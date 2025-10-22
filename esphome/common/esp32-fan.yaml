@@ -7,11 +7,11 @@ esp32:
   board: esp32doit-devkit-v1
 #   framework:
 #     type: esp-idf
-    
+
 sensor:
   - platform: dht
     model: DHT22
-    pin: GPIO22
+    pin: ${temp_pin}
     temperature:
       name: ${name} Temperature
       id: fan_temperature
@@ -24,10 +24,21 @@ sensor:
       name: ${name} Humidity
     update_interval: 5s
 
+  - platform: pulse_counter
+    pin:
+      number: ${fan_pulse_pin}
+      mode: INPUT_PULLUP
+    unit_of_measurement: 'RPM'
+    id: fan_speed
+    name: ${name} Fan Speed
+    accuracy_decimals: 0
+    filters:
+      - multiply: 0.5
+
 output:
   - platform: ledc
     id: output_fan
-    pin: GPIO2
+    pin: ${fan_power_pin}
     frequency: 25000 Hz
     min_power: ${min_power}
     max_power: ${max_power}

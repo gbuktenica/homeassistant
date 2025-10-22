@@ -1,0 +1,20 @@
+substitutions:
+  device_name: rack-esp
+  ip: "10.4.4.22"
+  use_ip: ${ip}
+  name: "Rack"
+  ssid: IoTL1
+  kp: 0.43552
+  ki: 0.00089
+  kd: 53.14351
+  default_target_temperature: 30°C
+  min_power: 5%
+  max_power: 100%
+  fan_pulse_pin: GPIO25
+  fan_power_pin: GPIO2
+  temp_pin: GPIO22
+#####################################
+packages:
+  common_base: !include common/base.yaml
+  device_fan: !include common/esp32-fan.yaml
+#####################################
