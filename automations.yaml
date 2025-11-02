@@ -52,24 +52,24 @@
 - id: weekend_outside_speakers_on
   alias: Weekend Outside Speakers On
   description: Turns on the outside speakers when the rear bi fold is opened.
-  trigger:
+  triggers:
   - entity_id:
     - binary_sensor.rear_bifold_door
-    platform: state
     to: 'on'
     for:
       seconds: 10
     from: 'off'
-  - platform: state
-    entity_id:
+    trigger: state
+  - entity_id:
     - remote.harmony_hub
     to: music
-  condition:
+    trigger: state
+  conditions:
   - condition: state
     entity_id: input_boolean.party_mode
     state: 'off'
   - condition: time
-    after: 09:00:00
+    after: 08:00:00
     before: '20:00:00'
   - condition: state
     entity_id: binary_sensor.workday_sensor
@@ -78,9 +78,9 @@
     entity_id: binary_sensor.rear_bifold_door
     state: 'on'
   - condition: state
-    entity_id: media_player.lounge_amp_2
+    entity_id: media_player.denon_avc_x6800h
     state: 'on'
-  action:
+  actions:
   - action: script.outside_speakers_on
     data: {}
   mode: single
@@ -1236,52 +1236,6 @@
       entity_id: input_select.beautiful_people
     data:
       option: everyone_home
-  mode: single
-- id: '1703033703206'
-  alias: Server Fan Speed Change
-  description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id: sensor.server_temperature
-    above: 26
-  - platform: numeric_state
-    entity_id: sensor.server_temperature
-    below: 28
-  - platform: numeric_state
-    entity_id: sensor.server_temperature
-    above: 28
-  - platform: numeric_state
-    entity_id: sensor.server_temperature
-    below: 30
-  - platform: numeric_state
-    entity_id: sensor.server_temperature
-    above: 30
-  condition:
-  - condition: and
-    conditions:
-    - condition: numeric_state
-      entity_id: sensor.server_temperature
-      above: 26
-  action:
-  - service: fan.turn_on
-    entity_id: fan.server_fan
-  - service: fan.set_percentage
-    entity_id: fan.server_fan
-    data_template:
-      percentage: '{% set temp = states(''sensor.server_temperature'')|float %} {%
-        if temp < 28 %} 85 {% elif temp < 30 %} 92 {% else %} 100 {% endif %}'
-  mode: single
-- id: '1703033718442'
-  alias: Server Fan Off
-  description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id: sensor.server_temperature
-    below: 26
-  condition: []
-  action:
-  - service: fan.turn_off
-    entity_id: fan.server_fan
   mode: single
 - id: '1703033778440'
   alias: Tesla Charging Stop
