@@ -4,7 +4,6 @@ template:
     name: Harmony Activity
     state: '{{ state_attr("remote.lounge_hub", "current_activity") }}'
 
-template:
 - sensor:
   - unit_of_measurement: AUD/kWh
     default_entity_id: sensor.energy_import
@@ -14,7 +13,6 @@ template:
       \ {{ tariff.SOP }}\n{% elif ((21 > (now().hour))) %}\n  {{ tariff.PE }}\n{%
       else %}\n  {{ tariff.OP }}\n{% endif %}"
 
-template:
 - sensor:
   - unit_of_measurement: AUD/kWh
     default_entity_id: sensor.energy_export

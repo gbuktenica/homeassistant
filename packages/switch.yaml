@@ -11,7 +11,6 @@ template:
     default_entity_id: switch.front_heater_low
     name: front_heater_low
 
-template:
 - switch:
   - turn_on:
     - data:
@@ -24,7 +23,6 @@ template:
     default_entity_id: switch.front_heater_med
     name: front_heater_med
 
-template:
 - switch:
   - turn_on:
     - data:
@@ -37,7 +35,6 @@ template:
     default_entity_id: switch.front_heater_high
     name: front_heater_high
 
-template:
 - switch:
   - turn_on:
     - data:
@@ -50,7 +47,6 @@ template:
     default_entity_id: switch.rear_heater_low
     name: rear_heater_low
 
-template:
 - switch:
   - turn_on:
     - data:
@@ -63,7 +59,6 @@ template:
     default_entity_id: switch.rear_heater_med
     name: rear_heater_med
 
-template:
 - switch:
   - turn_on:
     - data:
@@ -76,7 +71,6 @@ template:
     default_entity_id: switch.rear_heater_high
     name: rear_heater_high
 
-template:
 - switch:
   - turn_on:
     - data:
@@ -89,7 +83,6 @@ template:
     default_entity_id: switch.poweroff
     name: poweroff
 
-template:
 - switch:
   - turn_on:
     - data:
