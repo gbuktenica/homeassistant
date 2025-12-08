@@ -1,40 +1,23 @@
-sensor:
-  - platform: time_date
-    display_options:
-      - 'date_time'
-      - 'time'
-  - platform: template
-    sensors:
-      lounge_hub_activity:
-        value_template: '{{ state_attr("remote.lounge_hub", "current_activity") }}'
-        friendly_name: 'Harmony Activity'
+template:
+- sensor:
+  - default_entity_id: sensor.lounge_hub_activity
+    name: Harmony Activity
+    state: '{{ state_attr("remote.lounge_hub", "current_activity") }}'
 
-  - platform: template
-    sensors:
-      energy_import:
-        friendly_name: Synergy Import Tariff
-        unit_of_measurement: AUD/kWh
-        value_template: >
-          {% set tariff = { "PE": 0.5, "OP": 0.22, "SOP": 0.08 } %}
-          {% if ((9 > (now().hour))) %}
-            {{ tariff.OP }}
-          {% elif ((15 > (now().hour))) %}
-            {{ tariff.SOP }}
-          {% elif ((21 > (now().hour))) %}
-            {{ tariff.PE }}
-          {% else %}
-            {{ tariff.OP }}
-          {% endif %}
+template:
+- sensor:
+  - unit_of_measurement: AUD/kWh
+    default_entity_id: sensor.energy_import
+    name: Synergy Import Tariff
+    state: "{% set tariff = { \"PE\": 0.5, \"OP\": 0.22, \"SOP\": 0.08 } %} {% if
+      ((9 > (now().hour))) %}\n  {{ tariff.OP }}\n{% elif ((15 > (now().hour))) %}\n
+      \ {{ tariff.SOP }}\n{% elif ((21 > (now().hour))) %}\n  {{ tariff.PE }}\n{%
+      else %}\n  {{ tariff.OP }}\n{% endif %}"
 
-  - platform: template
-    sensors:
-      energy_export:
-        friendly_name: Synergy Export Tariff
-        unit_of_measurement: AUD/kWh
-        value_template: >
-          {% set tariff = { "PE": 0.025, "OP": 0.1} %}
-           {% if ((15 > (now().hour))) %}
-            {{ tariff.PE }}
-          {% else %}
-            {{ tariff.OP }}
-          {% endif %}
+template:
+- sensor:
+  - unit_of_measurement: AUD/kWh
+    default_entity_id: sensor.energy_export
+    name: Synergy Export Tariff
+    state: "{% set tariff = { \"PE\": 0.025, \"OP\": 0.1} %}\n {% if ((15 > (now().hour)))
+      %}\n  {{ tariff.PE }}\n{% else %}\n  {{ tariff.OP }}\n{% endif %}"
