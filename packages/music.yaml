@@ -20,11 +20,12 @@ script:
             attribute: source
         then: []
         else:
-          - action: media_player.select_source
-            metadata: {}
-            data:
-              source: HEOS Music
-
+        - action: media_player.select_source
+          metadata: {}
+          data:
+            source: HEOS Music
+          target:
+            entity_id: media_player.lounge_amp
       - wait_template: "{{is_state_attr('media_player.lounge_amp', 'source', 'HEOS Music')}}"
         timeout: "00:01:00"
         continue_on_timeout: false
