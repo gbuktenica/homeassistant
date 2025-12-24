@@ -10,7 +10,7 @@ substitutions:
   kp_multiplier: 0.4
   ki_multiplier: 0.4
   kd_multiplier: 0.1
-  default_target_temperature: 26°C
+  default_target_temperature: 30°C
   min_power: 5%
   max_power: 100%
 #####################################
