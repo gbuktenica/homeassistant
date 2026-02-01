@@ -14,6 +14,7 @@ substitutions:
 
 #####################################
 external_components:
+#   source: github://echavet/MitsubishiCN105ESPHome
   - source: github://geoffdavis/esphome-mitsubishiheatpump
 packages:
   common_base: !include common/base.yaml
