@@ -266,7 +266,7 @@
   alias: Light Downstairs Switch On
   description: Turn on the Lounge and Dining lights
   trigger:
-  - entity_id: binary_sensor.downstairs_input
+  - entity_id: binary_sensor.front_s25_downstairs_input
     platform: state
     to: 'on'
   condition:
@@ -282,9 +282,9 @@
   - condition: state
     entity_id: light.fr
     state: 'off'
-  - condition: state
-    entity_id: light.rl
-    state: 'off'
+  # - condition: state
+  #   entity_id: light.rl
+  #   state: 'off'
   - condition: state
     entity_id: light.rr
     state: 'off'
@@ -307,7 +307,7 @@
   alias: Light Downstairs Switch Off
   description: Turn off the Lounge and Dining lights
   trigger:
-  - entity_id: binary_sensor.downstairs_input
+  - entity_id: binary_sensor.front_s25_downstairs_input
     platform: state
     to: 'on'
   condition:
@@ -324,9 +324,9 @@
     - condition: state
       entity_id: light.fr
       state: 'on'
-    - condition: state
-      entity_id: light.rl
-      state: 'on'
+    # - condition: state
+    #   entity_id: light.rl
+    #   state: 'on'
     - condition: state
       entity_id: light.rr
       state: 'on'
