@@ -4,7 +4,7 @@ substitutions:
   channel_2: Downstairs
   max_power: "2000.0" # watt
   max_temp: "80.0" # °C
-  ip: "10.4.4.34"
+  ip: "10.4.4.30"
   use_ip: ${ip}
   ssid: IoTL1
   button_action: "on_press" #on_state
