@@ -283,7 +283,7 @@ frontyard:
     metadata: {}
     data: {}
     target:
-      entity_id: light.frontyard_light
+      entity_id: light.front_s25_frontyard_light
   - delay:
       hours: 0
       minutes: 15
@@ -296,7 +296,7 @@ frontyard:
     metadata: {}
     data: {}
     target:
-      entity_id: light.frontyard_light
+      entity_id: light.front_s25_frontyard_light
   description: ''
   icon: mdi:light-flood-down
   mode: restart

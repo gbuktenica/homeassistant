@@ -792,13 +792,13 @@
     entity_id: input_boolean.party_mode
     state: 'off'
   - condition: state
-    entity_id: light.frontyard_light
+    entity_id: light.front_s25_frontyard_light
     state: 'on'
   action:
   - service: light.turn_off
     data:
       entity_id:
-      - light.frontyard_light
+      - light.front_s25_frontyard_light
   mode: single
 - id: '1703033014493'
   alias: Light everyone away
@@ -926,7 +926,7 @@
     from: closed
   - platform: state
     entity_id:
-    - light.frontyard_light
+    - light.front_s25_frontyard_light
     to: 'on'
     from: 'off'
   condition:

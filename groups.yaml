@@ -11,7 +11,7 @@ all_lights:
     - light.entry_light
     - light.kitchen
     - light.dining_light
-    - light.frontyard_light
+    - light.front_s25_frontyard_light
     - light.backyard_light
     - light.garden_lights
     - light.party_lights

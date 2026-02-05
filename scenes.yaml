@@ -71,7 +71,7 @@
       friendly_name: Backyard Light
       supported_features: 8
       state: 'off'
-    light.frontyard_light:
+    light.front_s25_frontyard_light:
       supported_color_modes:
       - onoff
       color_mode:
@@ -119,7 +119,7 @@
       entity_only: true
     light.backyard_light:
       entity_only: true
-    light.frontyard_light:
+    light.front_s25_frontyard_light:
       entity_only: true
     light.kitchen_led:
       entity_only: true
@@ -163,7 +163,7 @@
       friendly_name: Bar LED
       supported_features: 40
       state: 'off'
-    light.frontyard_light:
+    light.front_s25_frontyard_light:
       supported_color_modes:
       - onoff
       color_mode:
@@ -193,7 +193,7 @@
       entity_only: true
     light.bar_led:
       entity_only: true
-    light.frontyard_light:
+    light.front_s25_frontyard_light:
       entity_only: true
     media_player.zone_13:
       entity_only: true
