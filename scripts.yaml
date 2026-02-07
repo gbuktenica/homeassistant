@@ -18,7 +18,7 @@ front_heater_off:
   sequence:
   - service: remote.send_command
     data:
-      entity_id: remote.front_broadlink_remote
+      entity_id: remote.rm4_broadlink
       command:
       - b64:JgBgAAABJZcSExMSFhASExQSFRERFBMSFTYUNxU2EjkTORM3FTYTOBI5FREUNhU2ExMVEBMSFBIVERE6FBEUERQ4FDYVNhM4EwAFMQABLEsTAAyCAAEqSxQADIIAASpLFQANBQAAAAAAAAAA
   - service: switch.turn_off
@@ -34,7 +34,7 @@ front_heater_low:
   sequence:
   - service: remote.send_command
     data:
-      entity_id: remote.front_broadlink_remote
+      entity_id: remote.rm4_broadlink
       command:
       - b64:JgBQAAABKZMVERQRExMVEBUQFBIVERQREzgUNxE6EzgUNxU1FDgUNhURFDcVERQRExIVERQRFBIVNRQSFTYTOBU2FTYTOBQ3FQAFMwABKEsUAA0FAAAAAAAAAAA=
   - service: switch.turn_on
@@ -53,7 +53,7 @@ front_heater_med:
   sequence:
   - service: remote.send_command
     data:
-      entity_id: remote.front_broadlink_remote
+      entity_id: remote.rm4_broadlink
       command:
       - b64:JgBoAAABJ5UUERMTEhMUERQTERQUERMSEjkTOBQ3EzgTOBQ3EzcUOBQREzgUNxURFBETEhURFBEUNxURExIVNhM4FDcVNhM4FAAFMQABK0sTAAyDAAEqSxQADIIAAStLEwAMhAABLkcTAA0F
   - service: switch.turn_on
@@ -72,7 +72,7 @@ front_heater_high:
   sequence:
   - service: remote.send_command
     data:
-      entity_id: remote.front_broadlink_remote
+      entity_id: remote.rm4_broadlink
       command:
       - b64:JgBoAAABKZMVERQRFRAWEBQSFBEVERQRFTYUNxU2FTYUNhY2FDYVNhURFDYWEBQ3FREUERUQFhAUNxUQFDcVERQ2FjYUNhU2FQAFLwABL0gUAAyBAAEtSRIADIcAASlKEgAMhAABLUkTAA0F
   - service: switch.turn_on
