@@ -9,10 +9,10 @@ substitutions:
 
 
   open_switch: switch2
-  open_relay: relay1
+  open_relay: relay2
 
   close_switch: switch1
-  close_relay: relay2
+  close_relay: relay1
 #####################################
 packages:
   common_base: !include common/base.yaml
