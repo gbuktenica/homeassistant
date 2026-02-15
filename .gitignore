@@ -81,6 +81,7 @@ known_devices.yaml
 custom_components/
 appdaemon/
 doorbell.png
+front_doorbell.png
 garage.png
 esphome/trash/
 esphome/archive/

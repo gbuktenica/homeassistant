@@ -184,6 +184,46 @@
     target:
       entity_id:
       - media_player.workshop_speaker
+- id: front_door_bell_chime
+  alias: Front Door Bell Chime
+  triggers:
+  - entity_id:
+    - binary_sensor.g4_doorbell_doorbell
+    to: 'on'
+    trigger: state
+  conditions:
+  - condition: time
+    after: 05:30:00
+    before: '22:00:00'
+  actions:
+  - action: media_player.volume_set
+    metadata: {}
+    data:
+      volume_level: 1
+    target:
+      entity_id:
+      - media_player.kitchen_display_3
+      - media_player.workshop_speaker
+      - media_player.bedroom_speaker
+  - action: media_player.play_media
+    data:
+      announce: false
+      media:
+        media_content_id: /local/front_doorbell.mp3
+        media_content_type: music
+        metadata: {}
+    target:
+      entity_id:
+      - media_player.bedroom_speaker
+      - media_player.workshop_speaker
+      - media_player.kitchen_display
+  - action: media_player.volume_set
+    metadata: {}
+    data:
+      volume_level: 0.5
+    target:
+      entity_id:
+      - media_player.workshop_speaker
 - id: door_bell_notification
   alias: Door Bell Notification
   triggers:
@@ -202,26 +242,69 @@
       seconds: 5
       milliseconds: 0
   - data:
-      filename: /config/www/doorbell.png
+      filename: /config/www/front_doorbell.png
     action: camera.snapshot
     target:
       entity_id:
-      - camera.g4_doorbell_pro_high_resolution_channel
+      - camera.g4_doorbell_high_resolution_channel
   - data:
-      message: Someone has pressed the doorbell.
+      message: Someone has pressed the front doorbell.
       data:
-        image: https://hassio.buktenica.com:8123/local/doorbell.png
-        tag: doorbell
+        image: https://hassio.buktenica.com:8123/local/front_doorbell.png
+        tag: front_doorbell
         sticky: 'true'
         actions:
         - action: trigger_gate
           title: Gate
     action: notify.mobile_app_pixel
   - data:
-      message: Someone has pressed the doorbell.
+      message: Someone has pressed the front doorbell.
       data:
-        image: https://hassio.buktenica.com:8123/local/doorbell.png
-        tag: doorbell
+        image: https://hassio.buktenica.com:8123/local/front_doorbell.png
+        tag: front_doorbell
+        sticky: 'true'
+        actions:
+        - action: trigger_gate
+          title: Gate
+    action: notify.mobile_app_natalies_iphone
+- id: front_door_bell_notification
+  alias: Front Door Bell Notification
+  triggers:
+  - entity_id:
+    - binary_sensor.g4_doorbell_doorbell
+    to: 'on'
+    trigger: state
+  conditions:
+  - condition: time
+    after: 05:30:00
+    before: '22:00:00'
+  actions:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 5
+      milliseconds: 0
+  - data:
+      filename: /config/www/front_doorbell.png
+    action: camera.snapshot
+    target:
+      entity_id:
+      - camera.g4_doorbell_high_resolution_channel
+  - data:
+      message: Someone has pressed the front doorbell.
+      data:
+        image: https://hassio.buktenica.com:8123/local/front_doorbell.png
+        tag: front_doorbell
+        sticky: 'true'
+        actions:
+        - action: trigger_gate
+          title: Gate
+    action: notify.mobile_app_pixel
+  - data:
+      message: Someone has pressed the front doorbell.
+      data:
+        image: https://hassio.buktenica.com:8123/local/front_doorbell.png
+        tag: front_doorbell
         sticky: 'true'
         actions:
         - action: trigger_gate
