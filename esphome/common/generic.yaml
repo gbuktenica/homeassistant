@@ -6,3 +6,5 @@ esphome:
 
 ${platform}:
   board: ${board}
+  framework:
+    type: ${framework}

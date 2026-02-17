@@ -1,0 +1,29 @@
+substitutions:
+  device_name: rear-awning
+  cover_name: Rear Awning
+  ip: "10.4.4.72"
+  use_ip: ${ip}
+  ssid: IoTL1
+  platform: "esp32"
+  board: esp32-s3-devkitc-1
+  framework: "arduino"
+  RemoteID: 1501369
+#####################################
+packages:
+  common_base: !include common/base.yaml
+  device_base: !include common/generic.yaml
+
+external_components:
+  - source:
+      type: git
+      url: https://github.com/Viproz/esphome-somfy
+    components: [ somfy ]
+    refresh: 1d
+preferences:
+  flash_write_interval: 0s
+
+cover:
+  - platform: somfy
+    name: ${cover_name}
+    RemoteID: ${RemoteID}
+    device_class: shutter
