@@ -71,6 +71,7 @@ id_rsa
 *.db-shm
 __pycache__/
 zwcfg_*.xml
+.cache/
 
 # Don't Store Secrets
 secrets.yaml
