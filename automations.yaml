@@ -144,11 +144,11 @@
   - data:
       message: It is red bin week.
     action: notify.mobile_app_natalies_iphone
-- id: door_bell_chime
-  alias: Door Bell Chime
+- id: gate_door_bell_chime
+  alias: Gate Door Bell Chime
   triggers:
   - entity_id:
-    - binary_sensor.g4_doorbell_pro_doorbell
+    - binary_sensor.gate_doorbell
     to: 'on'
     trigger: state
   conditions:
@@ -169,7 +169,7 @@
     data:
       announce: false
       media:
-        media_content_id: /local/doorbell.mp3
+        media_content_id: /local/gate_doorbell.mp3
         media_content_type: music
         metadata: {}
     target:
@@ -188,7 +188,7 @@
   alias: Front Door Bell Chime
   triggers:
   - entity_id:
-    - binary_sensor.g4_doorbell_doorbell
+    - binary_sensor.doorbell_doorbell
     to: 'on'
     trigger: state
   conditions:
@@ -224,11 +224,11 @@
     target:
       entity_id:
       - media_player.workshop_speaker
-- id: door_bell_notification
-  alias: Door Bell Notification
+- id: gate_door_bell_notification
+  alias: Gate Door Bell Notification
   triggers:
   - entity_id:
-    - binary_sensor.g4_doorbell_pro_doorbell
+    - binary_sensor.gate_doorbell
     to: 'on'
     trigger: state
   conditions:
@@ -239,29 +239,29 @@
   - delay:
       hours: 0
       minutes: 0
-      seconds: 5
+      seconds: 1
       milliseconds: 0
   - data:
-      filename: /config/www/front_doorbell.png
+      filename: /config/www/gate_doorbell.png
     action: camera.snapshot
     target:
       entity_id:
-      - camera.g4_doorbell_high_resolution_channel
+      - camera.gate_high_resolution_channel
   - data:
-      message: Someone has pressed the front doorbell.
+      message: Someone has pressed the Gate doorbell.
       data:
-        image: https://hassio.buktenica.com:8123/local/front_doorbell.png
-        tag: front_doorbell
+        image: https://hassio.buktenica.com:8123/local/gate_doorbell.png
+        tag: gate_doorbell
         sticky: 'true'
         actions:
         - action: trigger_gate
           title: Gate
     action: notify.mobile_app_pixel
   - data:
-      message: Someone has pressed the front doorbell.
+      message: Someone has pressed the gate doorbell.
       data:
-        image: https://hassio.buktenica.com:8123/local/front_doorbell.png
-        tag: front_doorbell
+        image: https://hassio.buktenica.com:8123/local/gate_doorbell.png
+        tag: gate_doorbell
         sticky: 'true'
         actions:
         - action: trigger_gate
@@ -271,7 +271,7 @@
   alias: Front Door Bell Notification
   triggers:
   - entity_id:
-    - binary_sensor.g4_doorbell_doorbell
+    - binary_sensor.doorbell_doorbell
     to: 'on'
     trigger: state
   conditions:
@@ -282,23 +282,20 @@
   - delay:
       hours: 0
       minutes: 0
-      seconds: 5
+      seconds: 2
       milliseconds: 0
   - data:
       filename: /config/www/front_doorbell.png
     action: camera.snapshot
     target:
       entity_id:
-      - camera.g4_doorbell_high_resolution_channel
+      - camera.doorbell_high_resolution_channel
   - data:
       message: Someone has pressed the front doorbell.
       data:
         image: https://hassio.buktenica.com:8123/local/front_doorbell.png
         tag: front_doorbell
         sticky: 'true'
-        actions:
-        - action: trigger_gate
-          title: Gate
     action: notify.mobile_app_pixel
   - data:
       message: Someone has pressed the front doorbell.
@@ -306,12 +303,9 @@
         image: https://hassio.buktenica.com:8123/local/front_doorbell.png
         tag: front_doorbell
         sticky: 'true'
-        actions:
-        - action: trigger_gate
-          title: Gate
     action: notify.mobile_app_natalies_iphone
-- id: doorbell_gate_action
-  alias: Doorbell Gate Action
+- id: gate_doorbell_action
+  alias: Gate Doorbell Action
   description: Open the gate when the door bell notification button is pressed.
   triggers:
   - event_type: mobile_app_notification_action
@@ -365,9 +359,6 @@
   - condition: state
     entity_id: light.fr
     state: 'off'
-  # - condition: state
-  #   entity_id: light.rl
-  #   state: 'off'
   - condition: state
     entity_id: light.rr
     state: 'off'
@@ -407,9 +398,6 @@
     - condition: state
       entity_id: light.fr
       state: 'on'
-    # - condition: state
-    #   entity_id: light.rl
-    #   state: 'on'
     - condition: state
       entity_id: light.rr
       state: 'on'
@@ -432,12 +420,13 @@
       - light.dining_west
       - light.dining_east
 - id: gate_notify
-  alias: Gate Notify
-  trigger:
-  - platform: state
-    entity_id: cover.gate
+  alias: Evie Gate Notify
+  description: ''
+  triggers:
+  - entity_id: cover.gate
     to: opening
-  condition:
+    trigger: state
+  conditions:
   - condition: state
     entity_id: input_boolean.evie_mode
     state: 'on'
@@ -445,25 +434,25 @@
     after: 04:30:00
   - condition: time
     before: '22:00:00'
-  action:
-  - service: tts.google_translate_say
-    data:
+  actions:
+  - data:
       message: The gate is open.
       entity_id:
       - media_player.bedroom_speaker
       - media_player.den_display
       - media_player.kitchen_display
-  - service: camera.snapshot
-    data:
+    action: tts.google_translate_say
+  - data:
       filename: /config/www/garage.png
     entity_id: camera.g4_pro_high
-  - service: notify.mobile_app_pixel
-    data:
+    action: camera.snapshot
+  - data:
       message: The gate is open
       data:
         image: https://hassio.buktenica.com:8123/local/garage.png
         tag: gate
         sticky: 'true'
+    action: notify.mobile_app_pixel
 - id: garage_door_close_leaving
   alias: Garage Door Close Leaving
   description: Close the Garage door when Lucy is leaving
@@ -2161,8 +2150,9 @@
   triggers:
   - trigger: state
     entity_id:
-    - binary_sensor.g4_doorbell_pro_doorbell
-    to: 'on'
+    - binary_sensor.gate_doorbell
+    to:
+    - 'on'
   conditions:
   - condition: state
     entity_id: input_boolean.party_mode
