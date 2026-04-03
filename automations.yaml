@@ -457,7 +457,7 @@
   alias: Garage Door Close Leaving
   description: Close the Garage door when Lucy is leaving
   triggers:
-  - entity_id: binary_sensor.ratgdo_obstruction
+  - entity_id: binary_sensor.ratgdodisco_obstruction
     to: 'off'
     for:
       seconds: 2
@@ -467,11 +467,11 @@
     entity_id: cover.gate
     state: open
   - condition: state
-    entity_id: cover.garage_door
+    entity_id: cover.ratgdodisco_door
     state: open
   actions:
   - target:
-      entity_id: cover.garage_door
+      entity_id: cover.ratgdodisco_door
     data: {}
     action: cover.close_cover
   - delay:
@@ -483,7 +483,7 @@
     entity_id: binary_sensor.garage_rear_door
     state: 'off'
   - condition: state
-    entity_id: cover.garage_door
+    entity_id: cover.ratgdodisco_door
     state: closed
   - action: light.turn_off
     metadata: {}
@@ -724,7 +724,7 @@
   alias: Garage Closing Car Not Present
   description: Turn off the Garage light when the Garage door is closing
   trigger:
-  - entity_id: cover.garage_door
+  - entity_id: cover.ratgdodisco_door
     platform: state
     to: closing
     for:
@@ -749,7 +749,7 @@
   description: Turn off the Garage light when the Garage door is closing and the car
     is in the garage.
   triggers:
-  - entity_id: cover.garage_door
+  - entity_id: cover.ratgdodisco_door
     to: closing
     for:
       seconds: 10
@@ -781,7 +781,7 @@
   alias: Garage Opening
   description: Turn on the Garage light when the Garage door is opening
   trigger:
-  - entity_id: cover.garage_door
+  - entity_id: cover.ratgdodisco_door
     platform: state
     to: opening
   condition: []
@@ -1862,22 +1862,6 @@
       entity_id: script.retic
     data: {}
   mode: single
-- id: '1706609273483'
-  alias: Tesla Garage Door
-  description: Open the Garage Door when the Tesla Homelink Garage Button is detected
-  trigger:
-  - platform: state
-    entity_id:
-    - binary_sensor.tesla_gate
-    to: 'off'
-  condition: []
-  action:
-  - service: button.press
-    metadata: {}
-    data: {}
-    target:
-      entity_id: button.ratgdo_toggle_door
-  mode: single
 - id: '1712211097131'
   alias: Coffee Morning
   description: ''
@@ -2195,7 +2179,7 @@
       metadata: {}
       data: {}
       target:
-        entity_id: cover.garage_door
+        entity_id: cover.ratgdodisco_door
   mode: single
   max_exceeded: silent
 - id: '1740102991624'
@@ -2266,4 +2250,30 @@
     target:
       entity_id: update.home_assistant_core_update
     action: update.skip
+  mode: single
+- id: '1774695451964'
+  alias: LASER
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - cover.ratgdodisco_door
+    from:
+    - closed
+    to:
+    - opening
+  conditions: []
+  actions:
+  - action: switch.turn_on
+    metadata: {}
+    target:
+      entity_id: switch.ratgdodisco_laser
+    data: {}
+  - delay:
+      minutes: 2
+  - action: switch.turn_off
+    metadata: {}
+    target:
+      entity_id: switch.ratgdodisco_laser
+    data: {}
   mode: single
