@@ -1,11 +1,11 @@
 substitutions:
-  name: ratgdo
-  friendly_name: ratgdo
-  ip: "10.4.4.48"
+  name: ratgdodisco
+  friendly_name: ratgdodisco
+  ip: "10.4.4.46"
   ssid: IoTG
 
 packages:
-  ratgdo.esphome: github://ratgdo/esphome-ratgdo/v25iboard.yaml@main
+  ratgdo.esphome: github://ratgdo/esphome-ratgdo/v32disco.yaml@main
 esphome:
   name: ${name}
   name_add_mac_suffix: false
@@ -13,7 +13,6 @@ esphome:
 api:
   encryption:
     key: !secret api
-
 
 wifi:
   ssid: ${ssid}
