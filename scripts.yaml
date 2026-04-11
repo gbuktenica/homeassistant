@@ -415,3 +415,38 @@ awning_out:
       command: out
   alias: Awning Out
   description: ''
+breakfast:
+  sequence:
+  - device_id: 1842e290bab73bf733ec5db0ce7e1b41
+    domain: select
+    entity_id: 4935852f06c46043ab7c22eb51d114f9
+    type: select_option
+    option: Music
+  - action: light.turn_on
+    metadata: {}
+    target:
+      entity_id:
+      - light.kitchen
+      - light.dining_east
+      - light.dining_west
+      - light.kitchen_led
+      - light.rr
+    data: {}
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 4
+      milliseconds: 0
+  - action: media_player.select_source
+    metadata: {}
+    target:
+      entity_id: media_player.lounge_amp
+    data:
+      source: HEOS
+  - action: switch.turn_on
+    metadata: {}
+    target:
+      entity_id: switch.coffee_machine
+    data: {}
+  alias: Breakfast
+  description: ''
