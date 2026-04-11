@@ -1,110 +1,3 @@
-- id: reboot_host
-  alias: Reboot host
-  description: Turn the amplifier on and restart the Intel NUC. This is to make sure
-    the HDMI is working.
-  triggers:
-  - at: 09:30:00
-    trigger: time
-  conditions:
-  - condition: time
-    weekday:
-    - fri
-  - condition: state
-    entity_id: input_boolean.holiday_mode
-    state: 'off'
-  - condition: state
-    entity_id: input_boolean.party_mode
-    state: 'off'
-  - condition: state
-    entity_id: binary_sensor.workday_sensor
-    state: 'on'
-  actions:
-  - entity_id: script.harmony_music
-    action: script.turn_on
-  - delay:
-      minutes: 1
-  - action: hassio.host_reboot
-    data: {}
-  initial_state: true
-- id: after_reboot_host
-  alias: After Reboot host
-  description: Turn the amplifier off after the reboot in reboot_host
-  initial_state: true
-  trigger:
-  - platform: time
-    at: 09:40:00
-  condition:
-  - condition: time
-    weekday:
-    - fri
-  - condition: state
-    entity_id: input_boolean.holiday_mode
-    state: 'off'
-  - condition: state
-    entity_id: input_boolean.party_mode
-    state: 'off'
-  - condition: state
-    entity_id: binary_sensor.workday_sensor
-    state: 'on'
-  action:
-  - service: script.turn_on
-    entity_id: script.harmony_off
-- id: weekend_outside_speakers_on
-  alias: Weekend Outside Speakers On
-  description: Turns on the outside speakers when the rear bi fold is opened.
-  triggers:
-  - entity_id:
-    - binary_sensor.rear_bifold_door
-    to: 'on'
-    for:
-      seconds: 10
-    from: 'off'
-    trigger: state
-  - entity_id:
-    - remote.harmony_hub
-    to: music
-    trigger: state
-  conditions:
-  - condition: state
-    entity_id: input_boolean.party_mode
-    state: 'off'
-  - condition: time
-    after: 08:00:00
-    before: '20:00:00'
-  - condition: state
-    entity_id: binary_sensor.workday_sensor
-    state: 'off'
-  - condition: state
-    entity_id: binary_sensor.rear_bifold_door
-    state: 'on'
-  - condition: state
-    entity_id: media_player.denon_avc_x6800h
-    state: 'on'
-  actions:
-  - action: script.outside_speakers_on
-    data: {}
-  mode: single
-- id: weekend_outside_speakers_off
-  alias: Weekend Outside Speakers Off
-  description: Turns off the outside speakers if the rear bifold is closed
-  trigger:
-  - entity_id:
-    - binary_sensor.rear_bifold_door
-    platform: state
-    to: 'off'
-    from: 'on'
-  condition:
-  - condition: state
-    entity_id: input_boolean.party_mode
-    state: 'off'
-  - condition: state
-    entity_id: media_player.lounge_amp_2
-    state: 'on'
-  action:
-  - action: script.outside_speakers_off
-    data: {}
-  mode: queued
-  max: 10
 - id: bin_week_yellow
   alias: Bin Week Yellow
   triggers:
@@ -1901,69 +1794,44 @@
   alias: Zone2 Off
   description: ''
   triggers:
-  - value_template: '{% if not (is_state_attr(''media_player.lounge_amp'', ''source'',
-      ''Game1'') or is_state_attr(''media_player.lounge_amp'', ''source'', ''HEOS
-      Music'')) %} true {% else %} false {% endif %}
-
-      '
-    trigger: template
+  - trigger: state
+    entity_id:
+    - media_player.lounge_amp
+    from:
+    - 'on'
+    to:
+    - 'off'
   conditions:
   - condition: state
     entity_id: media_player.lounge_amp_2
-    state: 'on'
+    state:
+    - 'on'
   actions:
   - action: media_player.turn_off
     target:
       entity_id:
       - media_player.lounge_amp_2
-      - media_player.lounge_amp_3
       - media_player.zone_11
       - media_player.zone_13
       - media_player.zone_12
     data: {}
   mode: single
-- id: '1726920393066'
-  alias: Aux Speakers Off
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - media_player.lounge_amp
-    to: 'off'
-    from: 'on'
-  condition: []
-  action:
-  - data:
-      entity_id:
-      - media_player.zone_11
-      - media_player.zone_12
-    action: media_player.turn_off
-  mode: single
 - id: '1729417212362'
   alias: Zone 2 On
   description: Turn on Denon Zone 2 when music playing
   triggers:
-  - trigger: template
-    value_template: '{% if is_state_attr(''media_player.lounge_amp'', ''source'',
-      ''Game1'') %} true {% else %} false {% endif %}'
-  - trigger: template
-    value_template: '{% if is_state_attr(''media_player.lounge_amp'', ''source'',
-      ''HEOS Music'') %} true {% else %} false {% endif %}'
-  - trigger: state
-    entity_id:
-    - media_player.zone_11
-    from: 'off'
-    to: 'on'
-  - trigger: state
-    entity_id:
-    - media_player.zone_12
-    from: 'off'
-    to: 'on'
   - trigger: state
     entity_id:
     - media_player.zone_13
     from: 'off'
     to: 'on'
+  - trigger: state
+    entity_id:
+    - media_player.lounge_amp
+    from:
+    - 'off'
+    to:
+    - 'on'
   conditions: []
   actions:
   - action: media_player.turn_on
@@ -2257,11 +2125,11 @@
   triggers:
   - trigger: state
     entity_id:
-    - cover.ratgdodisco_door
+    - binary_sensor.ratgdodisco_obstruction
     from:
-    - closed
+    - 'off'
     to:
-    - opening
+    - 'on'
   conditions: []
   actions:
   - action: switch.turn_on
@@ -2270,10 +2138,26 @@
       entity_id: switch.ratgdodisco_laser
     data: {}
   - delay:
-      minutes: 2
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
   - action: switch.turn_off
     metadata: {}
     target:
       entity_id: switch.ratgdodisco_laser
     data: {}
+  mode: single
+- id: '1775880335851'
+  alias: Cert
+  description: ''
+  triggers:
+  - trigger: time
+    at: 03:00:00
+  conditions: []
+  actions:
+  - action: hassio.app_start
+    metadata: {}
+    data:
+      app: core_letsencrypt
   mode: single
