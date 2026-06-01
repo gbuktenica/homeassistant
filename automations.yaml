@@ -1842,6 +1842,20 @@
     - 'off'
     to:
     - 'on'
+  - trigger: state
+    entity_id:
+    - media_player.zone_12
+    from:
+    - 'off'
+    to:
+    - 'on'
+  - trigger: state
+    entity_id:
+    - media_player.zone_11
+    from:
+    - 'off'
+    to:
+    - 'on'
   conditions: []
   actions:
   - action: media_player.turn_on
