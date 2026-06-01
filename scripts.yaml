@@ -164,22 +164,16 @@ washing_notify:
   alias: Washing Notify
   mode: single
   sequence:
-  - service: notify.mobile_app_natalies_iphone
-    data:
+  - data:
       message: The washing machine is finished.
-  - service: notify.mobile_app_s21
+    action: notify.mobile_app_natalies_iphone
+  - action: notify.mobile_app_pixel
     data:
+      message: Washing is finished
+  - data:
       message: The washing machine is finished.
-      data:
-        tag: washing
-        sticky: 'true'
-        actions:
-        - action: acknowledge_washing
-          title: Acknowledge
-  - service: tts.google_translate_say
-    data:
-      message: The washing machine is finished.
-      entity_id: media_player.bedroom_speaker
+      entity_id: media_player.bedroom_speaker_3
+    action: tts.google_translate_say
   icon: mdi:washing-machine-alert
 hot_lucy:
   alias: Hot Lucy

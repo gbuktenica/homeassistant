@@ -606,6 +606,10 @@
     after_offset: -00:16:00
   - condition: time
     after: 05:45:00
+  - condition: state
+    entity_id: input_boolean.staycation
+    state:
+    - 'off'
   actions:
   - data:
       position: 100
@@ -1479,62 +1483,64 @@
 - id: '1703034389653'
   alias: Washing Finished
   description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id:
+  triggers:
+  - entity_id:
     - sensor.washer_power
     below: 5
     for:
       hours: 0
-      minutes: 3
+      minutes: 5
       seconds: 0
-  condition:
+    trigger: numeric_state
+  conditions:
   - condition: time
     after: 05:00:00
     before: '22:00:00'
   - condition: state
     entity_id: input_boolean.washing_running
     state: 'on'
-  action:
-  - service: input_boolean.turn_off
-    data:
+  actions:
+  - data:
       entity_id: input_boolean.washing_running
-  - service: input_boolean.turn_on
-    data:
+    action: input_boolean.turn_off
+  - data:
       entity_id: input_boolean.washing_finished
+    action: input_boolean.turn_on
   mode: single
 - id: '1703034398056'
   alias: Washing Finished Notification
   description: ''
-  trigger:
-  - platform: state
-    entity_id: input_boolean.washing_finished
+  triggers:
+  - entity_id: input_boolean.washing_finished
     to: 'on'
-  - platform: state
-    entity_id: input_boolean.washing_finished
+    trigger: state
+  - entity_id: input_boolean.washing_finished
     to: 'on'
     for:
       minutes: 10
-  - platform: state
-    entity_id: input_boolean.washing_finished
+    trigger: state
+  - entity_id: input_boolean.washing_finished
     to: 'on'
     for:
       minutes: 20
-  - platform: state
-    entity_id: input_boolean.washing_finished
+    trigger: state
+  - entity_id: input_boolean.washing_finished
     to: 'on'
     for:
       minutes: 60
-  condition:
+    trigger: state
+  conditions:
   - condition: time
     after: 05:00:00
     before: '22:00:00'
   - condition: state
     entity_id: input_boolean.washing_running
     state: 'off'
-  action:
-  - service: script.turn_on
-    entity_id: script.washing_notify
+  actions:
+  - action: script.turn_on
+    data: {}
+    target:
+      entity_id: script.washing_notify
   mode: single
 - id: '1703034407474'
   alias: Washing Started
@@ -1768,6 +1774,10 @@
   - condition: state
     entity_id: input_boolean.holiday_mode
     state: 'off'
+  - condition: state
+    entity_id: input_boolean.staycation
+    state:
+    - 'off'
   actions:
   - action: switch.turn_on
     metadata: {}
