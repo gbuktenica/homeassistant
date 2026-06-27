@@ -1,5 +1,5 @@
 substitutions:
-  device_name: mancave-1pm
+  device_name: mancave-s25
   channel_1: "Mancave Light"
   channel_1: "Mancave Light"
   max_power: "2000.0" # watt
