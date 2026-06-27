@@ -7,7 +7,6 @@ substitutions:
   ip: "10.4.4.45"
   use_ip: ${ip}
   ssid: IoTL2
-  calibrate: "163 -> 18"
   button_action: "on_press" #on_state
 #####################################
 packages:
