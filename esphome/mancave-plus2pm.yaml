@@ -1,0 +1,14 @@
+substitutions:
+  device_name: wardrobe-s25
+  channel_1: "Wardrobe Light"
+  channel_2: "Spare Light2"
+  max_power: "2000.0" # watt
+  max_temp: "80.0" # °C
+  ip: "10.4.4.49"
+  use_ip: ${ip}
+  ssid: IoTL2
+  button_action: "on_press" #on_state
+#####################################
+packages:
+  common_base: !include common/base.yaml
+  device_base: !include common/s25-light.yaml
