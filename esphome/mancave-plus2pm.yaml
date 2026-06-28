@@ -1,6 +1,6 @@
 substitutions:
   device_name: mancave-plus2pm
-  channel_1: "Wardrobe Light"
+  channel_1: "Mancave Light"
   channel_2: "Spare Light2"
   max_power: "2000.0" # watt
   max_temp: "80.0" # °C
