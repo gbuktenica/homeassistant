@@ -571,8 +571,7 @@
   mode: single
 - id: '1703032841151'
   alias: Cover Sunset Blind Down Home
-  description: Closes the lounge blind at sunset if the Bi Fold is closed and people
-    are home.
+  description: Closes the blinds at sunset.
   triggers:
   - event: sunset
     offset: 00:15:00
@@ -586,7 +585,7 @@
       position: 0
     action: cover.set_cover_position
     target:
-      entity_id: cover.lounge_night_s25_night_blind
+      entity_id: cover.bedroom_night_s25_night_blind
   mode: single
 - id: '1703032854202'
   alias: Cover Weekday Morning Blind Up
@@ -615,7 +614,7 @@
       position: 100
     action: cover.set_cover_position
     target:
-      entity_id: cover.lounge_night_s25_night_blind
+      entity_id: cover.bedroom_night_s25_night_blind
   mode: single
 - id: '1703032885187'
   alias: Garage Closing Car Not Present
