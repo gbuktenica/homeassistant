@@ -1,7 +1,7 @@
 substitutions:
-  device_name: mancave-s25
-  channel_1: "Mancave Light"
-  channel_2: "Mancave Light2"
+  device_name: wardrobe-s25
+  channel_1: "Wardrobe Light"
+  channel_2: "Spare Light2"
   max_power: "2000.0" # watt
   max_temp: "80.0" # °C
   ip: "10.4.4.49"
