@@ -1,5 +1,5 @@
 substitutions:
-  device_name: wardrobe-s25
+  device_name: mancave-s25
   channel_1: "Wardrobe Light"
   channel_2: "Spare Light2"
   max_power: "2000.0" # watt
