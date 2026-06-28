@@ -4,7 +4,7 @@ substitutions:
   channel_2: "Spare Light2"
   max_power: "2000.0" # watt
   max_temp: "80.0" # °C
-  ip: "10.4.4.49"
+  ip: "10.4.4.72"
   use_ip: ${ip}
   ssid: IoTL2
   button_action: "on_press" #on_state
