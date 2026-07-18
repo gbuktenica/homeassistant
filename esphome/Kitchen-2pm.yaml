@@ -74,7 +74,7 @@ binary_sensor:
     pin: GPIO5
     filters:
       - delayed_on_off: 50ms
-    on_press:
+    on_state:
       then:
         - light.toggle: relay_1
     internal: true
@@ -84,7 +84,7 @@ binary_sensor:
     pin: GPIO18
     filters:
       - delayed_on_off: 50ms
-    on_press:
+    on_state:
       then:
         - light.toggle: relay_2
     internal: true
