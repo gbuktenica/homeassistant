@@ -7,7 +7,7 @@ substitutions:
 #####################################
 packages:
   common_base: !include common/base.yaml
-  device_base: !include common/dimmer2.yaml
+  device_base: !include common/dimmer2switch.yaml
 
 button:
   - platform: restart
