@@ -5,7 +5,7 @@ substitutions:
   use_ip: ${ip}
   ssid: IoTL2
   calibrate: "196 -> 12"
-  button_action: "on_press" #on_state
+  button_action: "on_state" #on_state #on_press
 #####################################
 packages:
   common_base: !include common/base.yaml
