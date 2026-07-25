@@ -1,4 +1,5 @@
 # Shelly
+COMPLIE FIRMWARE FIRST
 
 Use Edge to program  
 

@@ -1,0 +1,44 @@
+esphome:
+  name: ${device_name}
+  # on_boot:
+  #   - lambda: |-
+  #       id(ota_id).set_auth_password("REPLACE_ME");
+esp8266:
+  board: esp01_1m
+
+logger:
+    baud_rate: 0
+
+uart:
+    tx_pin: 1
+    rx_pin: 3
+    baud_rate: 115200
+sensor:
+
+light:
+    - platform: shelly_dimmer
+      name: ${light_name}
+      id: dimmer
+      leading_edge: false
+      min_brightness: 300
+      max_brightness: 1000
+      restore_mode: ALWAYS_OFF
+      default_transition_length: 1s
+      gamma_correct: 0
+      firmware:
+        version: "51.6"
+        update: true
+
+binary_sensor:
+  - platform: gpio
+    name: 'Switch 1'
+    id: switchID_1
+    pin:
+      number: GPIO14
+      mode: INPUT
+    internal: true
+    on_state:
+      then:
+        - light.toggle: dimmer
+    filters:
+      - delayed_on_off: 50ms
